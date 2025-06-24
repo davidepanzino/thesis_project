@@ -1,0 +1,23 @@
+CMD: /opt/tools/cadence/installs/DDI231/INNOVUS231/tools.lnx86/ssvtools/bin/64bit/voltus_rail -nhbPort 47459 -procInfoHost 4f5323946af0:57991 -temp_directory_name /home/finazzi/Desktop/17_april/dummy/innovus_temp_1022435_edbe6b0c-783a-4df9-ab99-f6c0dd27c61b_4f5323946af0_finazzi_ePtkCH -eps -clienttimeout 3600 -machine 4f5323946af0 -port 33097 -hbPort 48189 -id 0 
+CWD: /home/finazzi/Desktop/17_april/dummy
+PID: 1129952
+Host: 4f5323946af0
+Number of CPU(s): 48
+System total memory: 3096320MB
+date_time max RSS memory(MB) RSS memory(MB) virtual memory(MB) shared memory(MB)
+2025-4-18 17:38:14 50 50 37490 43
+2025-4-18 17:38:24 50 50 37490 43
+2025-4-18 17:38:34 50 50 37490 43
+2025-4-18 17:38:44 50 50 37490 43
+2025-4-18 17:38:54 50 50 37490 43
+2025-4-18 17:39:4 50 50 37490 43
+2025-4-18 17:39:14 50 50 37490 43
+2025-4-18 17:39:24 50 50 37490 43
+2025-4-18 17:39:34 50 50 37490 43
+2025-4-18 17:39:44 50 50 37490 43
+2025-4-18 17:39:54 53 53 37492 45
+2025-4-18 17:40:4 53 53 37492 45
+2025-4-18 17:40:14 578 327 63824 48
+2025-4-18 17:40:24 578 334 63824 49
+2025-4-18 17:40:34 817 817 64052 50
+end

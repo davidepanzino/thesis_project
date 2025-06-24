@@ -1,0 +1,3 @@
+#go to rtl/fabric and run
+bender script genus > bender_hdl_import.tcl
+

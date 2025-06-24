@@ -1,0 +1,89 @@
+packages:
+  agu:
+    revision: null
+    version: null
+    source:
+      Path: ../cells/cell_top_impl__wd4bmxzzxrs/../../resources/iosram_top_impl__fuznrwegsgm/../../common/agu
+    dependencies: []
+  cell_btm_impl__utrqvpzgeyt:
+    revision: null
+    version: null
+    source:
+      Path: ../cells/cell_btm_impl__utrqvpzgeyt
+    dependencies:
+    - iosram_btm_impl__auoccatktx4
+    - sequencer_impl__bofiw7zs7vj
+    - swb_impl__kmcyy4g8mbb
+  cell_mid_impl__jz3bdsce94z:
+    revision: null
+    version: null
+    source:
+      Path: ../cells/cell_mid_impl__jz3bdsce94z
+    dependencies:
+    - dpu_impl__pnkjyubmn1c
+    - rf_impl__dyqn9udjnhi
+    - sequencer_impl__bofiw7zs7vj
+    - swb_impl__kmcyy4g8mbb
+  cell_top_impl__wd4bmxzzxrs:
+    revision: null
+    version: null
+    source:
+      Path: ../cells/cell_top_impl__wd4bmxzzxrs
+    dependencies:
+    - iosram_top_impl__fuznrwegsgm
+    - sequencer_impl__bofiw7zs7vj
+    - swb_impl__kmcyy4g8mbb
+  dpu_impl__pnkjyubmn1c:
+    revision: null
+    version: null
+    source:
+      Path: ../cells/cell_mid_impl__jz3bdsce94z/../../resources/dpu_impl__pnkjyubmn1c
+    dependencies:
+    - fsm
+  fsm:
+    revision: null
+    version: null
+    source:
+      Path: ../cells/cell_mid_impl__jz3bdsce94z/../../resources/dpu_impl__pnkjyubmn1c/../../common/fsm
+    dependencies: []
+  iosram_btm_impl__auoccatktx4:
+    revision: null
+    version: null
+    source:
+      Path: ../cells/cell_btm_impl__utrqvpzgeyt/../../resources/iosram_btm_impl__auoccatktx4
+    dependencies:
+    - agu
+    - sram
+  iosram_top_impl__fuznrwegsgm:
+    revision: null
+    version: null
+    source:
+      Path: ../cells/cell_top_impl__wd4bmxzzxrs/../../resources/iosram_top_impl__fuznrwegsgm
+    dependencies:
+    - agu
+    - sram
+  rf_impl__dyqn9udjnhi:
+    revision: null
+    version: null
+    source:
+      Path: ../cells/cell_mid_impl__jz3bdsce94z/../../resources/rf_impl__dyqn9udjnhi
+    dependencies:
+    - agu
+  sequencer_impl__bofiw7zs7vj:
+    revision: null
+    version: null
+    source:
+      Path: ../cells/cell_top_impl__wd4bmxzzxrs/../../controllers/sequencer_impl__bofiw7zs7vj
+    dependencies: []
+  sram:
+    revision: null
+    version: null
+    source:
+      Path: ../cells/cell_top_impl__wd4bmxzzxrs/../../resources/iosram_top_impl__fuznrwegsgm/../../common/sram
+    dependencies: []
+  swb_impl__kmcyy4g8mbb:
+    revision: null
+    version: null
+    source:
+      Path: ../cells/cell_top_impl__wd4bmxzzxrs/../../resources/swb_impl__kmcyy4g8mbb
+    dependencies: []
