@@ -1,0 +1,84 @@
+cell_0_2_inst/resource_1_inst/sram_inst/sram_256x64.sram_macro_0, R0
+cell_0_2_inst/resource_1_inst/sram_inst/sram_256x64.sram_macro_1, R0
+cell_2_2_inst/resource_1_inst/sram_inst/sram_256x64.sram_macro_0, R0
+cell_2_2_inst/resource_1_inst/sram_inst/sram_256x64.sram_macro_1, R0
+cell_0_1_inst/resource_1_inst/sram_inst/sram_256x64.sram_macro_0, R0
+cell_0_1_inst/resource_1_inst/sram_inst/sram_256x64.sram_macro_1, R0
+cell_2_1_inst/resource_1_inst/sram_inst/sram_256x64.sram_macro_0, R0
+cell_2_1_inst/resource_1_inst/sram_inst/sram_256x64.sram_macro_1, R0
+cell_0_0_inst/resource_1_inst/sram_inst/sram_256x64.sram_macro_0, R0
+cell_0_0_inst/resource_1_inst/sram_inst/sram_256x64.sram_macro_1, R0
+cell_2_0_inst/resource_1_inst/sram_inst/sram_256x64.sram_macro_0, R0
+cell_2_0_inst/resource_1_inst/sram_inst/sram_256x64.sram_macro_1, R0
+cell_0_2_inst/resource_1_inst/sram_inst/sram_256x64.sram_macro_0
+	Macro2Core 0
+	UserSpacingL 0
+	UserSpacingB 0
+	UserSpacingR 36960
+	UserSpacingT 0
+cell_0_2_inst/resource_1_inst/sram_inst/sram_256x64.sram_macro_1
+	Macro2Core 0
+	UserSpacingL 0
+	UserSpacingB 0
+	UserSpacingR 36960
+	UserSpacingT 0
+cell_2_2_inst/resource_1_inst/sram_inst/sram_256x64.sram_macro_0
+	Macro2Core 0
+	UserSpacingL 0
+	UserSpacingB 0
+	UserSpacingR 36960
+	UserSpacingT 0
+cell_2_2_inst/resource_1_inst/sram_inst/sram_256x64.sram_macro_1
+	Macro2Core 0
+	UserSpacingL 0
+	UserSpacingB 0
+	UserSpacingR 36960
+	UserSpacingT 0
+cell_0_1_inst/resource_1_inst/sram_inst/sram_256x64.sram_macro_0
+	Macro2Core 0
+	UserSpacingL 0
+	UserSpacingB 0
+	UserSpacingR 36960
+	UserSpacingT 0
+cell_0_1_inst/resource_1_inst/sram_inst/sram_256x64.sram_macro_1
+	Macro2Core 0
+	UserSpacingL 0
+	UserSpacingB 0
+	UserSpacingR 36960
+	UserSpacingT 0
+cell_2_1_inst/resource_1_inst/sram_inst/sram_256x64.sram_macro_0
+	Macro2Core 0
+	UserSpacingL 0
+	UserSpacingB 0
+	UserSpacingR 36960
+	UserSpacingT 0
+cell_2_1_inst/resource_1_inst/sram_inst/sram_256x64.sram_macro_1
+	Macro2Core 0
+	UserSpacingL 0
+	UserSpacingB 0
+	UserSpacingR 36960
+	UserSpacingT 0
+cell_0_0_inst/resource_1_inst/sram_inst/sram_256x64.sram_macro_0
+	Macro2Core 0
+	UserSpacingL 0
+	UserSpacingB 0
+	UserSpacingR 36960
+	UserSpacingT 0
+cell_0_0_inst/resource_1_inst/sram_inst/sram_256x64.sram_macro_1
+	Macro2Core 0
+	UserSpacingL 0
+	UserSpacingB 0
+	UserSpacingR 36960
+	UserSpacingT 0
+cell_2_0_inst/resource_1_inst/sram_inst/sram_256x64.sram_macro_0
+	Macro2Core 0
+	UserSpacingL 0
+	UserSpacingB 0
+	UserSpacingR 36960
+	UserSpacingT 0
+cell_2_0_inst/resource_1_inst/sram_inst/sram_256x64.sram_macro_1
+	Macro2Core 0
+	UserSpacingL 0
+	UserSpacingB 0
+	UserSpacingR 36960
+	UserSpacingT 0
