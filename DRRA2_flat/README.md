@@ -30,16 +30,7 @@ This repository contains the full design environment and scripts for flat floorp
 
 ## ⚙️ Full Design Flow
 
-### 1. Clone the Repository
-
-```bash
-git clone https://github.com/davidepanzino/thesis_project.git
-cd thesis_project
-```
-
----
-
-### 2. Synthesize the Design (Optional)
+### 1. Synthesize the Design (Optional)
 
 Move into the synthesis folder and run the synthesis script:
 
@@ -52,7 +43,7 @@ cd exe
 
 ---
 
-### 3. Generate Floorplanning Script
+### 2. Generate Floorplanning Script
 
 Before running the automation:
 - Ensure your synthesized netlist is named `fabric.v`(if not, rename it)
@@ -70,7 +61,7 @@ These scripts will automatically generate the TCL files used for floorplanning. 
 
 ---
 
-### 4. Launch Innovus and Prepare Floorplan
+### 3. Launch Innovus and Prepare Floorplan
 
 Start Innovus from the `dummy` folder:
 
@@ -88,7 +79,7 @@ source ../phy/scr/power_planning.tcl
 source ../phy/scr/general_flow.tcl
 ```
 
-### 5. Power Rail Analysis
+### 4. Power Rail Analysis
 
 Run:
 
@@ -100,7 +91,7 @@ This performs the early rail analysis using probe data and pad locations.
 
 ---
 
-### 6. Area Parametric Extraction
+### 5. Area Parametric Extraction
 
 From the same Innovus session, run:
 
