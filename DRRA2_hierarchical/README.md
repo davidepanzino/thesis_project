@@ -30,16 +30,7 @@ This repository contains the full design environment and scripts for hierarchica
 
 ## ⚙️ Full Design Flow
 
-### 1. Clone the Repository
-
-```bash
-git clone https://github.com/davidepanzino/thesis_project.git
-cd thesis_project
-```
-
----
-
-### 2. Synthesize the Design (Optional)
+### 1. Synthesize the Design (Optional)
 
 Move into the synthesis folder and run the synthesis script:
 
@@ -52,7 +43,7 @@ cd exe
 
 ---
 
-### 3. Generate Floorplanning, Power, and Pin Constraint Scripts
+### 2. Generate Floorplanning, Power, and Pin Constraint Scripts
 
 Before running the automation:
 - Ensure your synthesized netlist is named `fabric.v`(if not, rename it)
@@ -70,7 +61,7 @@ These scripts will automatically generate the TCL files used for floorplanning, 
 
 ---
 
-### 4. Launch Innovus and Prepare Floorplan
+### 3. Launch Innovus and Prepare Floorplan
 
 Start Innovus from the `dummy` folder:
 
@@ -92,7 +83,7 @@ At this stage, partitions are committed.
 
 ---
 
-### 5. Run Partitioned Place-and-Route
+### 4. Run Partitioned Place-and-Route
 
 From the `dummy` folder, you have two options:
 
@@ -112,7 +103,7 @@ This step will perform placement, CTS, and routing for each partition.
 
 ---
 
-### 6. Perform Top-Level P&R
+### 5. Perform Top-Level P&R
 
 After all partitions have completed, reopen Innovus from `dummy`:
 
@@ -130,7 +121,7 @@ This performs top-level place-and-route for the overall design.
 
 ---
 
-### 7. Final Assembly
+### 6. Final Assembly
 
 Finally, in a **new** Innovus session:
 
@@ -149,7 +140,7 @@ This script assembles all partitions and top-level logic into the final hierarch
 
 ---
 
-### 8. Power Rail Analysis
+### 7. Power Rail Analysis
 
 Open Innovus from the `dummy` folder and run:
 
@@ -161,7 +152,7 @@ This performs the early rail analysis using probe data and pad locations.
 
 ---
 
-### 9. Area Parametric Extraction
+### 8. Area Parametric Extraction
 
 From the same Innovus session, run:
 
