@@ -15,6 +15,7 @@ This repository contains the full design environment and scripts for hierarchica
 - `dummy/` – Main folder for running Innovus. Now also includes:
   - `CORE_PG_25C_avg_1/` – Rail analysis results (core VDD/VSS)
   - `power/` – Power analysis database and reports
+    - `power_db.zip` – Zipped power database (contains `power.db`)
 - `exe/` – Folder for launching Genus to synthesize RTL (optional)
 - `SCRIPTS/` – Python and TCL automation tools
 
@@ -36,20 +37,27 @@ This repository contains the full design environment and scripts for hierarchica
 
 If you just want to **view the design** or **analyze power and rail metrics**:
 
-1. Open Innovus from the `dummy` folder:
+1. Unzip the power database first:
 
    ```bash
-   cd dummy
+   cd dummy/power
+   unzip power_db.zip
+   ```
+
+2. Open Innovus from the `dummy` folder:
+
+   ```bash
+   cd ../
    innovus -stylus
    ```
 
-2. Load the saved database:
+3. Load the saved database:
 
    ```tcl
    read_db ../phy/db/fabric.dat
    ```
 
-3. You can now:
+4. You can now:
    - Inspect layout, placement, and routing
    - Check timing: 
      ```tcl
@@ -140,6 +148,7 @@ python3 grid_area.py
 
 ## 📝 Notes
 
+- The power database file `power.db` is compressed as `power_db.zip`. Please unzip it before use.
 - You can skip all P&R steps by restoring `db/fabric.dat`.
 - Power and rail analysis data is located in the `dummy/` subfolders.
 - `.keep` files are used to retain empty directory structure in Git.
