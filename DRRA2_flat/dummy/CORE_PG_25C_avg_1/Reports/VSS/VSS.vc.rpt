@@ -1,0 +1,34 @@
+Voltage source current:
+      Range  Source       Source        Location    Layer
+      Index  Current      Name          (um)
+      -----  --------     -------------------------------
+         6    1.7860e-02A   VSSvsrc6   627.20, 546.90  M7
+         6    1.6944e-02A   VSSvsrc5   0.00, 546.90  M7
+         8    7.1501e-03A   VSSvsrc4   627.20, 367.70  M7
+         8    7.3991e-03A   VSSvsrc3   0.00, 367.70  M7
+         8    9.5657e-03A   VSSvsrc2   627.20, 188.50  M7
+         8    1.1008e-02A   VSSvsrc1   0.00, 188.50  M7
+         4    2.8158e-02A   VSSvsrc17   479.70, 0.00  M8
+         2    3.8097e-02A   VSSvsrc15   322.90, 0.00  M8
+         3    3.0272e-02A   VSSvsrc13   166.10, 0.00  M8
+         7    1.1980e-02A   VSSvsrc12   627.20, 1084.50  M7
+         7    1.2333e-02A   VSSvsrc11   0.00, 1084.50  M7
+         8    7.9012e-03A   VSSvsrc10   627.20, 905.30  M7
+         8    7.7986e-03A   VSSvsrc9   0.00, 905.30  M7
+         6    1.8362e-02A   VSSvsrc8   627.20, 726.10  M7
+         6    1.7085e-02A   VSSvsrc7   0.00, 726.10  M7
+         3    3.2627e-02A   VSSvsrc18   479.70, 1254.40  M8
+         1    4.3152e-02A   VSSvsrc16   322.90, 1254.40  M8
+         3    3.3248e-02A   VSSvsrc14   166.10, 1254.40  M8
+*
+* Data filtering results for voltage source current:
+  Minimum, Average, Maximum Voltage Source Current: 7.150mA, 19.497mA, 43.152mA
+  Total Current: 0.351A
+    Range 1(  38.652mA  -    43.157mA ):         1 (  5.56%)
+    Range 2(  34.152mA  -    38.652mA ):         1 (  5.56%)
+    Range 3(  29.652mA  -    34.152mA ):         3 ( 16.67%)
+    Range 4(  25.151mA  -    29.652mA ):         1 (  5.56%)
+    Range 5(  20.651mA  -    25.151mA ):         0 (  0.00%)
+    Range 6(  16.151mA  -    20.651mA ):         4 ( 22.22%)
+    Range 7(  11.650mA  -    16.151mA ):         2 ( 11.11%)
+    Range 8(   7.149mA  -    11.650mA ):         6 ( 33.33%)

@@ -1,0 +1,43 @@
+{
+    "net_name": "VSS",
+    "smg": {
+        "config": {
+            "name": "VSS",
+            "output_path": ".\/\/CORE_PG_25C_avg_1\/VSS",
+            "nominal_voltage": "0"
+        },
+        "result": {
+            "DefInstData": {
+                "path": ".\/\/CORE_PG_25C_avg_1\/VSS\/VSS.defInstData",
+                "type": "proto::voltus.def_instdata_mgr.proto.DefInstDataManager"
+            },
+            "layerInfo": {
+                "path": ".\/\/CORE_PG_25C_avg_1\/VSS\/layerInfo",
+                "type": "proto.voltus.layer_manager.LayerManager"
+            },
+            "pgdb": {
+                "path": ".\/\/CORE_PG_25C_avg_1\/VSS"
+            },
+            "cellview": {
+                "path": ".\/\/CORE_PG_25C_avg_1\/VSS\/VSS.cellviews",
+                "type": "txt"
+            },
+            "pgv_table": {
+                "path": ".\/\/CORE_PG_25C_avg_1\/VSS\/VSS.pgv_table.rpt",
+                "type": "txt"
+            },
+            "pg_candidate": {
+                "dir": ".\/\/CORE_PG_25C_avg_1\/VSS\/pg_candidate",
+                "net": "VSS"
+            },
+            "grid_report": {
+                "path": ".\/\/CORE_PG_25C_avg_1\/VSS\/VSS.grid.report",
+                "type": "txt"
+            },
+            "missing_pgv": {
+                "path": ".\/\/CORE_PG_25C_avg_1\/VSS\/VSS.missingPGVData.protobuf",
+                "type": "protobuf.VOLTUS.SMGDATA.MissingPGV"
+            }
+        }
+    }
+}
