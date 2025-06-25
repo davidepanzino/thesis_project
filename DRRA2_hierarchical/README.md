@@ -10,10 +10,12 @@ This repository contains the full design environment and scripts for hierarchica
 - `syn/` – Synthesis scripts and constraints (e.g., Genus)
 - `phy/`
   - `scr/` – Floorplanning, power planning, P&R TCL scripts (Innovus)
-  - `db/` – Design databases (left empty)
-  - `rpt/` – Reports and metrics (left empty)
-- `dummy/` – Folder from which to run Cadence Innovus
-- `exe/` – Folder from which to run Genus for synthesizing the RTL
+  - `db/` – Design databases
+  - `rpt/` – Reports and metrics (left empty by default)
+- `dummy/` – Main folder for running Innovus. Now also includes:
+  - `CORE_PG_25C_avg_1/` – Rail analysis results (core VDD/VSS)
+  - `power/` – Power analysis database and reports
+- `exe/` – Folder for launching Genus to synthesize RTL (optional)
 - `SCRIPTS/` – Python and TCL automation tools
 
 ---
@@ -23,54 +25,70 @@ This repository contains the full design environment and scripts for hierarchica
 - Cadence Genus (for synthesis)
 - Cadence Innovus (for physical implementation)
 - Bash + TCL environment
-- Python 3.x (for automation, if scripts are provided)
-- Design kits (PDKs, standard cell libraries, I/Os) must be set up and accessible via `$PDK_PATH`
+- Python 3.x (for automation scripts)
+- Access to PDKs and standard cell libraries (via `$PDK_PATH`)
 
 ---
 
-## ⚙️ Full Design Flow
+## ⚙️ Quick Start Options
 
-### 1. Synthesize the Design (Optional)
+### 🚀 Option 1: Load Pre-Generated Database and Results (Recommended)
 
-Move into the synthesis folder and run the synthesis script:
+If you just want to **view the design** or **analyze power and rail metrics**:
+
+1. Open Innovus from the `dummy` folder:
+
+   ```bash
+   cd dummy
+   innovus -stylus
+   ```
+
+2. Load the saved database:
+
+   ```tcl
+   read_db ../phy/db/fabric.dat
+   ```
+
+3. You can now:
+   - Inspect layout, placement, and routing
+   - Check timing: 
+     ```tcl
+     report_timing
+     ```
+   - Load power reports from the `power/` folder
+   - View IR drop from `CORE_PG_25C_avg_1/`
+   - To view IR drop, run:
+     ```tcl
+     read_power_rail_results -power_db ./power/power.db -rail_directory CORE_PG_25C_avg_1/
+     ```
+
+---
+
+### 🛠️ Option 2: Run Full Design Flow from Scratch
+
+#### 1. Synthesize the RTL (Optional)
 
 ```bash
 cd exe
 ./genus_topdown.sh
 ```
 
-**Note**: This step can be skipped if you use the pre-generated `fabric.v` netlist and `constraints.sdc` file already present in the repository. Only run this if you're working with a modified design and need to re-synthesize it. 
+> Skip this step if using the pre-synthesized `fabric.v` and `constraints.sdc`.
 
----
-
-### 2. Generate Floorplanning, Power, and Pin Constraint Scripts
-
-Before running the automation:
-- Ensure your synthesized netlist is named `fabric.v`(if not, rename it)
-- Ensure your constraint file is named `constraints.sdc`(if not, rename it)
-
-Then, from the `SCRIPTS` folder:
+#### 2. Generate Automation Scripts
 
 ```bash
 cd ../SCRIPTS
 python3 generate_drra2_tcl.py
-python3 pads_script.py  # Optional, for power rail analysis
+python3 pads_script.py  # For power rails
 ```
 
-These scripts will automatically generate the TCL files used for floorplanning, pin placement, partitioning, and power planning.
-
----
-
-### 3. Launch Innovus and Prepare Floorplan
-
-Start Innovus from the `dummy` folder:
+#### 3. Floorplan and Partition
 
 ```bash
 cd ../dummy
 innovus -stylus
 ```
-
-Inside Innovus, source the following scripts in order:
 
 ```tcl
 source ../phy/scr/read_design.tcl
@@ -78,109 +96,58 @@ source ../phy/scr/floorplan.tcl
 source ../phy/scr/partition.tcl
 ```
 
-At this stage, partitions are committed.  
-👉 **Now close Innovus.**
+Then close Innovus.
 
----
+#### 4. Place-and-Route Partitions
 
-### 4. Run Partitioned Place-and-Route
+```bash
+./launch_all_partitions_parallel.sh   # or sequential version
+```
 
-From the `dummy` folder, you have two options:
-
-- To run **in parallel** (faster, requires more licenses and memory):
-
-  ```bash
-  ./launch_all_partitions_parallel.sh
-  ```
-
-- To run **sequentially** (slower, but lower resource usage):
-
-  ```bash
-  ./launch_all_partitions.sh
-  ```
-
-This step will perform placement, CTS, and routing for each partition.
-
----
-
-### 5. Perform Top-Level P&R
-
-After all partitions have completed, reopen Innovus from `dummy`:
+#### 5. Top-Level P&R
 
 ```bash
 innovus -stylus
-```
-
-Then run:
-
-```tcl
 source ../phy/scr/pnr_top.tcl
 ```
 
-This performs top-level place-and-route for the overall design.
-
----
-
-### 6. Final Assembly
-
-Finally, in a **new** Innovus session:
+#### 6. Assemble Final Design
 
 ```bash
 innovus -stylus
-```
-
-Then run:
-
-```tcl
 source ../phy/scr/assembly_design.tcl
 ```
 
-This script assembles all partitions and top-level logic into the final hierarchical layout, ready for power analysis.
-
-
----
-
-### 7. Power Rail Analysis
-
-Open Innovus from the `dummy` folder and run:
+#### 7. Power Rail Analysis
 
 ```tcl
 source ../SCRIPTS/power_rail_analysis.tcl
 ```
 
-This performs the early rail analysis using probe data and pad locations.
-
----
-
-### 8. Area Parametric Extraction
-
-From the same Innovus session, run:
+#### 8. Area Data Extraction
 
 ```tcl
 source ../SCRIPTS/normal_wires_data.tcl
 source ../SCRIPTS/pg_wires_data.tcl
 ```
 
-The extracted values can then be post-processed using the Python script:
-
 ```bash
 cd ../SCRIPTS
 python3 grid_area.py
 ```
 
-This provides routing area statistics for normal and power wires.
-
 ---
 
 ## 📝 Notes
 
-- Folders `phy/db/` and `phy/rpt/` are empty by default and will be populated during execution.
-- `.keep` files are included in empty folders so they appear in Git.
+- You can skip all P&R steps by restoring `db/fabric.dat`.
+- Power and rail analysis data is located in the `dummy/` subfolders.
+- `.keep` files are used to retain empty directory structure in Git.
 
 ---
 
 ## 📩 Contact
 
 **Davide Finazzi**  
-📧 finazzi.davide01@outlook.it 
-🔗 https://github.com/davidepanzino
+📧 finazzi.davide01@outlook.it  
+🔗 [github.com/davidepanzino](https://github.com/davidepanzino)
