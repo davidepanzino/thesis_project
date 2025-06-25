@@ -1,0 +1,25 @@
+RAIL ANALYSIS REPORT
+Generated Date: Wed Jun 18 18:35:52 2025
+Host Name: 4f5323946af0
+
+
+==============================
+
+==============================
+User: finazzi 
+Hostname: 4f5323946af0 
+Peak Memory: 0 Mbytes 
+Total CPU time: 00:10:45 
+Total Wall Clock time: 00:12:05 
+Exit status: Successful 
+State Directory: .//CORE_PG_25C_avg_1 
+Units: Volt, Amp, Ohm, fF 
+
+
+==============================
+POWER NETS
+==============================
+Net Name: VSS
+Net Name: VDD
+Analysis Method: static 
+

@@ -1,0 +1,52 @@
+Voltage source current:
+      Range  Source       Source        Location    Layer
+      Index  Current      Name          (um)
+      -----  --------     -------------------------------
+         6   -8.4991e-03A   VDDvsrc6   1416.80, 578.50  M7
+         4   -1.3072e-02A   VDDvsrc5   0.00, 578.50  M7
+         6   -8.8713e-03A   VDDvsrc4   1416.80, 395.50  M7
+         4   -1.4242e-02A   VDDvsrc3   0.00, 395.50  M7
+         6   -9.6951e-03A   VDDvsrc2   1416.80, 212.50  M7
+         4   -1.3814e-02A   VDDvsrc1   0.00, 212.50  M7
+         8   -3.4116e-03A   VDDvsrc35   1239.70, 0.00  M8
+         6   -8.0772e-03A   VDDvsrc33   1088.70, 0.00  M8
+         6   -8.9750e-03A   VDDvsrc31   786.10, 0.00  M8
+         6   -9.3463e-03A   VDDvsrc29   635.10, 0.00  M8
+         6   -8.0143e-03A   VDDvsrc27   332.50, 0.00  M8
+         8   -4.1026e-03A   VDDvsrc25   181.50, 0.00  M8
+         4   -1.4327e-02A   VDDvsrc12   1416.80, 1313.50  M7
+         2   -1.9104e-02A   VDDvsrc11   0.00, 1313.50  M7
+         2   -1.9351e-02A   VDDvsrc10   1416.80, 1130.50  M7
+         1   -2.2368e-02A   VDDvsrc9   0.00, 1130.50  M7
+         4   -1.4699e-02A   VDDvsrc8   1416.80, 761.50  M7
+         3   -1.6120e-02A   VDDvsrc7   0.00, 761.50  M7
+         5   -1.2279e-02A   VDDvsrc18   1416.80, 2048.50  M7
+         4   -1.4550e-02A   VDDvsrc17   0.00, 2048.50  M7
+         4   -1.4401e-02A   VDDvsrc16   1416.80, 1679.50  M7
+         4   -1.4906e-02A   VDDvsrc15   0.00, 1679.50  M7
+         5   -1.0893e-02A   VDDvsrc14   1416.80, 1496.50  M7
+         4   -1.4576e-02A   VDDvsrc13   0.00, 1496.50  M7
+         7   -6.0032e-03A   VDDvsrc22   1416.80, 2414.50  M7
+         7   -6.7689e-03A   VDDvsrc24   1416.80, 2597.50  M7
+         6   -9.3575e-03A   VDDvsrc21   0.00, 2414.50  M7
+         6   -9.2137e-03A   VDDvsrc23   0.00, 2597.50  M7
+         6   -8.5130e-03A   VDDvsrc20   1416.80, 2231.50  M7
+         5   -1.1965e-02A   VDDvsrc19   0.00, 2231.50  M7
+         7   -6.2675e-03A   VDDvsrc34   1088.70, 2808.00  M8
+         8   -3.5742e-03A   VDDvsrc36   1239.70, 2808.00  M8
+         6   -8.2559e-03A   VDDvsrc32   786.10, 2808.00  M8
+         7   -7.1408e-03A   VDDvsrc30   635.10, 2808.00  M8
+         8   -2.7194e-03A   VDDvsrc26   181.50, 2808.00  M8
+         7   -6.1007e-03A   VDDvsrc28   332.50, 2808.00  M8
+*
+* Data filtering results for voltage source current:
+  Minimum, Average, Maximum Voltage Source Current: -22.368mA, -10.655mA, -2.719mA
+  Total Current: -0.384A
+    Range 1( -22.370mA  -   -19.912mA ):         1 (  2.78%)
+    Range 2( -19.912mA  -   -17.456mA ):         2 (  5.56%)
+    Range 3( -17.456mA  -   -15.000mA ):         1 (  2.78%)
+    Range 4( -15.000mA  -   -12.543mA ):         9 ( 25.00%)
+    Range 5( -12.543mA  -   -10.087mA ):         3 (  8.33%)
+    Range 6( -10.087mA  -    -7.631mA ):        11 ( 30.56%)
+    Range 7(  -7.631mA  -    -5.175mA ):         5 ( 13.89%)
+    Range 8(  -5.175mA  -    -2.719mA ):         4 ( 11.11%)

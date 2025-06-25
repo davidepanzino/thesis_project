@@ -1,0 +1,88 @@
+
+#================================================
+# Matrix Solver Manager run time performance profile:
+	Stamp Matrix (1): 0.3131 user, 0.1240 system, 0.4371 real seconds
+	Factorize Matrix (1): 11.9174 user, 0.5237 system, 12.5506 real seconds
+	Solve Matrix (1): 2.7481 user, 0.1760 system, 2.9239 real seconds
+		Direct Solve (1): 0.0000 user, 0.0000 system, 0.0000 real seconds
+
+# Matrix Solver Manager memory performance profile:
+	Before DC Factorization: 15510.7800 peak virtual, 15510.7800 current virtual, 1470.2120 peak resident, 1470.2120 current resident mbytes
+	After DC Factorization: 15912.2720 peak virtual, 15912.2720 current virtual, 1871.9920 peak resident, 1871.9920 current resident mbytes
+#================================================
+
+#================================================
+# fabric_VSS:0 performance profile:
+	Stamping Stimulus:       0.0027 user, 0.0000 system, 0.0027 real seconds
+	Stamping DC:             0.1231 user, 0.0120 system, 0.1351 real seconds
+	Stamping Transient:      0.0000 user, 0.0000 system, 0.0000 real seconds
+	Stamping Transient Step: 0.0000 user, 0.0000 system, 0.0000 real seconds
+	Stamping Matrix Change:  0.0000 user, 0.0000 system, 0.0000 real seconds
+		Resistor             (4078033   ,	65.2485   M):  0.0966 user, 0.0001 system, 0.0967 real seconds
+		VSource              (36        ,	0.0009    M):  0.0000 user, 0.0000 system, 0.0000 real seconds
+		Node                 (2870952   ,	34.4514   M):  0.0189 user, 0.0000 system, 0.0189 real seconds
+	Equation Solver:        reff
+	Factorization Time:     5.3137 user, 0.2157 system, 5.6377 real seconds
+	Forward Solve Time:     0.0000 user, 0.0000 system, 0.0000 real seconds
+	Backward Solve Time:    1.3181 user, 0.0357 system, 1.3539 real seconds
+#================================================
+
+#================================================
+# fabric_VDD:0 performance profile:
+	Stamping Stimulus:       0.0025 user, 0.0003 system, 0.0028 real seconds
+	Stamping DC:             0.1241 user, 0.0560 system, 0.1802 real seconds
+	Stamping Transient:      0.0000 user, 0.0000 system, 0.0000 real seconds
+	Stamping Transient Step: 0.0000 user, 0.0000 system, 0.0000 real seconds
+	Stamping Matrix Change:  0.0000 user, 0.0000 system, 0.0000 real seconds
+		Resistor             (4511270   ,	72.1803   M):  0.1038 user, 0.0242 system, 0.1280 real seconds
+		VSource              (36        ,	0.0009    M):  0.0000 user, 0.0000 system, 0.0000 real seconds
+		Node                 (3140630   ,	37.6876   M):  0.0203 user, 0.0000 system, 0.0203 real seconds
+	Equation Solver:        reff
+	Factorization Time:     6.2811 user, 0.2555 system, 6.5376 real seconds
+	Forward Solve Time:     0.0000 user, 0.0000 system, 0.0000 real seconds
+	Backward Solve Time:    1.4301 user, 0.1402 system, 1.5700 real seconds
+#================================================
+
+#================================================
+# Matrix Solver Manager run time performance profile:
+	Stamp Matrix (1): 0.3176 user, 0.1442 system, 0.4618 real seconds
+	Factorize Matrix (1): 15.4135 user, 0.5515 system, 15.9655 real seconds
+	Solve Matrix (1): 0.2311 user, 0.0003 system, 0.2314 real seconds
+		Direct Solve (1): 0.0000 user, 0.0000 system, 0.0000 real seconds
+
+# Matrix Solver Manager memory performance profile:
+	Before DC Factorization: 929369.8800 peak virtual, 929369.8800 current virtual, 2149.8680 peak resident, 1880.6640 current resident mbytes
+	After DC Factorization: 929716.8720 peak virtual, 929716.8720 current virtual, 2572.3720 peak resident, 2572.3720 current resident mbytes
+#================================================
+
+#================================================
+# fabric_VSS:0 performance profile:
+	Stamping Stimulus:       0.0043 user, 0.0000 system, 0.0043 real seconds
+	Stamping DC:             0.1262 user, 0.0241 system, 0.1504 real seconds
+	Stamping Transient:      0.0000 user, 0.0000 system, 0.0000 real seconds
+	Stamping Transient Step: 0.0000 user, 0.0000 system, 0.0000 real seconds
+	Stamping Matrix Change:  0.0000 user, 0.0000 system, 0.0000 real seconds
+		Resistor             (4078033   ,	65.2485   M):  0.0947 user, 0.0241 system, 0.1187 real seconds
+		VSource              (36        ,	0.0009    M):  0.0000 user, 0.0000 system, 0.0000 real seconds
+		Node                 (2870952   ,	34.4514   M):  0.0207 user, 0.0000 system, 0.0207 real seconds
+	Equation Solver:        tesla
+	Factorization Time:     7.1497 user, 0.4796 system, 7.6298 real seconds
+	Forward Solve Time:     0.0613 user, 0.0001 system, 0.0614 real seconds
+	Backward Solve Time:    0.0481 user, 0.0000 system, 0.0480 real seconds
+#================================================
+
+#================================================
+# fabric_VDD:0 performance profile:
+	Stamping Stimulus:       0.0037 user, 0.0000 system, 0.0037 real seconds
+	Stamping DC:             0.1348 user, 0.0523 system, 0.1872 real seconds
+	Stamping Transient:      0.0000 user, 0.0000 system, 0.0000 real seconds
+	Stamping Transient Step: 0.0000 user, 0.0000 system, 0.0000 real seconds
+	Stamping Matrix Change:  0.0000 user, 0.0000 system, 0.0000 real seconds
+		Resistor             (4511270   ,	72.1803   M):  0.1068 user, 0.0238 system, 0.1307 real seconds
+		VSource              (36        ,	0.0009    M):  0.0000 user, 0.0000 system, 0.0000 real seconds
+		Node                 (3140630   ,	37.6876   M):  0.0221 user, 0.0003 system, 0.0223 real seconds
+	Equation Solver:        tesla
+	Factorization Time:     8.0200 user, 0.0679 system, 8.0879 real seconds
+	Forward Solve Time:     0.0680 user, 0.0000 system, 0.0679 real seconds
+	Backward Solve Time:    0.0536 user, 0.0002 system, 0.0537 real seconds
+#================================================

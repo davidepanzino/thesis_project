@@ -1,0 +1,787 @@
+* Missing Cell Power-Grid Views
+
+Cell Name
+------------------------------------------------------------------
+
+
+* Physically Disconnected Instances
+
+Instance Name  | Cell Name                 | Root Cause 
+------------------------------------------------------------------
+ENDCAP_7       | BOUNDARY_RIGHTBWP30P140   | Physically Disconnected 
+ENDCAP_9       | BOUNDARY_RIGHTBWP30P140   | Physically Disconnected 
+ENDCAP_15447   | BOUNDARY_RIGHTBWP30P140   | Physically Disconnected 
+ENDCAP_15449   | BOUNDARY_RIGHTBWP30P140   | Physically Disconnected 
+ENDCAP_8       | BOUNDARY_LEFTBWP30P140    | Physically Disconnected 
+ENDCAP_10      | BOUNDARY_LEFTBWP30P140    | Physically Disconnected 
+ENDCAP_15448   | BOUNDARY_LEFTBWP30P140    | Physically Disconnected 
+ENDCAP_15450   | BOUNDARY_LEFTBWP30P140    | Physically Disconnected 
+WELLTAP_193    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_194    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_195    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_196    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_197    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_198    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_199    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_200    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_201    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_202    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_203    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_204    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_205    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_206    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_207    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_208    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_209    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_210    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_211    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_212    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_213    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_214    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_215    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_216    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_217    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_218    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_219    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_220    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_221    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_222    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_223    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_224    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_225    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_226    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_227    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_228    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_229    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_230    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_231    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_232    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_233    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_234    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_235    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_236    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_237    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_238    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_239    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_240    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_241    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_242    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_243    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_244    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_245    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_246    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_247    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_248    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_249    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_250    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_251    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_252    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_253    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_254    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_255    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_256    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_257    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_258    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_259    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_260    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_261    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_262    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_263    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_264    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_265    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_266    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_267    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_268    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_269    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_270    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_271    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_272    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_273    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_274    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_275    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_276    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_277    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_278    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_279    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_280    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_281    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_282    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_283    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_284    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_285    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_286    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_287    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_288    | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145061 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145062 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145063 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145064 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145065 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145066 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145067 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145068 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145069 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145070 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145071 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145072 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145073 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145074 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145075 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145076 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145077 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145078 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145079 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145080 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145081 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145082 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145083 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145084 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145085 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145086 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145087 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145088 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145089 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145090 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145091 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145092 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145093 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145094 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145095 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145096 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145097 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145098 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145099 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145100 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145101 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145102 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145103 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145104 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145105 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145106 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145107 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145108 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145109 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145110 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145111 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145112 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145113 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145114 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145115 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145116 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145117 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145118 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145119 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145120 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145121 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145122 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145123 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145124 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145125 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145126 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145127 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145128 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145129 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145130 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145131 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145132 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145133 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145134 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145135 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145136 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145137 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145138 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145139 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145140 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145141 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145142 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145143 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145144 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145145 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145146 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145147 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145148 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145149 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145150 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145151 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145152 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145153 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145154 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145155 | TAPCELLBWP30P140          | Physically Disconnected 
+WELLTAP_145156 | TAPCELLBWP30P140          | Physically Disconnected 
+
+
+* Instances with Floating Power Pins
+Instance Name  | Cell Name                 | Disconnected Nodes/Total Nodes | Location (um)
+------------------------------------------------------------------
+WELLTAP_212    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (584.495, 3.405)
+WELLTAP_213    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (614.455, 3.405)
+WELLTAP_214    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (644.415, 3.405)
+WELLTAP_215    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (674.375, 3.405)
+WELLTAP_216    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (704.335, 3.405)
+WELLTAP_260    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (569.515, 3.795)
+WELLTAP_261    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (599.475, 3.795)
+WELLTAP_262    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (629.435, 3.795)
+WELLTAP_263    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (659.395, 3.795)
+WELLTAP_264    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (689.355, 3.795)
+WELLTAP_226    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (1003.93, 3.405)
+WELLTAP_227    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (1033.89, 3.405)
+WELLTAP_228    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (1063.86, 3.405)
+WELLTAP_229    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (1093.82, 3.405)
+WELLTAP_230    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (1123.78, 3.405)
+WELLTAP_275    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (1018.91, 3.795)
+WELLTAP_276    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (1048.88, 3.795)
+WELLTAP_277    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (1078.84, 3.795)
+WELLTAP_278    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (1108.8, 3.795)
+WELLTAP_145075 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (434.695, 2804.2)
+WELLTAP_145076 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (464.655, 2804.2)
+WELLTAP_145077 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (494.615, 2804.2)
+WELLTAP_145078 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (524.575, 2804.2)
+WELLTAP_145079 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (554.535, 2804.2)
+WELLTAP_145124 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (449.675, 2804.59)
+WELLTAP_145125 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (479.635, 2804.59)
+WELLTAP_145126 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (509.595, 2804.59)
+WELLTAP_145127 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (539.555, 2804.59)
+WELLTAP_194    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (45.215, 3.405)
+WELLTAP_193    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (15.255, 3.405)
+WELLTAP_196    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (105.135, 3.405)
+WELLTAP_195    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (75.175, 3.405)
+WELLTAP_197    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (135.095, 3.405)
+WELLTAP_245    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (120.115, 3.795)
+WELLTAP_241    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (0.695, 3.795)
+WELLTAP_243    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (60.195, 3.795)
+WELLTAP_242    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (30.235, 3.795)
+WELLTAP_244    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (90.155, 3.795)
+ENDCAP_15449   | BOUNDARY_RIGHTBWP30P140   |                  1/1           | Pin VDD (0.21, 2804.4)
+ENDCAP_15447   | BOUNDARY_RIGHTBWP30P140   |                  1/1           | Pin VDD (0.21, 2804.4)
+WELLTAP_207    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (434.695, 3.405)
+WELLTAP_208    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (464.655, 3.405)
+WELLTAP_209    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (494.615, 3.405)
+WELLTAP_210    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (524.575, 3.405)
+WELLTAP_211    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (554.535, 3.405)
+WELLTAP_256    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (449.675, 3.795)
+WELLTAP_257    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (479.635, 3.795)
+WELLTAP_258    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (509.595, 3.795)
+WELLTAP_259    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (539.555, 3.795)
+WELLTAP_145085 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (734.295, 2804.2)
+WELLTAP_145086 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (764.255, 2804.2)
+WELLTAP_145087 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (794.215, 2804.2)
+WELLTAP_145088 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (824.175, 2804.2)
+WELLTAP_145133 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (719.315, 2804.59)
+WELLTAP_145134 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (749.275, 2804.59)
+WELLTAP_145135 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (779.235, 2804.59)
+WELLTAP_145136 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (809.195, 2804.59)
+WELLTAP_145137 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (839.155, 2804.59)
+WELLTAP_221    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (854.135, 3.405)
+WELLTAP_222    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (884.095, 3.405)
+WELLTAP_223    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (914.055, 3.405)
+WELLTAP_224    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (944.015, 3.405)
+WELLTAP_225    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (973.975, 3.405)
+WELLTAP_270    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (869.115, 3.795)
+WELLTAP_271    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (899.075, 3.795)
+WELLTAP_272    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (929.035, 3.795)
+WELLTAP_273    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (958.995, 3.795)
+WELLTAP_274    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (988.955, 3.795)
+WELLTAP_145094 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (1003.93, 2804.2)
+WELLTAP_145095 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (1033.89, 2804.2)
+WELLTAP_145096 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (1063.86, 2804.2)
+WELLTAP_145097 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (1093.82, 2804.2)
+WELLTAP_145098 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (1123.78, 2804.2)
+WELLTAP_145143 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (1018.91, 2804.59)
+WELLTAP_145144 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (1048.88, 2804.59)
+WELLTAP_145145 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (1078.84, 2804.59)
+WELLTAP_145146 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (1108.8, 2804.59)
+WELLTAP_231    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (1153.73, 3.405)
+WELLTAP_232    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (1183.69, 3.405)
+WELLTAP_233    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (1213.65, 3.405)
+WELLTAP_234    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (1243.62, 3.405)
+WELLTAP_235    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (1273.58, 3.405)
+WELLTAP_279    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (1138.76, 3.795)
+WELLTAP_280    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (1168.71, 3.795)
+WELLTAP_281    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (1198.67, 3.795)
+WELLTAP_282    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (1228.63, 3.795)
+WELLTAP_283    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (1258.6, 3.795)
+WELLTAP_145099 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (1153.73, 2804.2)
+WELLTAP_145100 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (1183.69, 2804.2)
+WELLTAP_145101 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (1213.65, 2804.2)
+WELLTAP_145102 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (1243.62, 2804.2)
+WELLTAP_145103 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (1273.58, 2804.2)
+WELLTAP_145147 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (1138.76, 2804.59)
+WELLTAP_145148 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (1168.71, 2804.59)
+WELLTAP_145149 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (1198.67, 2804.59)
+WELLTAP_145150 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (1228.63, 2804.59)
+WELLTAP_145151 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (1258.6, 2804.59)
+ENDCAP_8       | BOUNDARY_LEFTBWP30P140    |                  1/1           | Pin VDD (1416.59, 3.6)
+ENDCAP_10      | BOUNDARY_LEFTBWP30P140    |                  1/1           | Pin VDD (1416.59, 3.6)
+WELLTAP_236    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (1303.54, 3.405)
+WELLTAP_237    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (1333.49, 3.405)
+WELLTAP_238    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (1363.45, 3.405)
+WELLTAP_239    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (1393.41, 3.405)
+WELLTAP_240    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (1416.1, 3.405)
+WELLTAP_284    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (1288.56, 3.795)
+WELLTAP_285    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (1318.52, 3.795)
+WELLTAP_286    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (1348.47, 3.795)
+WELLTAP_287    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (1378.43, 3.795)
+WELLTAP_288    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (1408.39, 3.795)
+WELLTAP_145070 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (284.895, 2804.2)
+WELLTAP_145071 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (314.855, 2804.2)
+WELLTAP_145072 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (344.815, 2804.2)
+WELLTAP_145073 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (374.775, 2804.2)
+WELLTAP_145074 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (404.735, 2804.2)
+WELLTAP_145119 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (299.875, 2804.59)
+WELLTAP_145120 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (329.835, 2804.59)
+WELLTAP_145121 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (359.795, 2804.59)
+WELLTAP_145122 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (389.755, 2804.59)
+WELLTAP_145123 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (419.715, 2804.59)
+WELLTAP_201    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (254.935, 3.405)
+WELLTAP_200    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (224.975, 3.405)
+WELLTAP_249    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (239.955, 3.795)
+WELLTAP_250    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (269.915, 3.795)
+WELLTAP_247    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (180.035, 3.795)
+WELLTAP_198    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (165.055, 3.405)
+WELLTAP_199    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (195.015, 3.405)
+WELLTAP_248    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (209.995, 3.795)
+WELLTAP_246    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (150.075, 3.795)
+ENDCAP_15448   | BOUNDARY_LEFTBWP30P140    |                  1/1           | Pin VDD (1416.59, 2804.4)
+ENDCAP_15450   | BOUNDARY_LEFTBWP30P140    |                  1/1           | Pin VDD (1416.59, 2804.4)
+WELLTAP_145104 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (1303.54, 2804.2)
+WELLTAP_145105 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (1333.49, 2804.2)
+WELLTAP_145106 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (1363.45, 2804.2)
+WELLTAP_145107 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (1393.41, 2804.2)
+WELLTAP_145108 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (1416.1, 2804.2)
+WELLTAP_145152 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (1288.56, 2804.59)
+WELLTAP_145153 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (1318.52, 2804.59)
+WELLTAP_145154 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (1348.47, 2804.59)
+WELLTAP_145155 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (1378.43, 2804.59)
+WELLTAP_145156 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (1408.39, 2804.59)
+WELLTAP_145111 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (60.195, 2804.59)
+WELLTAP_145063 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (75.175, 2804.2)
+WELLTAP_145062 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (45.215, 2804.2)
+WELLTAP_145061 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (15.255, 2804.2)
+WELLTAP_145109 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (0.695, 2804.59)
+WELLTAP_145112 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (90.155, 2804.59)
+WELLTAP_145110 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (30.235, 2804.59)
+WELLTAP_145065 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (135.095, 2804.2)
+WELLTAP_145064 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (105.135, 2804.2)
+WELLTAP_145113 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (120.115, 2804.59)
+WELLTAP_206    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (404.735, 3.405)
+WELLTAP_204    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (344.815, 3.405)
+WELLTAP_253    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (359.795, 3.795)
+WELLTAP_252    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (329.835, 3.795)
+WELLTAP_205    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (374.775, 3.405)
+WELLTAP_203    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (314.855, 3.405)
+WELLTAP_254    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (389.755, 3.795)
+WELLTAP_255    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (419.715, 3.795)
+WELLTAP_202    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (284.895, 3.405)
+WELLTAP_251    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (299.875, 3.795)
+WELLTAP_145080 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (584.495, 2804.2)
+WELLTAP_145081 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (614.455, 2804.2)
+WELLTAP_145082 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (644.415, 2804.2)
+WELLTAP_145083 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (674.375, 2804.2)
+WELLTAP_145084 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (704.335, 2804.2)
+WELLTAP_145128 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (569.515, 2804.59)
+WELLTAP_145129 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (599.475, 2804.59)
+WELLTAP_145130 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (629.435, 2804.59)
+WELLTAP_145131 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (659.395, 2804.59)
+WELLTAP_145132 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (689.355, 2804.59)
+WELLTAP_217    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (734.295, 3.405)
+WELLTAP_218    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (764.255, 3.405)
+WELLTAP_219    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (794.215, 3.405)
+WELLTAP_220    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (824.175, 3.405)
+WELLTAP_265    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (719.315, 3.795)
+WELLTAP_266    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (749.275, 3.795)
+WELLTAP_267    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (779.235, 3.795)
+WELLTAP_268    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (809.195, 3.795)
+WELLTAP_269    | TAPCELLBWP30P140          |                  1/1           | Pin VDD (839.155, 3.795)
+WELLTAP_145118 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (269.915, 2804.59)
+WELLTAP_145069 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (254.935, 2804.2)
+WELLTAP_145116 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (209.995, 2804.59)
+WELLTAP_145117 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (239.955, 2804.59)
+WELLTAP_145114 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (150.075, 2804.59)
+WELLTAP_145067 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (195.015, 2804.2)
+WELLTAP_145068 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (224.975, 2804.2)
+WELLTAP_145115 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (180.035, 2804.59)
+WELLTAP_145066 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (165.055, 2804.2)
+ENDCAP_9       | BOUNDARY_RIGHTBWP30P140   |                  1/1           | Pin VDD (0.21, 3.6)
+ENDCAP_7       | BOUNDARY_RIGHTBWP30P140   |                  1/1           | Pin VDD (0.21, 3.6)
+WELLTAP_145089 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (854.135, 2804.2)
+WELLTAP_145090 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (884.095, 2804.2)
+WELLTAP_145091 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (914.055, 2804.2)
+WELLTAP_145092 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (944.015, 2804.2)
+WELLTAP_145093 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (973.975, 2804.2)
+WELLTAP_145138 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (869.115, 2804.59)
+WELLTAP_145139 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (899.075, 2804.59)
+WELLTAP_145140 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (929.035, 2804.59)
+WELLTAP_145141 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (958.995, 2804.59)
+WELLTAP_145142 | TAPCELLBWP30P140          |                  1/1           | Pin VDD (988.955, 2804.59)
+
+
+* Disconnected Wire Segments
+
+Layer           | Internal to Cell | Location (um)
+------------------------------------------------------------------
+M1              | no               |(1416.1, 2804.4)
+M1              | no               |(1416.1, 3.6)
+
+
+* Weakly Connected Metal Segments
+
+Layer      | Location (um)
+------------------------------------------------------------------
+M1         | (1416.1, 3.6)
+M6         | (1206.04, 277.385)
+M6         | (1230.04, 277.385)
+M6         | (1285.98, 277.385)
+M6         | (990.2, 277.385)
+M6         | (1046.14, 277.385)
+M6         | (1070.14, 277.385)
+M6         | (1126.09, 277.385)
+M6         | (1150.09, 277.385)
+M6         | (752.435, 277.385)
+M6         | (776.435, 277.385)
+M6         | (832.38, 277.385)
+M6         | (536.6, 277.385)
+M6         | (592.545, 277.385)
+M6         | (616.545, 277.385)
+M6         | (672.49, 277.385)
+M6         | (696.49, 277.385)
+M6         | (298.835, 277.385)
+M6         | (322.835, 277.385)
+M6         | (378.78, 277.385)
+M6         | (242.89, 277.385)
+M6         | (83, 277.385)
+M6         | (138.945, 277.385)
+M6         | (162.945, 277.385)
+M6         | (218.89, 277.385)
+M8         | (1303.45, 702)
+M8         | (1303.45, 560.05)
+M8         | (1303.45, 614.05)
+M8         | (1303.45, 668.05)
+M8         | (970.15, 702)
+M8         | (970.15, 560.05)
+M8         | (970.15, 614.05)
+M8         | (970.15, 668.05)
+M8         | (849.85, 702)
+M8         | (849.85, 560.05)
+M8         | (849.85, 614.05)
+M8         | (849.85, 668.05)
+M8         | (516.55, 702)
+M8         | (516.55, 560.05)
+M8         | (516.55, 614.05)
+M8         | (516.55, 668.05)
+M8         | (396.25, 702)
+M8         | (396.25, 560.05)
+M8         | (396.25, 614.05)
+M8         | (396.25, 668.05)
+M8         | (62.95, 702)
+M8         | (62.95, 560.05)
+M8         | (62.95, 614.05)
+M8         | (62.95, 668.05)
+M8         | (1303.45, 506.05)
+M8         | (1303.45, 344.05)
+M8         | (1303.45, 398.05)
+M8         | (1303.45, 452.05)
+M8         | (970.15, 506.05)
+M8         | (970.15, 344.05)
+M8         | (970.15, 398.05)
+M8         | (970.15, 452.05)
+M8         | (849.85, 506.05)
+M8         | (849.85, 344.05)
+M8         | (849.85, 398.05)
+M8         | (849.85, 452.05)
+M8         | (516.55, 506.05)
+M8         | (516.55, 344.05)
+M8         | (516.55, 398.05)
+M8         | (516.55, 452.05)
+M8         | (396.25, 506.05)
+M8         | (396.25, 344.05)
+M8         | (396.25, 398.05)
+M8         | (396.25, 452.05)
+M8         | (62.95, 506.05)
+M8         | (62.95, 344.05)
+M8         | (62.95, 398.05)
+M8         | (62.95, 452.05)
+M8         | (1317.35, 702)
+M8         | (1381.85, 702)
+M8         | (1303.45, 290.05)
+M8         | (956.25, 702)
+M8         | (970.15, 290.05)
+M8         | (863.75, 702)
+M8         | (928.25, 702)
+M8         | (942.15, 702)
+M8         | (849.85, 290.05)
+M8         | (942.15, 74.05)
+M8         | (488.55, 702)
+M8         | (502.65, 702)
+M8         | (516.55, 290.05)
+M8         | (488.55, 74.05)
+M8         | (474.65, 702)
+M8         | (410.15, 702)
+M8         | (396.25, 290.05)
+M8         | (7.5, 700.2)
+M8         | (34.95, 702)
+M8         | (49.05, 702)
+M8         | (62.95, 290.05)
+M8         | (34.95, 74.05)
+M9         | (1408.85, 218.25)
+M8         | (1303.45, 1404)
+M8         | (1303.45, 1316.05)
+M8         | (1303.45, 1370.05)
+M8         | (970.15, 1404)
+M8         | (970.15, 1316.05)
+M8         | (970.15, 1370.05)
+M8         | (849.85, 1404)
+M8         | (849.85, 1316.05)
+M8         | (849.85, 1370.05)
+M8         | (396.25, 1404)
+M8         | (516.55, 1404)
+M8         | (396.25, 1316.05)
+M8         | (396.25, 1370.05)
+M8         | (516.55, 1316.05)
+M8         | (516.55, 1370.05)
+M8         | (62.95, 1404)
+M8         | (62.95, 1316.05)
+M8         | (62.95, 1370.05)
+M8         | (1303.45, 1262.05)
+M8         | (1303.45, 1100.05)
+M8         | (1303.45, 1154.05)
+M8         | (1303.45, 1208.05)
+M8         | (970.15, 1262.05)
+M8         | (970.15, 1100.05)
+M8         | (970.15, 1154.05)
+M8         | (970.15, 1208.05)
+M8         | (849.85, 1262.05)
+M8         | (849.85, 1100.05)
+M8         | (849.85, 1154.05)
+M8         | (849.85, 1208.05)
+M8         | (396.25, 1262.05)
+M8         | (516.55, 1262.05)
+M8         | (396.25, 1100.05)
+M8         | (396.25, 1154.05)
+M8         | (396.25, 1208.05)
+M8         | (516.55, 1100.05)
+M8         | (516.55, 1154.05)
+M8         | (516.55, 1208.05)
+M8         | (62.95, 1262.05)
+M8         | (62.95, 1100.05)
+M8         | (62.95, 1154.05)
+M8         | (62.95, 1208.05)
+M8         | (1317.35, 1404)
+M8         | (1381.85, 1404)
+M8         | (1303.45, 1046.05)
+M8         | (1303.45, 938.05)
+M8         | (928.25, 1404)
+M8         | (942.15, 1404)
+M8         | (956.25, 1404)
+M8         | (970.15, 1046.05)
+M8         | (942.15, 992.05)
+M8         | (970.15, 938.05)
+M8         | (863.75, 1404)
+M8         | (849.85, 1046.05)
+M8         | (849.85, 938.05)
+M8         | (410.15, 1404)
+M8         | (474.65, 1404)
+M8         | (488.55, 1404)
+M8         | (502.65, 1404)
+M8         | (396.25, 1046.05)
+M8         | (516.55, 1046.05)
+M8         | (396.25, 938.05)
+M8         | (488.55, 992.05)
+M8         | (516.55, 938.05)
+M8         | (34.95, 1404)
+M8         | (49.05, 1404)
+M8         | (62.95, 1046.05)
+M8         | (34.95, 992.05)
+M8         | (62.95, 938.05)
+M8         | (1303.45, 884.05)
+M8         | (1303.45, 776.05)
+M8         | (1303.45, 830.05)
+M8         | (970.15, 884.05)
+M8         | (970.15, 776.05)
+M8         | (970.15, 830.05)
+M8         | (849.85, 884.05)
+M8         | (849.85, 776.05)
+M8         | (849.85, 830.05)
+M8         | (396.25, 884.05)
+M8         | (516.55, 884.05)
+M8         | (396.25, 776.05)
+M8         | (396.25, 830.05)
+M8         | (516.55, 776.05)
+M8         | (516.55, 830.05)
+M8         | (62.95, 884.05)
+M8         | (62.95, 776.05)
+M8         | (62.95, 830.05)
+M9         | (1408.85, 1136.25)
+M6         | (1206.04, 2113.39)
+M6         | (1230.04, 2113.39)
+M6         | (1285.98, 2113.39)
+M6         | (990.2, 2113.39)
+M6         | (1046.14, 2113.39)
+M6         | (1070.14, 2113.39)
+M6         | (1126.09, 2113.39)
+M6         | (1150.09, 2113.39)
+M6         | (752.435, 2113.39)
+M6         | (776.435, 2113.39)
+M6         | (832.38, 2113.39)
+M6         | (536.6, 2113.39)
+M6         | (592.545, 2113.39)
+M6         | (616.545, 2113.39)
+M6         | (672.49, 2113.39)
+M6         | (696.49, 2113.39)
+M6         | (298.835, 2113.39)
+M6         | (322.835, 2113.39)
+M6         | (378.78, 2113.39)
+M6         | (242.89, 2113.39)
+M6         | (83, 2113.39)
+M6         | (138.945, 2113.39)
+M6         | (162.945, 2113.39)
+M6         | (218.89, 2113.39)
+M8         | (1303.45, 2106)
+M8         | (1317.35, 2106)
+M8         | (956.25, 2106)
+M8         | (970.15, 2106)
+M8         | (849.85, 2106)
+M8         | (863.75, 2106)
+M8         | (942.15, 2106)
+M8         | (488.55, 2106)
+M8         | (502.65, 2106)
+M8         | (516.55, 2106)
+M8         | (396.25, 2106)
+M8         | (410.15, 2106)
+M8         | (34.95, 2106)
+M8         | (49.05, 2106)
+M8         | (62.95, 2106)
+M8         | (1381.85, 2106)
+M8         | (1303.45, 1694.05)
+M8         | (1303.45, 1748.05)
+M8         | (1303.45, 1802.05)
+M8         | (1303.45, 1856.05)
+M8         | (970.15, 1694.05)
+M8         | (970.15, 1748.05)
+M8         | (970.15, 1802.05)
+M8         | (970.15, 1856.05)
+M8         | (928.25, 2106)
+M8         | (942.15, 1910.05)
+M8         | (849.85, 1694.05)
+M8         | (849.85, 1748.05)
+M8         | (849.85, 1802.05)
+M8         | (849.85, 1856.05)
+M8         | (488.55, 1910.05)
+M8         | (516.55, 1694.05)
+M8         | (516.55, 1748.05)
+M8         | (516.55, 1802.05)
+M8         | (516.55, 1856.05)
+M8         | (474.65, 2106)
+M8         | (396.25, 1694.05)
+M8         | (396.25, 1748.05)
+M8         | (396.25, 1802.05)
+M8         | (396.25, 1856.05)
+M8         | (34.95, 1910.05)
+M8         | (62.95, 1694.05)
+M8         | (62.95, 1748.05)
+M8         | (62.95, 1802.05)
+M8         | (62.95, 1856.05)
+M8         | (1303.45, 1640.05)
+M8         | (1303.45, 1478.05)
+M8         | (1303.45, 1532.05)
+M8         | (1303.45, 1586.05)
+M8         | (970.15, 1640.05)
+M8         | (970.15, 1478.05)
+M8         | (970.15, 1532.05)
+M8         | (970.15, 1586.05)
+M8         | (849.85, 1640.05)
+M8         | (849.85, 1478.05)
+M8         | (849.85, 1532.05)
+M8         | (849.85, 1586.05)
+M8         | (516.55, 1640.05)
+M8         | (516.55, 1478.05)
+M8         | (516.55, 1532.05)
+M8         | (516.55, 1586.05)
+M8         | (396.25, 1640.05)
+M8         | (396.25, 1478.05)
+M8         | (396.25, 1532.05)
+M8         | (396.25, 1586.05)
+M8         | (62.95, 1640.05)
+M8         | (62.95, 1478.05)
+M8         | (62.95, 1532.05)
+M8         | (62.95, 1586.05)
+M9         | (1408.85, 2054.25)
+M1         | (1416.1, 2804.4)
+M8         | (1303.45, 2720.05)
+M8         | (1303.45, 2774.05)
+M8         | (849.85, 2720.05)
+M8         | (849.85, 2774.05)
+M8         | (970.15, 2720.05)
+M8         | (970.15, 2774.05)
+M8         | (396.25, 2720.05)
+M8         | (396.25, 2774.05)
+M8         | (516.55, 2720.05)
+M8         | (516.55, 2774.05)
+M8         | (62.95, 2720.05)
+M8         | (62.95, 2774.05)
+M8         | (1303.45, 2666.05)
+M8         | (1303.45, 2396.05)
+M8         | (1303.45, 2450.05)
+M8         | (1303.45, 2504.05)
+M8         | (1303.45, 2558.05)
+M8         | (1303.45, 2612.05)
+M8         | (849.85, 2666.05)
+M8         | (970.15, 2666.05)
+M8         | (849.85, 2396.05)
+M8         | (849.85, 2450.05)
+M8         | (849.85, 2504.05)
+M8         | (849.85, 2558.05)
+M8         | (849.85, 2612.05)
+M8         | (970.15, 2396.05)
+M8         | (970.15, 2450.05)
+M8         | (970.15, 2504.05)
+M8         | (970.15, 2558.05)
+M8         | (970.15, 2612.05)
+M8         | (396.25, 2666.05)
+M8         | (516.55, 2666.05)
+M8         | (396.25, 2396.05)
+M8         | (396.25, 2450.05)
+M8         | (396.25, 2504.05)
+M8         | (396.25, 2558.05)
+M8         | (396.25, 2612.05)
+M8         | (516.55, 2396.05)
+M8         | (516.55, 2450.05)
+M8         | (516.55, 2504.05)
+M8         | (516.55, 2558.05)
+M8         | (516.55, 2612.05)
+M8         | (62.95, 2666.05)
+M8         | (62.95, 2396.05)
+M8         | (62.95, 2450.05)
+M8         | (62.95, 2504.05)
+M8         | (62.95, 2558.05)
+M8         | (62.95, 2612.05)
+M8         | (1303.45, 2342.05)
+M8         | (1303.45, 2180.05)
+M8         | (1303.45, 2234.05)
+M8         | (1303.45, 2288.05)
+M8         | (849.85, 2342.05)
+M8         | (970.15, 2342.05)
+M8         | (849.85, 2180.05)
+M8         | (849.85, 2234.05)
+M8         | (849.85, 2288.05)
+M8         | (970.15, 2180.05)
+M8         | (970.15, 2234.05)
+M8         | (970.15, 2288.05)
+M8         | (396.25, 2342.05)
+M8         | (516.55, 2342.05)
+M8         | (396.25, 2180.05)
+M8         | (396.25, 2234.05)
+M8         | (396.25, 2288.05)
+M8         | (516.55, 2180.05)
+M8         | (516.55, 2234.05)
+M8         | (516.55, 2288.05)
+M8         | (62.95, 2342.05)
+M8         | (62.95, 2180.05)
+M8         | (62.95, 2234.05)
+M8         | (62.95, 2288.05)
+
+Found 351 weakly connected metal segments
+
+
+
+* Dropped Voltage Sources
+

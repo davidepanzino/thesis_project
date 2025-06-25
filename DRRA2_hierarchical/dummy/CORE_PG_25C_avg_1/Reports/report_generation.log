@@ -1,0 +1,469 @@
+Begin Preparing Database for Report Generation
+    Net VSS:
+        
+        Circuit profile:
+                                                              Current    Voltage
+        Layer Name                       Nodes   Resistors    Sources    Sources
+        ----- --------------------  ----------  ----------  ---------  ---------
+        0     M8                         28695       28384          0         12
+        1     VIA7                           0       26321          0          0
+        2     M7                        188434      165693          0         24
+        3     VIA6                           0      136254          0          0
+        4     M6                        520177      492369          0          0
+        5     VIA5                           0      327517          0          0
+        6     M5                        343135      279111          0          0
+        7     VIA4                           0      321655          0          0
+        8     M4                        325495      261615       1680          0
+        9     VIA3                           0      318799          0          0
+        10    M3                        318799      256599          0          0
+        11    VIA2                           0      318799          0          0
+        12    M2                        383313      321113          0          0
+        13    VIA1                           0       64754          0          0
+        14    M1                        765804      761940     410047          0
+                                    ----------  ----------  ---------  ---------
+        15    Circuit total            2873853     4080923     411727         36
+        
+        Note: 980 current sources are disconnected.
+
+    Net VDD:
+        
+        Circuit profile:
+                                                              Current    Voltage
+        Layer Name                       Nodes   Resistors    Sources    Sources
+        ----- --------------------  ----------  ----------  ---------  ---------
+        0     M9                             9           6          0          0
+        1     VIA8                           0           9          0          0
+        2     M8                         30801       30487          0         12
+        3     VIA7                           0       28047          0          0
+        4     M7                        189377      165356          0         24
+        5     VIA6                           0      137787          0          0
+        6     M6                        572782      544395          0          0
+        7     VIA5                           0      371455          0          0
+        8     M5                        376321      303678          0          0
+        9     VIA4                           0      370792          0          0
+        10    M4                        386266      315096       1752          0
+        11    VIA3                           0      365128          0          0
+        12    M3                        366706      295920          0          0
+        13    VIA2                           0      365512          0          0
+        14    M2                        439179      368393          0          0
+        15    VIA1                           0       73859          0          0
+        16    M1                        779769      775928     410611          0
+                                    ----------  ----------  ---------  ---------
+        17    Circuit total            3141211     4511848     412363         36
+        
+        Note: 196 current sources are disconnected.
+Ended Preparing Database for Report Generation
+
+************************************************************************************
+
+Begin IR Drop (Linear) Report Generation
+    Net VSS:
+          Voltage: 0
+          Threshold: 0.1
+          Minimum, Average, Maximum IR Drop: 0.000V, 33.404mV, 85.134mV
+            Range 1(  74.492mV  -    85.143mV ):     36275 (  1.26%)
+            Range 2(  63.851mV  -    74.492mV ):     64881 (  2.26%)
+            Range 3(  53.209mV  -    63.851mV ):    247321 (  8.61%)
+            Range 4(  42.567mV  -    53.209mV ):    569785 ( 19.85%)
+            Range 5(  31.925mV  -    42.567mV ):    651764 ( 22.70%)
+            Range 6(  21.284mV  -    31.925mV ):    546551 ( 19.04%)
+            Range 7(  10.642mV  -    21.284mV ):    404239 ( 14.08%)
+            Range 8(    0.000V  -    10.642mV ):    350136 ( 12.20%)
+        *** Note : 2900 disconnected nodes are excluded from the report.
+            Layer with maximum IR Drop:  M1
+              M8: 0.073177 [0 - 0.073177]
+              M7: 0.078789 [0 - 0.078789]
+              M6: 0.079238 [1.6483e-05 - 0.079254]
+              M5: 0.079291 [1.6493e-05 - 0.079307]
+              M4: 0.079345 [1.65e-05 - 0.079361]
+              M3: 0.079404 [1.6506e-05 - 0.07942]
+              M2: 0.079503 [1.6509e-05 - 0.079519]
+              M1: 0.085118 [1.6524e-05 - 0.085134]
+          IR Report: .//CORE_PG_25C_avg_1/Reports/VSS/VSS.main.rpt
+          GIF plot: .//CORE_PG_25C_avg_1/Reports/VSS/ir_linear.gif
+
+    Net VDD:
+          Voltage: 0.9
+          Threshold: 0.1
+          Minimum, Average, Maximum IR Drop: 0.820V, 0.871V, 0.900V
+            Range 1(    0.819V  -      0.830V ):     30880 (  0.98%)
+            Range 2(    0.830V  -      0.840V ):     52593 (  1.67%)
+            Range 3(    0.840V  -      0.850V ):    210439 (  6.70%)
+            Range 4(    0.850V  -      0.860V ):    463916 ( 14.77%)
+            Range 5(    0.860V  -      0.870V ):    797363 ( 25.39%)
+            Range 6(    0.870V  -      0.880V ):    593984 ( 18.91%)
+            Range 7(    0.880V  -      0.890V ):    467138 ( 14.87%)
+            Range 8(    0.890V  -      0.900V ):    524317 ( 16.69%)
+        *** Note : 580 disconnected nodes are excluded from the report.
+            Layer with maximum IR Drop:  M1
+              M9: 0.0023158 [0.89541 - 0.89772]
+              M8: 0.068095 [0.8319 - 0.9]
+              M7: 0.073171 [0.82683 - 0.9]
+              M6: 0.073468 [0.82653 - 0.9]
+              M5: 0.07353 [0.82647 - 0.9]
+              M4: 0.073605 [0.82639 - 0.9]
+              M3: 0.073687 [0.82631 - 0.9]
+              M2: 0.073817 [0.82618 - 0.9]
+              M1: 0.080459 [0.81954 - 0.9]
+          IR Report: .//CORE_PG_25C_avg_1/Reports/VDD/VDD.main.rpt
+          GIF plot: .//CORE_PG_25C_avg_1/Reports/VDD/ir_linear.gif
+Ended IR Drop (Linear) Report Generation
+
+************************************************************************************
+
+Begin IR Drop (Limit) Report Generation
+    Net VSS:
+          Voltage: 0
+          Threshold: 0.1
+          Minimum, Average, Maximum IR Drop: 0.000V, 33.404mV, 85.134mV
+            Range 1( 100.000mV  -      0.100V ):         0 (  0.00%)
+            Range 2(  91.667mV  -   100.000mV ):         0 (  0.00%)
+            Range 3(  83.333mV  -    91.667mV ):       386 (  0.01%)
+            Range 4(  75.000mV  -    83.333mV ):     34354 (  1.20%)
+            Range 5(  66.667mV  -    75.000mV ):     39846 (  1.39%)
+            Range 6(  58.333mV  -    66.667mV ):    106616 (  3.71%)
+            Range 7(  50.000mV  -    58.333mV ):    273222 (  9.52%)
+            Range 8(  -1.000uV  -    50.000mV ):   2416528 ( 84.17%)
+        *** Note : 2900 disconnected nodes are excluded from the report.
+            Layer with maximum IR Drop:  M1
+              M8: 0.073177 [0 - 0.073177]
+              M7: 0.078789 [0 - 0.078789]
+              M6: 0.079238 [1.6483e-05 - 0.079254]
+              M5: 0.079291 [1.6493e-05 - 0.079307]
+              M4: 0.079345 [1.65e-05 - 0.079361]
+              M3: 0.079404 [1.6506e-05 - 0.07942]
+              M2: 0.079503 [1.6509e-05 - 0.079519]
+              M1: 0.085118 [1.6524e-05 - 0.085134]
+          IR Report: .//CORE_PG_25C_avg_1/Reports/VSS/VSS.main.rpt
+          GIF plot: .//CORE_PG_25C_avg_1/Reports/VSS/ir_limit.gif
+
+    Net VDD:
+          Voltage: 0.9
+          Threshold: 0.1
+          Minimum, Average, Maximum IR Drop: 0.820V, 0.871V, 0.900V
+            Range 1(  99.990mV  -   100.000mV ):         0 (  0.00%)
+            Range 2( 100.000mV  -      0.167V ):         0 (  0.00%)
+            Range 3(    0.167V  -      0.233V ):         0 (  0.00%)
+            Range 4(    0.233V  -      0.300V ):         0 (  0.00%)
+            Range 5(    0.300V  -      0.367V ):         0 (  0.00%)
+            Range 6(    0.367V  -      0.433V ):         0 (  0.00%)
+            Range 7(    0.433V  -      0.500V ):         0 (  0.00%)
+            Range 8(    0.500V  -      0.900V ):   3140630 (100.00%)
+        *** Note : 580 disconnected nodes are excluded from the report.
+            Layer with maximum IR Drop:  M1
+              M9: 0.0023158 [0.89541 - 0.89772]
+              M8: 0.068095 [0.8319 - 0.9]
+              M7: 0.073171 [0.82683 - 0.9]
+              M6: 0.073468 [0.82653 - 0.9]
+              M5: 0.07353 [0.82647 - 0.9]
+              M4: 0.073605 [0.82639 - 0.9]
+              M3: 0.073687 [0.82631 - 0.9]
+              M2: 0.073817 [0.82618 - 0.9]
+              M1: 0.080459 [0.81954 - 0.9]
+          IR Report: .//CORE_PG_25C_avg_1/Reports/VDD/VDD.main.rpt
+          GIF plot: .//CORE_PG_25C_avg_1/Reports/VDD/ir_limit.gif
+Ended IR Drop (Limit) Report Generation
+
+************************************************************************************
+
+Begin Tap Current Report Generation
+    Net VSS:
+          Minimum, Average, Maximum Tap Current: -79.427uA, -0.934uA, 0.000A
+          Total Current: -0.384A
+            Range 1(  -1.000GA  -    -1.000mA ):         0 (  0.00%)
+            Range 2(  -1.000mA  -  -100.000uA ):         0 (  0.00%)
+            Range 3(-100.000uA  -   -10.000uA ):      3181 (  0.77%)
+            Range 4( -10.000uA  -    -1.000uA ):     66503 ( 16.19%)
+            Range 5(  -1.000uA  -  -100.000nA ):    112036 ( 27.28%)
+            Range 6(-100.000nA  -   -10.000nA ):     45529 ( 11.08%)
+            Range 7( -10.000nA  -    -1.000nA ):     31354 (  7.63%)
+            Range 8(  -1.000nA  -      0.000A ):    152144 ( 37.04%)
+        *** Note: 980 disconnected taps (0.000A) are excluded from the report.
+          GIF plot: .//CORE_PG_25C_avg_1/Reports/VSS/tc.gif
+
+    Net VDD:
+          Minimum, Average, Maximum Tap Current: 0.000A, 0.931uA, 76.162uA
+          Total Current: 0.384A
+            Range 1(   1.000mA  -     1.000GA ):         0 (  0.00%)
+            Range 2( 100.000uA  -     1.000mA ):         0 (  0.00%)
+            Range 3(  10.000uA  -   100.000uA ):      3254 (  0.79%)
+            Range 4(   1.000uA  -    10.000uA ):     66504 ( 16.14%)
+            Range 5( 100.000nA  -     1.000uA ):    112061 ( 27.19%)
+            Range 6(  10.000nA  -   100.000nA ):     45658 ( 11.08%)
+            Range 7(   1.000nA  -    10.000nA ):     31760 (  7.71%)
+            Range 8(    0.000A  -     1.000nA ):    152930 ( 37.10%)
+        *** Note: 196 disconnected taps (0.000A) are excluded from the report.
+          GIF plot: .//CORE_PG_25C_avg_1/Reports/VDD/tc.gif
+Ended Tap Current Report Generation
+
+************************************************************************************
+
+Begin Instance Based IR Drop Report Generation
+    Net VSS:
+          Minimum, Average, Maximum Instance Based IR Drop: 16.524uV, 42.221mV, 85.134mV
+            Range 1( 100.000mV  -      0.100V ):         0 (  0.00%)
+            Range 2(  91.667mV  -   100.000mV ):         0 (  0.00%)
+            Range 3(  83.333mV  -    91.667mV ):       356 (  0.09%)
+            Range 4(  75.000mV  -    83.333mV ):     25080 (  6.11%)
+            Range 5(  66.667mV  -    75.000mV ):     18592 (  4.53%)
+            Range 6(  58.333mV  -    66.667mV ):     39786 (  9.69%)
+            Range 7(  50.000mV  -    58.333mV ):     58821 ( 14.32%)
+            Range 8(  -1.000uV  -    50.000mV ):    268112 ( 65.27%)
+        *** Note : 980 disconnected nodes are excluded from the report.
+          GIF plot: .//CORE_PG_25C_avg_1/Reports/VSS/iv.gif
+
+    Net VDD:
+          Minimum, Average, Maximum Instance Based IR Drop: 0.820V, 0.863V, 0.900V
+            Range 1(  99.990mV  -      0.100V ):         0 (  0.00%)
+            Range 2( 100.000mV  -      0.167V ):         0 (  0.00%)
+            Range 3(    0.167V  -      0.233V ):         0 (  0.00%)
+            Range 4(    0.233V  -      0.300V ):         0 (  0.00%)
+            Range 5(    0.300V  -      0.367V ):         0 (  0.00%)
+            Range 6(    0.367V  -      0.433V ):         0 (  0.00%)
+            Range 7(    0.433V  -      0.500V ):         0 (  0.00%)
+            Range 8(    0.500V  -      0.900V ):    412167 (100.00%)
+        *** Note : 196 disconnected nodes are excluded from the report.
+          GIF plot: .//CORE_PG_25C_avg_1/Reports/VDD/iv.gif
+Ended Instance Based IR Drop Report Generation
+
+************************************************************************************
+
+Begin Effective Instance Voltage Report Generation
+    Net VSS:
+
+    Net VDD:
+        
+         Avg EIV:
+          Minimum, Average, Maximum Effective Instance Voltage: 0.734V, 0.821V, 0.900V
+            Range 1(    0.734V  -      0.755V ):     24762 (  5.77%)
+            Range 2(    0.755V  -      0.776V ):     28567 (  6.66%)
+            Range 3(    0.776V  -      0.797V ):     65571 ( 15.28%)
+            Range 4(    0.797V  -      0.817V ):     79583 ( 18.55%)
+            Range 5(    0.817V  -      0.838V ):     88977 ( 20.74%)
+            Range 6(    0.838V  -      0.859V ):     62538 ( 14.58%)
+            Range 7(    0.859V  -      0.879V ):     50315 ( 11.73%)
+            Range 8(    0.879V  -      0.900V ):     28715 (  6.69%)
+          *** Note: 1100 instance(s) don't have valid elapsed EIV results and they are excluded from histogram and gif file. For more details, please check the EIV report.
+          GIF plot: .//CORE_PG_25C_avg_1/Reports/VDD_VSS.avg_div.gif
+          GIF Limit plot: .//CORE_PG_25C_avg_1/Reports/VDD_VSS.avg_limit_div.gif
+          **** Note: Histogram and gif file are generated based on elapsed EIV results.
+Ended Effective Instance Voltage Report Generation
+
+************************************************************************************
+
+Begin Voltage Source Current Report Generation
+    Net VSS:
+          Minimum, Average, Maximum Voltage Source Current: 3.552mA, 10.655mA, 21.123mA
+          Total Current: 0.384A
+            Range 1(  18.926mA  -    21.125mA ):         2 (  5.56%)
+            Range 2(  16.730mA  -    18.926mA ):         1 (  2.78%)
+            Range 3(  14.534mA  -    16.730mA ):         3 (  8.33%)
+            Range 4(  12.338mA  -    14.534mA ):         7 ( 19.44%)
+            Range 5(  10.141mA  -    12.338mA ):         4 ( 11.11%)
+            Range 6(   7.945mA  -    10.141mA ):         9 ( 25.00%)
+            Range 7(   5.749mA  -     7.945mA ):         6 ( 16.67%)
+            Range 8(   3.552mA  -     5.749mA ):         4 ( 11.11%)
+          GIF plot: .//CORE_PG_25C_avg_1/Reports/VSS/vc.gif
+
+    Net VDD:
+          Minimum, Average, Maximum Voltage Source Current: -22.368mA, -10.655mA, -2.719mA
+          Total Current: -0.384A
+            Range 1( -22.370mA  -   -19.912mA ):         1 (  2.78%)
+            Range 2( -19.912mA  -   -17.456mA ):         2 (  5.56%)
+            Range 3( -17.456mA  -   -15.000mA ):         1 (  2.78%)
+            Range 4( -15.000mA  -   -12.543mA ):         9 ( 25.00%)
+            Range 5( -12.543mA  -   -10.087mA ):         3 (  8.33%)
+            Range 6( -10.087mA  -    -7.631mA ):        11 ( 30.56%)
+            Range 7(  -7.631mA  -    -5.175mA ):         5 ( 13.89%)
+            Range 8(  -5.175mA  -    -2.719mA ):         4 ( 11.11%)
+          GIF plot: .//CORE_PG_25C_avg_1/Reports/VDD/vc.gif
+Ended Voltage Source Current Report Generation
+
+************************************************************************************
+
+Begin Resistor Current Report Generation
+    Net VSS:
+          Minimum, Average, Maximum Resistor Current: 0.000A, 25.220uA, 21.123mA
+            Range 1(   1.000mA  -     1.000GA ):     17150 (  0.42%)
+            Range 2( 100.000uA  -     1.000mA ):     99765 (  2.45%)
+            Range 3(  10.000uA  -   100.000uA ):    837293 ( 20.53%)
+            Range 4(   1.000uA  -    10.000uA ):   1352818 ( 33.17%)
+            Range 5(   0.100uA  -     1.000uA ):    781471 ( 19.16%)
+            Range 6(  10.000nA  -     0.100uA ):    393989 (  9.66%)
+            Range 7(   1.000nA  -    10.000nA ):    135193 (  3.32%)
+            Range 8(    0.000A  -     1.000nA ):    460354 ( 11.29%)
+        *** Note : 2890 disconnected resistors are excluded from the report.
+          GIF plot: .//CORE_PG_25C_avg_1/Reports/VSS/rc.gif
+
+    Net VDD:
+          Minimum, Average, Maximum Resistor Current: 0.000A, 22.937uA, 22.365mA
+            Range 1(   1.000mA  -     1.000GA ):     18623 (  0.41%)
+            Range 2( 100.000uA  -     1.000mA ):    100580 (  2.23%)
+            Range 3(  10.000uA  -   100.000uA ):    791962 ( 17.56%)
+            Range 4(   1.000uA  -    10.000uA ):   1329564 ( 29.47%)
+            Range 5(   0.100uA  -     1.000uA ):    918254 ( 20.35%)
+            Range 6(  10.000nA  -     0.100uA ):    409440 (  9.08%)
+            Range 7(   1.000nA  -    10.000nA ):       389 (  0.01%)
+            Range 8(    0.000A  -     1.000nA ):    942458 ( 20.89%)
+        *** Note : 578 disconnected resistors are excluded from the report.
+          GIF plot: .//CORE_PG_25C_avg_1/Reports/VDD/rc.gif
+Ended Resistor Current Report Generation
+
+************************************************************************************
+
+Begin Resistor Voltage Report Generation
+    Net VSS:
+          Minimum, Average, Maximum Resistor Voltage: 0.000V, 38.279uV, 13.815mV
+            Range 1(  12.089mV  -    13.817mV ):         3 (  0.00%)
+            Range 2(  10.362mV  -    12.089mV ):         1 (  0.00%)
+            Range 3(   8.635mV  -    10.362mV ):         4 (  0.00%)
+            Range 4(   6.908mV  -     8.635mV ):        79 (  0.00%)
+            Range 5(   5.181mV  -     6.908mV ):       121 (  0.00%)
+            Range 6(   3.454mV  -     5.181mV ):      1960 (  0.05%)
+            Range 7(   1.727mV  -     3.454mV ):      8768 (  0.22%)
+            Range 8(    0.000V  -     1.727mV ):   4067097 ( 99.73%)
+        *** Note : 2890 disconnected resistors are excluded from the report.
+          GIF plot: .//CORE_PG_25C_avg_1/Reports/VSS/rv.gif
+
+    Net VDD:
+          Minimum, Average, Maximum Resistor Voltage: 0.000V, 34.495uV, 12.364mV
+            Range 1(  10.818mV  -    12.365mV ):         3 (  0.00%)
+            Range 2(   9.273mV  -    10.818mV ):         3 (  0.00%)
+            Range 3(   7.727mV  -     9.273mV ):         5 (  0.00%)
+            Range 4(   6.182mV  -     7.727mV ):        17 (  0.00%)
+            Range 5(   4.636mV  -     6.182mV ):       140 (  0.00%)
+            Range 6(   3.091mV  -     4.636mV ):      2147 (  0.05%)
+            Range 7(   1.545mV  -     3.091mV ):     10133 (  0.22%)
+            Range 8(    0.000V  -     1.545mV ):   4498822 ( 99.72%)
+        *** Note : 578 disconnected resistors are excluded from the report.
+          GIF plot: .//CORE_PG_25C_avg_1/Reports/VDD/rv.gif
+Ended Resistor Voltage Report Generation
+
+************************************************************************************
+
+Begin Power Gate I/Idsat Report Generation
+    Net VSS:
+          No data found
+
+    Net VDD:
+          No data found
+Ended Power Gate I/Idsat Report Generation
+
+************************************************************************************
+
+Begin Power Gate Voltage Report Generation
+    Net VSS:
+          No data found.
+
+    Net VDD:
+          No data found.
+Ended Power Gate Voltage Report Generation
+
+************************************************************************************
+
+Begin Resistance of the Least Resistive Path Report Generation
+    Net VSS:
+          Minimum, Average, Maximum Resistance of the Least Resistive Path: 11.933Ohm, 76.792Ohm, 580.313Ohm
+            Range 1(  509.266Ohm  -    580.371Ohm ):        24 (  0.01%)
+            Range 2(  438.218Ohm  -    509.266Ohm ):       106 (  0.02%)
+            Range 3(  367.171Ohm  -    438.218Ohm ):        63 (  0.01%)
+            Range 4(  296.123Ohm  -    367.171Ohm ):        86 (  0.02%)
+            Range 5(  225.075Ohm  -    296.123Ohm ):      1566 (  0.36%)
+            Range 6(  154.028Ohm  -    225.075Ohm ):     16662 (  3.88%)
+            Range 7(   82.980Ohm  -    154.028Ohm ):    135318 ( 31.53%)
+            Range 8(   11.932Ohm  -     82.980Ohm ):    275303 ( 64.15%)
+        *** Note : 1000 disconnected Instances are excluded from the report.
+          GIF plot: .//CORE_PG_25C_avg_1/Reports/VSS/rlrp.gif
+
+    Net VDD:
+          Minimum, Average, Maximum Resistance of the Least Resistive Path: 11.595Ohm, 68.748Ohm, 561.237Ohm
+            Range 1(  492.531Ohm  -    561.293Ohm ):        28 (  0.01%)
+            Range 2(  423.826Ohm  -    492.531Ohm ):        40 (  0.01%)
+            Range 3(  355.121Ohm  -    423.826Ohm ):        35 (  0.01%)
+            Range 4(  286.416Ohm  -    355.121Ohm ):        46 (  0.01%)
+            Range 5(  217.711Ohm  -    286.416Ohm ):      1134 (  0.26%)
+            Range 6(  149.005Ohm  -    217.711Ohm ):     15798 (  3.67%)
+            Range 7(   80.300Ohm  -    149.005Ohm ):    110211 ( 25.63%)
+            Range 8(   11.594Ohm  -     80.300Ohm ):    302636 ( 70.39%)
+        *** Note : 200 disconnected Instances are excluded from the report.
+          GIF plot: .//CORE_PG_25C_avg_1/Reports/VDD/rlrp.gif
+Ended Resistance of the Least Resistive Path Report Generation
+
+************************************************************************************
+
+Begin Voltage Across Vias and Contacts Report Generation
+    Net VSS:
+
+    Net VDD:
+Ended Voltage Across Vias and Contacts Report Generation
+
+************************************************************************************
+
+Begin Weak Grid Connectivity Report
+    Net VSS:
+
+    Net VDD:
+Ended Weak Grid Connectivity Report
+
+************************************************************************************
+
+Begin Grid Integrity Report Generation
+    Net VSS:
+          # Missing Cell Power-Grid Views: 0
+          # Physically Disconnected Instances: 1000
+          # Instances with Floating Power Pins: 0
+          # Disconnected Wire Segments: 10
+          # Weakly Connected Metal Segments: 357
+          # Dropped Voltage Sources: 0
+
+    Net VDD:
+          # Missing Cell Power-Grid Views: 0
+          # Physically Disconnected Instances: 200
+          # Instances with Floating Power Pins: 0
+          # Disconnected Wire Segments: 2
+          # Weakly Connected Metal Segments: 351
+          # Dropped Voltage Sources: 0
+Ended Grid Integrity Report Generation
+
+************************************************************************************
+
+Begin Effective resistance Report Generation
+    Net VSS:
+          Minimum, Average, Maximum Effective Resistance: 3.270Ohm, 31.649Ohm, 570.728Ohm
+            Range 1(   1.879GOhm  -     2.148GOhm ):         0 (  0.00%)
+            Range 2(   1.611GOhm  -     1.879GOhm ):         0 (  0.00%)
+            Range 3(   1.342GOhm  -     1.611GOhm ):         0 (  0.00%)
+            Range 4(   1.074GOhm  -     1.342GOhm ):         0 (  0.00%)
+            Range 5( 805.313MOhm  -     1.074GOhm ):         0 (  0.00%)
+            Range 6( 536.875MOhm  -   805.313MOhm ):         0 (  0.00%)
+            Range 7( 268.438MOhm  -   536.875MOhm ):         0 (  0.00%)
+            Range 8(    3.269Ohm  -   268.438MOhm ):    429128 (100.00%)
+          GIF plot: .//CORE_PG_25C_avg_1/Reports/VSS/effr.gif
+
+    Net VDD:
+          Minimum, Average, Maximum Effective Resistance: 2.954Ohm, 26.210Ohm, 551.651Ohm
+            Range 1(   1.879GOhm  -     2.148GOhm ):         0 (  0.00%)
+            Range 2(   1.611GOhm  -     1.879GOhm ):         0 (  0.00%)
+            Range 3(   1.342GOhm  -     1.611GOhm ):         0 (  0.00%)
+            Range 4(   1.074GOhm  -     1.342GOhm ):         0 (  0.00%)
+            Range 5( 805.313MOhm  -     1.074GOhm ):         0 (  0.00%)
+            Range 6( 536.875MOhm  -   805.313MOhm ):         0 (  0.00%)
+            Range 7( 268.438MOhm  -   536.875MOhm ):         0 (  0.00%)
+            Range 8(    2.954Ohm  -   268.438MOhm ):    429928 (100.00%)
+          GIF plot: .//CORE_PG_25C_avg_1/Reports/VDD/effr.gif
+Ended Effective resistance Report Generation
+
+************************************************************************************
+
+Begin Domain Based REFF Report Generation
+    Net VDD:
+Ended Domain Based REFF Report Generation
+
+************************************************************************************
+
+Begin Domain Based Reff Generation Report Generation
+    Net VDD:
+Ended Domain Based Reff Generation Report Generation
+
+************************************************************************************
+
