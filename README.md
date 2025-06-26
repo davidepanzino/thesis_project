@@ -56,13 +56,6 @@ Both guides provide step-by-step instructions for:
 
 ---
 
-## 💡 Notes
-
-- `.gitignore` is configured to exclude all generated and temporary files
-- `.keep` files are used to preserve empty folders in version control
-- Reports, database files, and logs are generated at runtime and are not tracked
-
----
 
 ## 📩 Contact
 
