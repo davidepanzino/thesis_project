@@ -1,41 +1,53 @@
+# Define power planning variables
+set core_rings_size 5.0
+set vertical_pairs 4
+set horizontal_pairs 2
+set x_offset_core 8.0
+set y_offset_core 8.0
+set x_offset 10.0
+set y_offset 10.0
+set partition_rings_size 2.5
+set macro_rings_size 2.0
+set stripes_size 2.5
+set vertical_pairs_slot 3
+set vertical_stripes_swb_router_bottom 2
+set distance_stripes_between_rings 20
+
+
+
 #rings around the whole fabric
-add_rings -nets {VDD VSS} -type core_rings -follow io -layer {top M7 bottom M7 left M8 right M8} -width {top 5 bottom 5 left 5 right 5} -spacing {top 1.8 bottom 1.8 left 1.8 right 1.8} -offset {top 5 bottom 5 left 5 right 5} -center 0 -threshold 0 -jog_distance 0 -snap_wire_center_to_grid none
+add_rings -nets {VDD VSS} -type core_rings -follow io -layer {top M7 bottom M7 left M8 right M8} -width [list top $core_rings_size bottom $core_rings_size left $core_rings_size right $core_rings_size] -spacing {top 1.8 bottom 1.8 left 1.8 right 1.8} -offset {top 5 bottom 5 left 5 right 5} -center 0 -threshold 0 -jog_distance 0 -snap_wire_center_to_grid none
 
 
 
 #stripes to outer world
-set vertical_pairs 4
-set horizontal_pairs 2
 set vertical_distance [expr {($seq_height + $swb_router_height)/($vertical_pairs + 1)}]
 set horizontal_distance [expr {($seq_width + $resource_width + $swb_router_width)/($horizontal_pairs + 1)}]
-set x_offset 8.0
-set y_offset 8.0
-
 set_db add_stripes_ignore_block_check false ; set_db add_stripes_break_at none ; set_db add_stripes_route_over_rows_only false ; set_db add_stripes_rows_without_stripes_only false ; set_db add_stripes_extend_to_closest_target ring ; set_db add_stripes_stop_at_last_wire_for_area false ; set_db add_stripes_partial_set_through_domain false ; set_db add_stripes_ignore_non_default_domains true ; set_db add_stripes_trim_antenna_back_to_shape block_ring ; set_db add_stripes_spacing_type edge_to_edge ; set_db add_stripes_spacing_from_block 0 ; set_db add_stripes_stripe_min_length stripe_width ; set_db add_stripes_stacked_via_top_layer AP ; set_db add_stripes_stacked_via_bottom_layer M1 ; set_db add_stripes_via_using_exact_crossover_size true ; set_db add_stripes_split_vias false ; set_db add_stripes_orthogonal_only true ; set_db add_stripes_allow_jog { padcore_ring  block_ring } ; set_db add_stripes_skip_via_on_pin {  standardcell } ; set_db add_stripes_skip_via_on_wire_shape {  noshape   }
 for {set j 0} {$j < $rows} {incr j} {
     #left side
     set x1 0
     set y1 [expr {$y_margin + $vertical_distance + $y_length * $j}]
-    set x2 [expr {$x_offset}]
+    set x2 [expr {$x_offset_core}]
     set y2 [expr {$y1 + $y_length - $vertical_distance}]
     set area_stripe [list \
         $x1 $y1 \
         $x2 $y1 \
         $x2 $y2 \
         $x1 $y2]
-    add_stripes -nets {VDD VSS} -layer M7 -direction horizontal -width 5 -spacing 1.8 -set_to_set_distance $vertical_distance -area $area_stripe -start_from bottom -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
+    add_stripes -nets {VDD VSS} -layer M7 -direction horizontal -width $core_rings_size -spacing 1.8 -set_to_set_distance $vertical_distance -area $area_stripe -start_from bottom -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
 
     #right side
-    set x1 [expr {$x_margin * 2 + $x_length*$columns - $x_offset}]
+    set x1 [expr {$x_margin * 2 + $x_length*$columns - $x_offset_core}]
     set y1 [expr {$y_margin + $vertical_distance + $y_length * $j}]
-    set x2 [expr {$x1 + $x_offset}]
+    set x2 [expr {$x1 + $x_offset_core}]
     set y2 [expr {$y1 + $y_length - $vertical_distance}]
     set area_stripe [list \
         $x1 $y1 \
         $x2 $y1 \
         $x2 $y2 \
         $x1 $y2]
-    add_stripes -nets {VDD VSS} -layer M7 -direction horizontal -width 5 -spacing 1.8 -set_to_set_distance $vertical_distance -area $area_stripe -start_from bottom -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
+    add_stripes -nets {VDD VSS} -layer M7 -direction horizontal -width $core_rings_size -spacing 1.8 -set_to_set_distance $vertical_distance -area $area_stripe -start_from bottom -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
 }
 
 for {set i 0} {$i < $columns} {incr i} {
@@ -43,25 +55,25 @@ for {set i 0} {$i < $columns} {incr i} {
     set x1 [expr {$x_margin + $horizontal_distance + $x_length *$i}]
     set y1 0
     set x2 [expr {$x1 + $x_length - $horizontal_distance}]
-    set y2 [expr {$y_offset}]
+    set y2 [expr {$y_offset_core}]
     set area_stripe [list \
         $x1 $y1 \
         $x2 $y1 \
         $x2 $y2 \
         $x1 $y2]
-    add_stripes -nets {VDD VSS} -layer M8 -direction vertical -width 5 -spacing 1.8 -set_to_set_distance $horizontal_distance -area $area_stripe -start_from left -switch_layer_over_obs false -merge_stripes_value 10 -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
+    add_stripes -nets {VDD VSS} -layer M8 -direction vertical -width $core_rings_size -spacing 1.8 -set_to_set_distance $horizontal_distance -area $area_stripe -start_from left -switch_layer_over_obs false -merge_stripes_value 10 -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
 
     #top side
     set x1 [expr {$x_margin + $horizontal_distance + $x_length *$i}]
-    set y1 [expr {$y_margin*2 + $y_length * $rows - $y_offset}]
+    set y1 [expr {$y_margin*2 + $y_length * $rows - $y_offset_core}]
     set x2 [expr {$x1 + $x_length - $horizontal_distance}]
-    set y2 [expr {$y1 + $y_offset}]
+    set y2 [expr {$y1 + $y_offset_core}]
     set area_stripe [list \
         $x1 $y1 \
         $x2 $y1 \
         $x2 $y2 \
         $x1 $y2]
-    add_stripes -nets {VDD VSS} -layer M8 -direction vertical -width 5 -spacing 1.8 -set_to_set_distance $horizontal_distance -area $area_stripe -start_from left -switch_layer_over_obs false -merge_stripes_value 10 -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
+    add_stripes -nets {VDD VSS} -layer M8 -direction vertical -width $core_rings_size -spacing 1.8 -set_to_set_distance $horizontal_distance -area $area_stripe -start_from left -switch_layer_over_obs false -merge_stripes_value 10 -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
 }
 
 
@@ -91,7 +103,7 @@ for {set i 0} {$i < $columns} {incr i} {
         add_rings -nets {VDD VSS} -around user_defined -user_defined_region $new_coordinates \
             -type block_rings \
             -layer {top M7 bottom M7 left M8 right M8} \
-            -width {top 1.8 bottom 1.8 left 1.8 right 1.8} \
+            -width [list top $partition_rings_size bottom $partition_rings_size left $partition_rings_size right $partition_rings_size] \
             -spacing {top 1.8 bottom 1.8 left 1.8 right 1.8} \
             -offset {top 1.8 bottom 1.8 left 1.8 right 1.8} \
             -center 0 -threshold 0 -jog_distance 0 -snap_wire_center_to_grid none
@@ -112,6 +124,7 @@ for {set i 0} {$i < $columns} {incr i} {
             $x3 $y4 \
             $x3 $y3 \
             $x1 $y2]
+
         set new_coordinates [list \
             [expr {[lindex $coordinates 0] + $x_offset}] \
             [expr {[lindex $coordinates 1] + $y_offset}] \
@@ -128,7 +141,7 @@ for {set i 0} {$i < $columns} {incr i} {
         add_rings -nets {VDD VSS} -around user_defined -user_defined_region $new_coordinates \
             -type block_rings \
             -layer {top M7 bottom M7 left M8 right M8} \
-            -width {top 1.8 bottom 1.8 left 1.8 right 1.8} \
+            -width [list top $partition_rings_size bottom $partition_rings_size left $partition_rings_size right $partition_rings_size] \
             -spacing {top 1.8 bottom 1.8 left 1.8 right 1.8} \
             -offset {top 1.8 bottom 1.8 left 1.8 right 1.8} \
             -center 0 -threshold 0 -jog_distance 0 -snap_wire_center_to_grid none
@@ -136,7 +149,7 @@ for {set i 0} {$i < $columns} {incr i} {
         #resources
         for {set k 0} {$k < 16} {incr k} {
             if { ($i == 0 && $j == 2) || ($i == 1 && $j == 2) || ($i == 2 && $j == 2) || ($i == 0 && $j == 0) || ($i == 1 && $j == 0) || ($i == 2 && $j == 0) } {
-                if { $i == 0 && $j == 2 && ($k+1) != 1 && ($k+1) != 2 && ($k+1) != 3 && ($k+1) != 4 && ($k+1) != 5 && ($k+1) != 6 } {
+                if { $i == 0 && $j == 2 && ($k+1) != 1 && ($k+1) != 2 && ($k+1) != 3 && ($k+1) != 4 } {
                     set x1 [expr {$x_length * $i + $x_margin + $seq_width}]
                     set y1 [expr {$y_length * $j + $y_margin + $swb_router_height + $resource_height * $k}]
                     set x2 [expr {$x1 + $resource_width}]
@@ -158,13 +171,13 @@ for {set i 0} {$i < $columns} {incr i} {
                     add_rings -nets {VDD VSS} -around user_defined -user_defined_region $new_coordinates \
                         -type block_rings \
                         -layer {top M7 bottom M7 left M8 right M8} \
-                        -width {top 1.8 bottom 1.8 left 1.8 right 1.8} \
+                        -width [list top $partition_rings_size bottom $partition_rings_size left $partition_rings_size right $partition_rings_size] \
                         -spacing {top 1.8 bottom 1.8 left 1.8 right 1.8} \
                         -offset {top 1.8 bottom 1.8 left 1.8 right 1.8} \
                         -center 0 -threshold 0 -jog_distance 0 -snap_wire_center_to_grid none
                 }
 
-                if { $i == 1 && $j == 2 && ($k+1) != 1 && ($k+1) != 2 && ($k+1) != 3 && ($k+1) != 4 && ($k+1) != 5 && ($k+1) != 6 } {
+                if { $i == 1 && $j == 2 && ($k+1) != 1 && ($k+1) != 2 && ($k+1) != 3 && ($k+1) != 4 } {
                     set x1 [expr {$x_length * $i + $x_margin + $seq_width}]
                     set y1 [expr {$y_length * $j + $y_margin + $swb_router_height + $resource_height * $k}]
                     set x2 [expr {$x1 + $resource_width}]
@@ -186,13 +199,13 @@ for {set i 0} {$i < $columns} {incr i} {
                     add_rings -nets {VDD VSS} -around user_defined -user_defined_region $new_coordinates \
                         -type block_rings \
                         -layer {top M7 bottom M7 left M8 right M8} \
-                        -width {top 1.8 bottom 1.8 left 1.8 right 1.8} \
+                        -width [list top $partition_rings_size bottom $partition_rings_size left $partition_rings_size right $partition_rings_size] \
                         -spacing {top 1.8 bottom 1.8 left 1.8 right 1.8} \
                         -offset {top 1.8 bottom 1.8 left 1.8 right 1.8} \
                         -center 0 -threshold 0 -jog_distance 0 -snap_wire_center_to_grid none
                 }
 
-                if { $i == 2 && $j == 2 && ($k+1) != 1 && ($k+1) != 2 && ($k+1) != 3 && ($k+1) != 4 && ($k+1) != 5 && ($k+1) != 6 } {
+                if { $i == 2 && $j == 2 && ($k+1) != 1 && ($k+1) != 2 && ($k+1) != 3 && ($k+1) != 4 } {
                     set x1 [expr {$x_length * $i + $x_margin + $seq_width}]
                     set y1 [expr {$y_length * $j + $y_margin + $swb_router_height + $resource_height * $k}]
                     set x2 [expr {$x1 + $resource_width}]
@@ -214,13 +227,13 @@ for {set i 0} {$i < $columns} {incr i} {
                     add_rings -nets {VDD VSS} -around user_defined -user_defined_region $new_coordinates \
                         -type block_rings \
                         -layer {top M7 bottom M7 left M8 right M8} \
-                        -width {top 1.8 bottom 1.8 left 1.8 right 1.8} \
+                        -width [list top $partition_rings_size bottom $partition_rings_size left $partition_rings_size right $partition_rings_size] \
                         -spacing {top 1.8 bottom 1.8 left 1.8 right 1.8} \
                         -offset {top 1.8 bottom 1.8 left 1.8 right 1.8} \
                         -center 0 -threshold 0 -jog_distance 0 -snap_wire_center_to_grid none
                 }
 
-                if { $i == 0 && $j == 0 && ($k+1) != 1 && ($k+1) != 2 && ($k+1) != 3 && ($k+1) != 4 && ($k+1) != 5 && ($k+1) != 6 } {
+                if { $i == 0 && $j == 0 && ($k+1) != 1 && ($k+1) != 2 && ($k+1) != 3 && ($k+1) != 4 } {
                     set x1 [expr {$x_length * $i + $x_margin + $seq_width}]
                     set y1 [expr {$y_length * $j + $y_margin + $swb_router_height + $resource_height * $k}]
                     set x2 [expr {$x1 + $resource_width}]
@@ -242,13 +255,13 @@ for {set i 0} {$i < $columns} {incr i} {
                     add_rings -nets {VDD VSS} -around user_defined -user_defined_region $new_coordinates \
                         -type block_rings \
                         -layer {top M7 bottom M7 left M8 right M8} \
-                        -width {top 1.8 bottom 1.8 left 1.8 right 1.8} \
+                        -width [list top $partition_rings_size bottom $partition_rings_size left $partition_rings_size right $partition_rings_size] \
                         -spacing {top 1.8 bottom 1.8 left 1.8 right 1.8} \
                         -offset {top 1.8 bottom 1.8 left 1.8 right 1.8} \
                         -center 0 -threshold 0 -jog_distance 0 -snap_wire_center_to_grid none
                 }
 
-                if { $i == 1 && $j == 0 && ($k+1) != 1 && ($k+1) != 2 && ($k+1) != 3 && ($k+1) != 4 && ($k+1) != 5 && ($k+1) != 6 } {
+                if { $i == 1 && $j == 0 && ($k+1) != 1 && ($k+1) != 2 && ($k+1) != 3 && ($k+1) != 4 } {
                     set x1 [expr {$x_length * $i + $x_margin + $seq_width}]
                     set y1 [expr {$y_length * $j + $y_margin + $swb_router_height + $resource_height * $k}]
                     set x2 [expr {$x1 + $resource_width}]
@@ -270,13 +283,13 @@ for {set i 0} {$i < $columns} {incr i} {
                     add_rings -nets {VDD VSS} -around user_defined -user_defined_region $new_coordinates \
                         -type block_rings \
                         -layer {top M7 bottom M7 left M8 right M8} \
-                        -width {top 1.8 bottom 1.8 left 1.8 right 1.8} \
+                        -width [list top $partition_rings_size bottom $partition_rings_size left $partition_rings_size right $partition_rings_size] \
                         -spacing {top 1.8 bottom 1.8 left 1.8 right 1.8} \
                         -offset {top 1.8 bottom 1.8 left 1.8 right 1.8} \
                         -center 0 -threshold 0 -jog_distance 0 -snap_wire_center_to_grid none
                 }
 
-                if { $i == 2 && $j == 0 && ($k+1) != 1 && ($k+1) != 2 && ($k+1) != 3 && ($k+1) != 4 && ($k+1) != 5 && ($k+1) != 6 } {
+                if { $i == 2 && $j == 0 && ($k+1) != 1 && ($k+1) != 2 && ($k+1) != 3 && ($k+1) != 4 } {
                     set x1 [expr {$x_length * $i + $x_margin + $seq_width}]
                     set y1 [expr {$y_length * $j + $y_margin + $swb_router_height + $resource_height * $k}]
                     set x2 [expr {$x1 + $resource_width}]
@@ -298,7 +311,7 @@ for {set i 0} {$i < $columns} {incr i} {
                     add_rings -nets {VDD VSS} -around user_defined -user_defined_region $new_coordinates \
                         -type block_rings \
                         -layer {top M7 bottom M7 left M8 right M8} \
-                        -width {top 1.8 bottom 1.8 left 1.8 right 1.8} \
+                        -width [list top $partition_rings_size bottom $partition_rings_size left $partition_rings_size right $partition_rings_size] \
                         -spacing {top 1.8 bottom 1.8 left 1.8 right 1.8} \
                         -offset {top 1.8 bottom 1.8 left 1.8 right 1.8} \
                         -center 0 -threshold 0 -jog_distance 0 -snap_wire_center_to_grid none
@@ -326,7 +339,7 @@ for {set i 0} {$i < $columns} {incr i} {
                 add_rings -nets {VDD VSS} -around user_defined -user_defined_region $new_coordinates \
                     -type block_rings \
                     -layer {top M7 bottom M7 left M8 right M8} \
-                    -width {top 1.8 bottom 1.8 left 1.8 right 1.8} \
+                    -width [list top $partition_rings_size bottom $partition_rings_size left $partition_rings_size right $partition_rings_size] \
                     -spacing {top 1.8 bottom 1.8 left 1.8 right 1.8} \
                     -offset {top 1.8 bottom 1.8 left 1.8 right 1.8} \
                     -center 0 -threshold 0 -jog_distance 0 -snap_wire_center_to_grid none
@@ -341,7 +354,7 @@ for {set i 0} {$i < $columns} {incr i} {
 set x1 [expr {$x_length * 0 + $x_margin + $seq_width}]
 set y1 [expr {$y_length * 2 + $y_margin + $swb_router_height + $resource_height * 0}]
 set x2 [expr {$x1 + $resource_width}]
-set y2 [expr {$y1 + $resource_height * 6}]
+set y2 [expr {$y1 + $resource_height * 4}]
 set coordinates [list \
     $x1 $y1 \
     $x2 $y1 \
@@ -359,7 +372,7 @@ set new_coordinates [list \
 add_rings -nets {VDD VSS} -around user_defined -user_defined_region $new_coordinates \
     -type block_rings \
     -layer {top M7 bottom M7 left M8 right M8} \
-    -width {top 1.8 bottom 1.8 left 1.8 right 1.8} \
+    -width [list top $partition_rings_size bottom $partition_rings_size left $partition_rings_size right $partition_rings_size] \
     -spacing {top 1.8 bottom 1.8 left 1.8 right 1.8} \
     -offset {top 1.8 bottom 1.8 left 1.8 right 1.8} \
     -center 0 -threshold 0 -jog_distance 0 -snap_wire_center_to_grid none
@@ -367,7 +380,7 @@ add_rings -nets {VDD VSS} -around user_defined -user_defined_region $new_coordin
 set x1 [expr {$x_length * 1 + $x_margin + $seq_width}]
 set y1 [expr {$y_length * 2 + $y_margin + $swb_router_height + $resource_height * 0}]
 set x2 [expr {$x1 + $resource_width}]
-set y2 [expr {$y1 + $resource_height * 6}]
+set y2 [expr {$y1 + $resource_height * 4}]
 set coordinates [list \
     $x1 $y1 \
     $x2 $y1 \
@@ -385,7 +398,7 @@ set new_coordinates [list \
 add_rings -nets {VDD VSS} -around user_defined -user_defined_region $new_coordinates \
     -type block_rings \
     -layer {top M7 bottom M7 left M8 right M8} \
-    -width {top 1.8 bottom 1.8 left 1.8 right 1.8} \
+    -width [list top $partition_rings_size bottom $partition_rings_size left $partition_rings_size right $partition_rings_size] \
     -spacing {top 1.8 bottom 1.8 left 1.8 right 1.8} \
     -offset {top 1.8 bottom 1.8 left 1.8 right 1.8} \
     -center 0 -threshold 0 -jog_distance 0 -snap_wire_center_to_grid none
@@ -393,7 +406,7 @@ add_rings -nets {VDD VSS} -around user_defined -user_defined_region $new_coordin
 set x1 [expr {$x_length * 2 + $x_margin + $seq_width}]
 set y1 [expr {$y_length * 2 + $y_margin + $swb_router_height + $resource_height * 0}]
 set x2 [expr {$x1 + $resource_width}]
-set y2 [expr {$y1 + $resource_height * 6}]
+set y2 [expr {$y1 + $resource_height * 4}]
 set coordinates [list \
     $x1 $y1 \
     $x2 $y1 \
@@ -411,7 +424,7 @@ set new_coordinates [list \
 add_rings -nets {VDD VSS} -around user_defined -user_defined_region $new_coordinates \
     -type block_rings \
     -layer {top M7 bottom M7 left M8 right M8} \
-    -width {top 1.8 bottom 1.8 left 1.8 right 1.8} \
+    -width [list top $partition_rings_size bottom $partition_rings_size left $partition_rings_size right $partition_rings_size] \
     -spacing {top 1.8 bottom 1.8 left 1.8 right 1.8} \
     -offset {top 1.8 bottom 1.8 left 1.8 right 1.8} \
     -center 0 -threshold 0 -jog_distance 0 -snap_wire_center_to_grid none
@@ -419,7 +432,7 @@ add_rings -nets {VDD VSS} -around user_defined -user_defined_region $new_coordin
 set x1 [expr {$x_length * 0 + $x_margin + $seq_width}]
 set y1 [expr {$y_length * 0 + $y_margin + $swb_router_height + $resource_height * 0}]
 set x2 [expr {$x1 + $resource_width}]
-set y2 [expr {$y1 + $resource_height * 6}]
+set y2 [expr {$y1 + $resource_height * 4}]
 set coordinates [list \
     $x1 $y1 \
     $x2 $y1 \
@@ -437,7 +450,7 @@ set new_coordinates [list \
 add_rings -nets {VDD VSS} -around user_defined -user_defined_region $new_coordinates \
     -type block_rings \
     -layer {top M7 bottom M7 left M8 right M8} \
-    -width {top 1.8 bottom 1.8 left 1.8 right 1.8} \
+    -width [list top $partition_rings_size bottom $partition_rings_size left $partition_rings_size right $partition_rings_size] \
     -spacing {top 1.8 bottom 1.8 left 1.8 right 1.8} \
     -offset {top 1.8 bottom 1.8 left 1.8 right 1.8} \
     -center 0 -threshold 0 -jog_distance 0 -snap_wire_center_to_grid none
@@ -445,7 +458,7 @@ add_rings -nets {VDD VSS} -around user_defined -user_defined_region $new_coordin
 set x1 [expr {$x_length * 1 + $x_margin + $seq_width}]
 set y1 [expr {$y_length * 0 + $y_margin + $swb_router_height + $resource_height * 0}]
 set x2 [expr {$x1 + $resource_width}]
-set y2 [expr {$y1 + $resource_height * 6}]
+set y2 [expr {$y1 + $resource_height * 4}]
 set coordinates [list \
     $x1 $y1 \
     $x2 $y1 \
@@ -463,7 +476,7 @@ set new_coordinates [list \
 add_rings -nets {VDD VSS} -around user_defined -user_defined_region $new_coordinates \
     -type block_rings \
     -layer {top M7 bottom M7 left M8 right M8} \
-    -width {top 1.8 bottom 1.8 left 1.8 right 1.8} \
+    -width [list top $partition_rings_size bottom $partition_rings_size left $partition_rings_size right $partition_rings_size] \
     -spacing {top 1.8 bottom 1.8 left 1.8 right 1.8} \
     -offset {top 1.8 bottom 1.8 left 1.8 right 1.8} \
     -center 0 -threshold 0 -jog_distance 0 -snap_wire_center_to_grid none
@@ -471,7 +484,7 @@ add_rings -nets {VDD VSS} -around user_defined -user_defined_region $new_coordin
 set x1 [expr {$x_length * 2 + $x_margin + $seq_width}]
 set y1 [expr {$y_length * 0 + $y_margin + $swb_router_height + $resource_height * 0}]
 set x2 [expr {$x1 + $resource_width}]
-set y2 [expr {$y1 + $resource_height * 6}]
+set y2 [expr {$y1 + $resource_height * 4}]
 set coordinates [list \
     $x1 $y1 \
     $x2 $y1 \
@@ -489,7 +502,7 @@ set new_coordinates [list \
 add_rings -nets {VDD VSS} -around user_defined -user_defined_region $new_coordinates \
     -type block_rings \
     -layer {top M7 bottom M7 left M8 right M8} \
-    -width {top 1.8 bottom 1.8 left 1.8 right 1.8} \
+    -width [list top $partition_rings_size bottom $partition_rings_size left $partition_rings_size right $partition_rings_size] \
     -spacing {top 1.8 bottom 1.8 left 1.8 right 1.8} \
     -offset {top 1.8 bottom 1.8 left 1.8 right 1.8} \
     -center 0 -threshold 0 -jog_distance 0 -snap_wire_center_to_grid none
@@ -497,7 +510,7 @@ add_rings -nets {VDD VSS} -around user_defined -user_defined_region $new_coordin
 
 
 #rings around macros
-add_rings -nets {VDD VSS} -type block_rings -around each_block -layer {top M5 bottom M5 left M6 right M6} -width {top 2 bottom 2 left 2 right 2} -spacing {top 1.5 bottom 1.5 left 1.5 right 1.5} -offset {top 2 bottom 2 left 2 right 2} -center 0 -threshold 0 -jog_distance 0 -snap_wire_center_to_grid none
+add_rings -nets {VDD VSS} -type block_rings -around each_block -layer {top M5 bottom M5 left M6 right M6} -width [list top $macro_rings_size bottom $macro_rings_size left $macro_rings_size right $macro_rings_size] -spacing {top 1.5 bottom 1.5 left 1.5 right 1.5} -offset {top 2 bottom 2 left 2 right 2} -center 0 -threshold 0 -jog_distance 0 -snap_wire_center_to_grid none
 
 
 
@@ -508,381 +521,841 @@ route_special -nets {VDD VSS} -connect {block_pin} -block_pin all -block_pin_tar
 
 
 
-#stripes to macros
+#stripes for partitions with macros
 
 #stripes to macros in cell row 2, col 0, slot 1
 
 #vertical to macro num 0
 set_db add_stripes_ignore_block_check false ; set_db add_stripes_break_at {  block_ring  outside_ringmacro  } ; set_db add_stripes_route_over_rows_only false ; set_db add_stripes_rows_without_stripes_only false ; set_db add_stripes_extend_to_closest_target none ; set_db add_stripes_stop_at_last_wire_for_area true ; set_db add_stripes_partial_set_through_domain false ; set_db add_stripes_ignore_non_default_domains false ; set_db add_stripes_trim_antenna_back_to_shape block_ring ; set_db add_stripes_spacing_type edge_to_edge ; set_db add_stripes_spacing_from_block 0 ; set_db add_stripes_stripe_min_length stripe_width ; set_db add_stripes_stacked_via_top_layer AP ; set_db add_stripes_stacked_via_bottom_layer M1 ; set_db add_stripes_via_using_exact_crossover_size false ; set_db add_stripes_split_vias false ; set_db add_stripes_orthogonal_only true ; set_db add_stripes_allow_jog { padcore_ring  block_ring } ; set_db add_stripes_skip_via_on_pin {  standardcell } ; set_db add_stripes_skip_via_on_wire_shape {  noshape   }
-set x1 [expr {$x_margin + $seq_width + $x_sram_macro + $x_length * 0}]
-set y1 [expr {$y_margin + $swb_router_height  + $resource_height * 0 + $y_length * 2}]
 set macro_width [get_db inst:cell_0_0_inst/resource_1_inst/sram_inst/sram_256x64.sram_macro_0 .bbox.width]
-set x2 [expr {$x1 + $macro_width}]
-set y2 [expr {$y1 + $resource_height * 6}]
-set prev_end [expr {$x2}]
+set x1 [expr {$x_margin + $seq_width + $x_sram_macro + $macro_width/2 + $x_length * 0}]
+set y1 [expr {$y_margin + $swb_router_height  + $resource_height * 0 + $y_length * 2}]
+set x2 [expr {$x1 + $x_offset*2}]
+set y2 [expr {$y1 + $resource_height * 4}]
+set prev_end [expr {$x1 + $macro_width/2}]
 set area_stripe [list \
     $x1 $y1 \
     $x2 $y1 \
     $x2 $y2 \
     $x1 $y2]
-add_stripes -nets {VDD VSS} -layer M8 -direction vertical -width 1.8 -spacing 1.8 -number_of_sets 3 -area $area_stripe -start_from left -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
+add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width 2.5 -spacing 1.8 -number_of_sets 1 -area $area_stripe -start_from left -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
 
 #vertical stripe between macro 1 and 2
 set_db add_stripes_ignore_block_check false ; set_db add_stripes_break_at {  block_ring  outside_ringmacro  } ; set_db add_stripes_route_over_rows_only false ; set_db add_stripes_rows_without_stripes_only false ; set_db add_stripes_extend_to_closest_target none ; set_db add_stripes_stop_at_last_wire_for_area true ; set_db add_stripes_partial_set_through_domain false ; set_db add_stripes_ignore_non_default_domains false ; set_db add_stripes_trim_antenna_back_to_shape block_ring ; set_db add_stripes_spacing_type edge_to_edge ; set_db add_stripes_spacing_from_block 0 ; set_db add_stripes_stripe_min_length stripe_width ; set_db add_stripes_stacked_via_top_layer AP ; set_db add_stripes_stacked_via_bottom_layer M1 ; set_db add_stripes_via_using_exact_crossover_size false ; set_db add_stripes_split_vias false ; set_db add_stripes_orthogonal_only true ; set_db add_stripes_allow_jog { padcore_ring  block_ring } ; set_db add_stripes_skip_via_on_pin {  standardcell } ; set_db add_stripes_skip_via_on_wire_shape {  noshape   }
 set x1 [expr {$prev_end}]
 set y1 [expr {$y_margin + $swb_router_height  + $resource_height * 0 + $y_length * 2}]
 set x2 [expr {$x1 + $distance_sram_macros}]
-set y2 [expr {$y1 + $resource_height * 6}]
+set y2 [expr {$y1 + $resource_height * 4}]
 set area_stripe [list \
     $x1 $y1 \
     $x2 $y1 \
     $x2 $y2 \
     $x1 $y2]
-add_stripes -nets {VDD VSS} -layer M8 -direction vertical -width 1.8 -spacing 1.8 -number_of_sets 1 -area $area_stripe -start_from left -start_offset [expr {$distance_sram_macros/2}] -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
+add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width 2.5 -spacing 1.8 -number_of_sets 1 -area $area_stripe -start_from left -start_offset [expr {$distance_sram_macros/2 - 3.4}] -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
 
 #vertical to macro num 1
 set_db add_stripes_ignore_block_check false ; set_db add_stripes_break_at {  block_ring  outside_ringmacro  } ; set_db add_stripes_route_over_rows_only false ; set_db add_stripes_rows_without_stripes_only false ; set_db add_stripes_extend_to_closest_target none ; set_db add_stripes_stop_at_last_wire_for_area true ; set_db add_stripes_partial_set_through_domain false ; set_db add_stripes_ignore_non_default_domains false ; set_db add_stripes_trim_antenna_back_to_shape block_ring ; set_db add_stripes_spacing_type edge_to_edge ; set_db add_stripes_spacing_from_block 0 ; set_db add_stripes_stripe_min_length stripe_width ; set_db add_stripes_stacked_via_top_layer AP ; set_db add_stripes_stacked_via_bottom_layer M1 ; set_db add_stripes_via_using_exact_crossover_size false ; set_db add_stripes_split_vias false ; set_db add_stripes_orthogonal_only true ; set_db add_stripes_allow_jog { padcore_ring  block_ring } ; set_db add_stripes_skip_via_on_pin {  standardcell } ; set_db add_stripes_skip_via_on_wire_shape {  noshape   }
-set x1 [expr {$prev_end + $distance_sram_macros}]
-set y1 [expr {$y_margin + $swb_router_height  + $resource_height * 0 + $y_length * 2}]
 set macro_width [get_db inst:cell_0_0_inst/resource_1_inst/sram_inst/sram_256x64.sram_macro_1 .bbox.width]
-set x2 [expr {$x1 + $macro_width}]
-set y2 [expr {$y1 + $resource_height * 6}]
-set prev_end [expr {$x2}]
+set x1 [expr {$prev_end + $distance_sram_macros + $macro_width/2}]
+set y1 [expr {$y_margin + $swb_router_height  + $resource_height * 0 + $y_length * 2}]
+set x2 [expr {$x1 + $x_offset*2}]
+set y2 [expr {$y1 + $resource_height * 4}]
+set prev_end [expr {$x1 + $macro_width/2}]
 set area_stripe [list \
     $x1 $y1 \
     $x2 $y1 \
     $x2 $y2 \
     $x1 $y2]
-add_stripes -nets {VDD VSS} -layer M8 -direction vertical -width 1.8 -spacing 1.8 -number_of_sets 3 -area $area_stripe -start_from left -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
+add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width 2.5 -spacing 1.8 -number_of_sets 1 -area $area_stripe -start_from left -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
+
+#vertical stripe between macro 2 and 3
+set_db add_stripes_ignore_block_check false ; set_db add_stripes_break_at {  block_ring  outside_ringmacro  } ; set_db add_stripes_route_over_rows_only false ; set_db add_stripes_rows_without_stripes_only false ; set_db add_stripes_extend_to_closest_target none ; set_db add_stripes_stop_at_last_wire_for_area true ; set_db add_stripes_partial_set_through_domain false ; set_db add_stripes_ignore_non_default_domains false ; set_db add_stripes_trim_antenna_back_to_shape block_ring ; set_db add_stripes_spacing_type edge_to_edge ; set_db add_stripes_spacing_from_block 0 ; set_db add_stripes_stripe_min_length stripe_width ; set_db add_stripes_stacked_via_top_layer AP ; set_db add_stripes_stacked_via_bottom_layer M1 ; set_db add_stripes_via_using_exact_crossover_size false ; set_db add_stripes_split_vias false ; set_db add_stripes_orthogonal_only true ; set_db add_stripes_allow_jog { padcore_ring  block_ring } ; set_db add_stripes_skip_via_on_pin {  standardcell } ; set_db add_stripes_skip_via_on_wire_shape {  noshape   }
+set x1 [expr {$prev_end}]
+set y1 [expr {$y_margin + $swb_router_height  + $resource_height * 0 + $y_length * 2}]
+set x2 [expr {$x1 + $distance_sram_macros}]
+set y2 [expr {$y1 + $resource_height * 4}]
+set area_stripe [list \
+    $x1 $y1 \
+    $x2 $y1 \
+    $x2 $y2 \
+    $x1 $y2]
+add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width 2.5 -spacing 1.8 -number_of_sets 1 -area $area_stripe -start_from left -start_offset [expr {$distance_sram_macros/2 - 3.4}] -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
+
+#vertical to macro num 2
+set_db add_stripes_ignore_block_check false ; set_db add_stripes_break_at {  block_ring  outside_ringmacro  } ; set_db add_stripes_route_over_rows_only false ; set_db add_stripes_rows_without_stripes_only false ; set_db add_stripes_extend_to_closest_target none ; set_db add_stripes_stop_at_last_wire_for_area true ; set_db add_stripes_partial_set_through_domain false ; set_db add_stripes_ignore_non_default_domains false ; set_db add_stripes_trim_antenna_back_to_shape block_ring ; set_db add_stripes_spacing_type edge_to_edge ; set_db add_stripes_spacing_from_block 0 ; set_db add_stripes_stripe_min_length stripe_width ; set_db add_stripes_stacked_via_top_layer AP ; set_db add_stripes_stacked_via_bottom_layer M1 ; set_db add_stripes_via_using_exact_crossover_size false ; set_db add_stripes_split_vias false ; set_db add_stripes_orthogonal_only true ; set_db add_stripes_allow_jog { padcore_ring  block_ring } ; set_db add_stripes_skip_via_on_pin {  standardcell } ; set_db add_stripes_skip_via_on_wire_shape {  noshape   }
+set macro_width [get_db inst:cell_0_0_inst/resource_1_inst/sram_inst/sram_256x64.sram_macro_2 .bbox.width]
+set x1 [expr {$prev_end + $distance_sram_macros + $macro_width/2}]
+set y1 [expr {$y_margin + $swb_router_height  + $resource_height * 0 + $y_length * 2}]
+set x2 [expr {$x1 + $x_offset*2}]
+set y2 [expr {$y1 + $resource_height * 4}]
+set prev_end [expr {$x1 + $macro_width/2}]
+set area_stripe [list \
+    $x1 $y1 \
+    $x2 $y1 \
+    $x2 $y2 \
+    $x1 $y2]
+add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width 2.5 -spacing 1.8 -number_of_sets 1 -area $area_stripe -start_from left -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
+
+#vertical stripe between macro 3 and 4
+set_db add_stripes_ignore_block_check false ; set_db add_stripes_break_at {  block_ring  outside_ringmacro  } ; set_db add_stripes_route_over_rows_only false ; set_db add_stripes_rows_without_stripes_only false ; set_db add_stripes_extend_to_closest_target none ; set_db add_stripes_stop_at_last_wire_for_area true ; set_db add_stripes_partial_set_through_domain false ; set_db add_stripes_ignore_non_default_domains false ; set_db add_stripes_trim_antenna_back_to_shape block_ring ; set_db add_stripes_spacing_type edge_to_edge ; set_db add_stripes_spacing_from_block 0 ; set_db add_stripes_stripe_min_length stripe_width ; set_db add_stripes_stacked_via_top_layer AP ; set_db add_stripes_stacked_via_bottom_layer M1 ; set_db add_stripes_via_using_exact_crossover_size false ; set_db add_stripes_split_vias false ; set_db add_stripes_orthogonal_only true ; set_db add_stripes_allow_jog { padcore_ring  block_ring } ; set_db add_stripes_skip_via_on_pin {  standardcell } ; set_db add_stripes_skip_via_on_wire_shape {  noshape   }
+set x1 [expr {$prev_end}]
+set y1 [expr {$y_margin + $swb_router_height  + $resource_height * 0 + $y_length * 2}]
+set x2 [expr {$x1 + $distance_sram_macros}]
+set y2 [expr {$y1 + $resource_height * 4}]
+set area_stripe [list \
+    $x1 $y1 \
+    $x2 $y1 \
+    $x2 $y2 \
+    $x1 $y2]
+add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width 2.5 -spacing 1.8 -number_of_sets 1 -area $area_stripe -start_from left -start_offset [expr {$distance_sram_macros/2 - 3.4}] -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
+
+#vertical to macro num 3
+set_db add_stripes_ignore_block_check false ; set_db add_stripes_break_at {  block_ring  outside_ringmacro  } ; set_db add_stripes_route_over_rows_only false ; set_db add_stripes_rows_without_stripes_only false ; set_db add_stripes_extend_to_closest_target none ; set_db add_stripes_stop_at_last_wire_for_area true ; set_db add_stripes_partial_set_through_domain false ; set_db add_stripes_ignore_non_default_domains false ; set_db add_stripes_trim_antenna_back_to_shape block_ring ; set_db add_stripes_spacing_type edge_to_edge ; set_db add_stripes_spacing_from_block 0 ; set_db add_stripes_stripe_min_length stripe_width ; set_db add_stripes_stacked_via_top_layer AP ; set_db add_stripes_stacked_via_bottom_layer M1 ; set_db add_stripes_via_using_exact_crossover_size false ; set_db add_stripes_split_vias false ; set_db add_stripes_orthogonal_only true ; set_db add_stripes_allow_jog { padcore_ring  block_ring } ; set_db add_stripes_skip_via_on_pin {  standardcell } ; set_db add_stripes_skip_via_on_wire_shape {  noshape   }
+set macro_width [get_db inst:cell_0_0_inst/resource_1_inst/sram_inst/sram_256x64.sram_macro_3 .bbox.width]
+set x1 [expr {$prev_end + $distance_sram_macros + $macro_width/2}]
+set y1 [expr {$y_margin + $swb_router_height  + $resource_height * 0 + $y_length * 2}]
+set x2 [expr {$x1 + $x_offset*2}]
+set y2 [expr {$y1 + $resource_height * 4}]
+set prev_end [expr {$x1 + $macro_width/2}]
+set area_stripe [list \
+    $x1 $y1 \
+    $x2 $y1 \
+    $x2 $y2 \
+    $x1 $y2]
+add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width 2.5 -spacing 1.8 -number_of_sets 1 -area $area_stripe -start_from left -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
 
 #stripes to macros in cell row 2, col 1, slot 1
 
 #vertical to macro num 0
 set_db add_stripes_ignore_block_check false ; set_db add_stripes_break_at {  block_ring  outside_ringmacro  } ; set_db add_stripes_route_over_rows_only false ; set_db add_stripes_rows_without_stripes_only false ; set_db add_stripes_extend_to_closest_target none ; set_db add_stripes_stop_at_last_wire_for_area true ; set_db add_stripes_partial_set_through_domain false ; set_db add_stripes_ignore_non_default_domains false ; set_db add_stripes_trim_antenna_back_to_shape block_ring ; set_db add_stripes_spacing_type edge_to_edge ; set_db add_stripes_spacing_from_block 0 ; set_db add_stripes_stripe_min_length stripe_width ; set_db add_stripes_stacked_via_top_layer AP ; set_db add_stripes_stacked_via_bottom_layer M1 ; set_db add_stripes_via_using_exact_crossover_size false ; set_db add_stripes_split_vias false ; set_db add_stripes_orthogonal_only true ; set_db add_stripes_allow_jog { padcore_ring  block_ring } ; set_db add_stripes_skip_via_on_pin {  standardcell } ; set_db add_stripes_skip_via_on_wire_shape {  noshape   }
-set x1 [expr {$x_margin + $seq_width + $x_sram_macro + $x_length * 1}]
-set y1 [expr {$y_margin + $swb_router_height  + $resource_height * 0 + $y_length * 2}]
 set macro_width [get_db inst:cell_0_1_inst/resource_1_inst/sram_inst/sram_256x64.sram_macro_0 .bbox.width]
-set x2 [expr {$x1 + $macro_width}]
-set y2 [expr {$y1 + $resource_height * 6}]
-set prev_end [expr {$x2}]
+set x1 [expr {$x_margin + $seq_width + $x_sram_macro + $macro_width/2 + $x_length * 1}]
+set y1 [expr {$y_margin + $swb_router_height  + $resource_height * 0 + $y_length * 2}]
+set x2 [expr {$x1 + $x_offset*2}]
+set y2 [expr {$y1 + $resource_height * 4}]
+set prev_end [expr {$x1 + $macro_width/2}]
 set area_stripe [list \
     $x1 $y1 \
     $x2 $y1 \
     $x2 $y2 \
     $x1 $y2]
-add_stripes -nets {VDD VSS} -layer M8 -direction vertical -width 1.8 -spacing 1.8 -number_of_sets 3 -area $area_stripe -start_from left -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
+add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width 2.5 -spacing 1.8 -number_of_sets 1 -area $area_stripe -start_from left -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
 
 #vertical stripe between macro 1 and 2
 set_db add_stripes_ignore_block_check false ; set_db add_stripes_break_at {  block_ring  outside_ringmacro  } ; set_db add_stripes_route_over_rows_only false ; set_db add_stripes_rows_without_stripes_only false ; set_db add_stripes_extend_to_closest_target none ; set_db add_stripes_stop_at_last_wire_for_area true ; set_db add_stripes_partial_set_through_domain false ; set_db add_stripes_ignore_non_default_domains false ; set_db add_stripes_trim_antenna_back_to_shape block_ring ; set_db add_stripes_spacing_type edge_to_edge ; set_db add_stripes_spacing_from_block 0 ; set_db add_stripes_stripe_min_length stripe_width ; set_db add_stripes_stacked_via_top_layer AP ; set_db add_stripes_stacked_via_bottom_layer M1 ; set_db add_stripes_via_using_exact_crossover_size false ; set_db add_stripes_split_vias false ; set_db add_stripes_orthogonal_only true ; set_db add_stripes_allow_jog { padcore_ring  block_ring } ; set_db add_stripes_skip_via_on_pin {  standardcell } ; set_db add_stripes_skip_via_on_wire_shape {  noshape   }
 set x1 [expr {$prev_end}]
 set y1 [expr {$y_margin + $swb_router_height  + $resource_height * 0 + $y_length * 2}]
 set x2 [expr {$x1 + $distance_sram_macros}]
-set y2 [expr {$y1 + $resource_height * 6}]
+set y2 [expr {$y1 + $resource_height * 4}]
 set area_stripe [list \
     $x1 $y1 \
     $x2 $y1 \
     $x2 $y2 \
     $x1 $y2]
-add_stripes -nets {VDD VSS} -layer M8 -direction vertical -width 1.8 -spacing 1.8 -number_of_sets 1 -area $area_stripe -start_from left -start_offset [expr {$distance_sram_macros/2}] -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
+add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width 2.5 -spacing 1.8 -number_of_sets 1 -area $area_stripe -start_from left -start_offset [expr {$distance_sram_macros/2 - 3.4}] -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
 
 #vertical to macro num 1
 set_db add_stripes_ignore_block_check false ; set_db add_stripes_break_at {  block_ring  outside_ringmacro  } ; set_db add_stripes_route_over_rows_only false ; set_db add_stripes_rows_without_stripes_only false ; set_db add_stripes_extend_to_closest_target none ; set_db add_stripes_stop_at_last_wire_for_area true ; set_db add_stripes_partial_set_through_domain false ; set_db add_stripes_ignore_non_default_domains false ; set_db add_stripes_trim_antenna_back_to_shape block_ring ; set_db add_stripes_spacing_type edge_to_edge ; set_db add_stripes_spacing_from_block 0 ; set_db add_stripes_stripe_min_length stripe_width ; set_db add_stripes_stacked_via_top_layer AP ; set_db add_stripes_stacked_via_bottom_layer M1 ; set_db add_stripes_via_using_exact_crossover_size false ; set_db add_stripes_split_vias false ; set_db add_stripes_orthogonal_only true ; set_db add_stripes_allow_jog { padcore_ring  block_ring } ; set_db add_stripes_skip_via_on_pin {  standardcell } ; set_db add_stripes_skip_via_on_wire_shape {  noshape   }
-set x1 [expr {$prev_end + $distance_sram_macros}]
-set y1 [expr {$y_margin + $swb_router_height  + $resource_height * 0 + $y_length * 2}]
 set macro_width [get_db inst:cell_0_1_inst/resource_1_inst/sram_inst/sram_256x64.sram_macro_1 .bbox.width]
-set x2 [expr {$x1 + $macro_width}]
-set y2 [expr {$y1 + $resource_height * 6}]
-set prev_end [expr {$x2}]
+set x1 [expr {$prev_end + $distance_sram_macros + $macro_width/2}]
+set y1 [expr {$y_margin + $swb_router_height  + $resource_height * 0 + $y_length * 2}]
+set x2 [expr {$x1 + $x_offset*2}]
+set y2 [expr {$y1 + $resource_height * 4}]
+set prev_end [expr {$x1 + $macro_width/2}]
 set area_stripe [list \
     $x1 $y1 \
     $x2 $y1 \
     $x2 $y2 \
     $x1 $y2]
-add_stripes -nets {VDD VSS} -layer M8 -direction vertical -width 1.8 -spacing 1.8 -number_of_sets 3 -area $area_stripe -start_from left -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
+add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width 2.5 -spacing 1.8 -number_of_sets 1 -area $area_stripe -start_from left -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
+
+#vertical stripe between macro 2 and 3
+set_db add_stripes_ignore_block_check false ; set_db add_stripes_break_at {  block_ring  outside_ringmacro  } ; set_db add_stripes_route_over_rows_only false ; set_db add_stripes_rows_without_stripes_only false ; set_db add_stripes_extend_to_closest_target none ; set_db add_stripes_stop_at_last_wire_for_area true ; set_db add_stripes_partial_set_through_domain false ; set_db add_stripes_ignore_non_default_domains false ; set_db add_stripes_trim_antenna_back_to_shape block_ring ; set_db add_stripes_spacing_type edge_to_edge ; set_db add_stripes_spacing_from_block 0 ; set_db add_stripes_stripe_min_length stripe_width ; set_db add_stripes_stacked_via_top_layer AP ; set_db add_stripes_stacked_via_bottom_layer M1 ; set_db add_stripes_via_using_exact_crossover_size false ; set_db add_stripes_split_vias false ; set_db add_stripes_orthogonal_only true ; set_db add_stripes_allow_jog { padcore_ring  block_ring } ; set_db add_stripes_skip_via_on_pin {  standardcell } ; set_db add_stripes_skip_via_on_wire_shape {  noshape   }
+set x1 [expr {$prev_end}]
+set y1 [expr {$y_margin + $swb_router_height  + $resource_height * 0 + $y_length * 2}]
+set x2 [expr {$x1 + $distance_sram_macros}]
+set y2 [expr {$y1 + $resource_height * 4}]
+set area_stripe [list \
+    $x1 $y1 \
+    $x2 $y1 \
+    $x2 $y2 \
+    $x1 $y2]
+add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width 2.5 -spacing 1.8 -number_of_sets 1 -area $area_stripe -start_from left -start_offset [expr {$distance_sram_macros/2 - 3.4}] -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
+
+#vertical to macro num 2
+set_db add_stripes_ignore_block_check false ; set_db add_stripes_break_at {  block_ring  outside_ringmacro  } ; set_db add_stripes_route_over_rows_only false ; set_db add_stripes_rows_without_stripes_only false ; set_db add_stripes_extend_to_closest_target none ; set_db add_stripes_stop_at_last_wire_for_area true ; set_db add_stripes_partial_set_through_domain false ; set_db add_stripes_ignore_non_default_domains false ; set_db add_stripes_trim_antenna_back_to_shape block_ring ; set_db add_stripes_spacing_type edge_to_edge ; set_db add_stripes_spacing_from_block 0 ; set_db add_stripes_stripe_min_length stripe_width ; set_db add_stripes_stacked_via_top_layer AP ; set_db add_stripes_stacked_via_bottom_layer M1 ; set_db add_stripes_via_using_exact_crossover_size false ; set_db add_stripes_split_vias false ; set_db add_stripes_orthogonal_only true ; set_db add_stripes_allow_jog { padcore_ring  block_ring } ; set_db add_stripes_skip_via_on_pin {  standardcell } ; set_db add_stripes_skip_via_on_wire_shape {  noshape   }
+set macro_width [get_db inst:cell_0_1_inst/resource_1_inst/sram_inst/sram_256x64.sram_macro_2 .bbox.width]
+set x1 [expr {$prev_end + $distance_sram_macros + $macro_width/2}]
+set y1 [expr {$y_margin + $swb_router_height  + $resource_height * 0 + $y_length * 2}]
+set x2 [expr {$x1 + $x_offset*2}]
+set y2 [expr {$y1 + $resource_height * 4}]
+set prev_end [expr {$x1 + $macro_width/2}]
+set area_stripe [list \
+    $x1 $y1 \
+    $x2 $y1 \
+    $x2 $y2 \
+    $x1 $y2]
+add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width 2.5 -spacing 1.8 -number_of_sets 1 -area $area_stripe -start_from left -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
+
+#vertical stripe between macro 3 and 4
+set_db add_stripes_ignore_block_check false ; set_db add_stripes_break_at {  block_ring  outside_ringmacro  } ; set_db add_stripes_route_over_rows_only false ; set_db add_stripes_rows_without_stripes_only false ; set_db add_stripes_extend_to_closest_target none ; set_db add_stripes_stop_at_last_wire_for_area true ; set_db add_stripes_partial_set_through_domain false ; set_db add_stripes_ignore_non_default_domains false ; set_db add_stripes_trim_antenna_back_to_shape block_ring ; set_db add_stripes_spacing_type edge_to_edge ; set_db add_stripes_spacing_from_block 0 ; set_db add_stripes_stripe_min_length stripe_width ; set_db add_stripes_stacked_via_top_layer AP ; set_db add_stripes_stacked_via_bottom_layer M1 ; set_db add_stripes_via_using_exact_crossover_size false ; set_db add_stripes_split_vias false ; set_db add_stripes_orthogonal_only true ; set_db add_stripes_allow_jog { padcore_ring  block_ring } ; set_db add_stripes_skip_via_on_pin {  standardcell } ; set_db add_stripes_skip_via_on_wire_shape {  noshape   }
+set x1 [expr {$prev_end}]
+set y1 [expr {$y_margin + $swb_router_height  + $resource_height * 0 + $y_length * 2}]
+set x2 [expr {$x1 + $distance_sram_macros}]
+set y2 [expr {$y1 + $resource_height * 4}]
+set area_stripe [list \
+    $x1 $y1 \
+    $x2 $y1 \
+    $x2 $y2 \
+    $x1 $y2]
+add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width 2.5 -spacing 1.8 -number_of_sets 1 -area $area_stripe -start_from left -start_offset [expr {$distance_sram_macros/2 - 3.4}] -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
+
+#vertical to macro num 3
+set_db add_stripes_ignore_block_check false ; set_db add_stripes_break_at {  block_ring  outside_ringmacro  } ; set_db add_stripes_route_over_rows_only false ; set_db add_stripes_rows_without_stripes_only false ; set_db add_stripes_extend_to_closest_target none ; set_db add_stripes_stop_at_last_wire_for_area true ; set_db add_stripes_partial_set_through_domain false ; set_db add_stripes_ignore_non_default_domains false ; set_db add_stripes_trim_antenna_back_to_shape block_ring ; set_db add_stripes_spacing_type edge_to_edge ; set_db add_stripes_spacing_from_block 0 ; set_db add_stripes_stripe_min_length stripe_width ; set_db add_stripes_stacked_via_top_layer AP ; set_db add_stripes_stacked_via_bottom_layer M1 ; set_db add_stripes_via_using_exact_crossover_size false ; set_db add_stripes_split_vias false ; set_db add_stripes_orthogonal_only true ; set_db add_stripes_allow_jog { padcore_ring  block_ring } ; set_db add_stripes_skip_via_on_pin {  standardcell } ; set_db add_stripes_skip_via_on_wire_shape {  noshape   }
+set macro_width [get_db inst:cell_0_1_inst/resource_1_inst/sram_inst/sram_256x64.sram_macro_3 .bbox.width]
+set x1 [expr {$prev_end + $distance_sram_macros + $macro_width/2}]
+set y1 [expr {$y_margin + $swb_router_height  + $resource_height * 0 + $y_length * 2}]
+set x2 [expr {$x1 + $x_offset*2}]
+set y2 [expr {$y1 + $resource_height * 4}]
+set prev_end [expr {$x1 + $macro_width/2}]
+set area_stripe [list \
+    $x1 $y1 \
+    $x2 $y1 \
+    $x2 $y2 \
+    $x1 $y2]
+add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width 2.5 -spacing 1.8 -number_of_sets 1 -area $area_stripe -start_from left -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
 
 #stripes to macros in cell row 2, col 2, slot 1
 
 #vertical to macro num 0
 set_db add_stripes_ignore_block_check false ; set_db add_stripes_break_at {  block_ring  outside_ringmacro  } ; set_db add_stripes_route_over_rows_only false ; set_db add_stripes_rows_without_stripes_only false ; set_db add_stripes_extend_to_closest_target none ; set_db add_stripes_stop_at_last_wire_for_area true ; set_db add_stripes_partial_set_through_domain false ; set_db add_stripes_ignore_non_default_domains false ; set_db add_stripes_trim_antenna_back_to_shape block_ring ; set_db add_stripes_spacing_type edge_to_edge ; set_db add_stripes_spacing_from_block 0 ; set_db add_stripes_stripe_min_length stripe_width ; set_db add_stripes_stacked_via_top_layer AP ; set_db add_stripes_stacked_via_bottom_layer M1 ; set_db add_stripes_via_using_exact_crossover_size false ; set_db add_stripes_split_vias false ; set_db add_stripes_orthogonal_only true ; set_db add_stripes_allow_jog { padcore_ring  block_ring } ; set_db add_stripes_skip_via_on_pin {  standardcell } ; set_db add_stripes_skip_via_on_wire_shape {  noshape   }
-set x1 [expr {$x_margin + $seq_width + $x_sram_macro + $x_length * 2}]
-set y1 [expr {$y_margin + $swb_router_height  + $resource_height * 0 + $y_length * 2}]
 set macro_width [get_db inst:cell_0_2_inst/resource_1_inst/sram_inst/sram_256x64.sram_macro_0 .bbox.width]
-set x2 [expr {$x1 + $macro_width}]
-set y2 [expr {$y1 + $resource_height * 6}]
-set prev_end [expr {$x2}]
+set x1 [expr {$x_margin + $seq_width + $x_sram_macro + $macro_width/2 + $x_length * 2}]
+set y1 [expr {$y_margin + $swb_router_height  + $resource_height * 0 + $y_length * 2}]
+set x2 [expr {$x1 + $x_offset*2}]
+set y2 [expr {$y1 + $resource_height * 4}]
+set prev_end [expr {$x1 + $macro_width/2}]
 set area_stripe [list \
     $x1 $y1 \
     $x2 $y1 \
     $x2 $y2 \
     $x1 $y2]
-add_stripes -nets {VDD VSS} -layer M8 -direction vertical -width 1.8 -spacing 1.8 -number_of_sets 3 -area $area_stripe -start_from left -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
+add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width 2.5 -spacing 1.8 -number_of_sets 1 -area $area_stripe -start_from left -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
 
 #vertical stripe between macro 1 and 2
 set_db add_stripes_ignore_block_check false ; set_db add_stripes_break_at {  block_ring  outside_ringmacro  } ; set_db add_stripes_route_over_rows_only false ; set_db add_stripes_rows_without_stripes_only false ; set_db add_stripes_extend_to_closest_target none ; set_db add_stripes_stop_at_last_wire_for_area true ; set_db add_stripes_partial_set_through_domain false ; set_db add_stripes_ignore_non_default_domains false ; set_db add_stripes_trim_antenna_back_to_shape block_ring ; set_db add_stripes_spacing_type edge_to_edge ; set_db add_stripes_spacing_from_block 0 ; set_db add_stripes_stripe_min_length stripe_width ; set_db add_stripes_stacked_via_top_layer AP ; set_db add_stripes_stacked_via_bottom_layer M1 ; set_db add_stripes_via_using_exact_crossover_size false ; set_db add_stripes_split_vias false ; set_db add_stripes_orthogonal_only true ; set_db add_stripes_allow_jog { padcore_ring  block_ring } ; set_db add_stripes_skip_via_on_pin {  standardcell } ; set_db add_stripes_skip_via_on_wire_shape {  noshape   }
 set x1 [expr {$prev_end}]
 set y1 [expr {$y_margin + $swb_router_height  + $resource_height * 0 + $y_length * 2}]
 set x2 [expr {$x1 + $distance_sram_macros}]
-set y2 [expr {$y1 + $resource_height * 6}]
+set y2 [expr {$y1 + $resource_height * 4}]
 set area_stripe [list \
     $x1 $y1 \
     $x2 $y1 \
     $x2 $y2 \
     $x1 $y2]
-add_stripes -nets {VDD VSS} -layer M8 -direction vertical -width 1.8 -spacing 1.8 -number_of_sets 1 -area $area_stripe -start_from left -start_offset [expr {$distance_sram_macros/2}] -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
+add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width 2.5 -spacing 1.8 -number_of_sets 1 -area $area_stripe -start_from left -start_offset [expr {$distance_sram_macros/2 - 3.4}] -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
 
 #vertical to macro num 1
 set_db add_stripes_ignore_block_check false ; set_db add_stripes_break_at {  block_ring  outside_ringmacro  } ; set_db add_stripes_route_over_rows_only false ; set_db add_stripes_rows_without_stripes_only false ; set_db add_stripes_extend_to_closest_target none ; set_db add_stripes_stop_at_last_wire_for_area true ; set_db add_stripes_partial_set_through_domain false ; set_db add_stripes_ignore_non_default_domains false ; set_db add_stripes_trim_antenna_back_to_shape block_ring ; set_db add_stripes_spacing_type edge_to_edge ; set_db add_stripes_spacing_from_block 0 ; set_db add_stripes_stripe_min_length stripe_width ; set_db add_stripes_stacked_via_top_layer AP ; set_db add_stripes_stacked_via_bottom_layer M1 ; set_db add_stripes_via_using_exact_crossover_size false ; set_db add_stripes_split_vias false ; set_db add_stripes_orthogonal_only true ; set_db add_stripes_allow_jog { padcore_ring  block_ring } ; set_db add_stripes_skip_via_on_pin {  standardcell } ; set_db add_stripes_skip_via_on_wire_shape {  noshape   }
-set x1 [expr {$prev_end + $distance_sram_macros}]
-set y1 [expr {$y_margin + $swb_router_height  + $resource_height * 0 + $y_length * 2}]
 set macro_width [get_db inst:cell_0_2_inst/resource_1_inst/sram_inst/sram_256x64.sram_macro_1 .bbox.width]
-set x2 [expr {$x1 + $macro_width}]
-set y2 [expr {$y1 + $resource_height * 6}]
-set prev_end [expr {$x2}]
+set x1 [expr {$prev_end + $distance_sram_macros + $macro_width/2}]
+set y1 [expr {$y_margin + $swb_router_height  + $resource_height * 0 + $y_length * 2}]
+set x2 [expr {$x1 + $x_offset*2}]
+set y2 [expr {$y1 + $resource_height * 4}]
+set prev_end [expr {$x1 + $macro_width/2}]
 set area_stripe [list \
     $x1 $y1 \
     $x2 $y1 \
     $x2 $y2 \
     $x1 $y2]
-add_stripes -nets {VDD VSS} -layer M8 -direction vertical -width 1.8 -spacing 1.8 -number_of_sets 3 -area $area_stripe -start_from left -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
+add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width 2.5 -spacing 1.8 -number_of_sets 1 -area $area_stripe -start_from left -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
+
+#vertical stripe between macro 2 and 3
+set_db add_stripes_ignore_block_check false ; set_db add_stripes_break_at {  block_ring  outside_ringmacro  } ; set_db add_stripes_route_over_rows_only false ; set_db add_stripes_rows_without_stripes_only false ; set_db add_stripes_extend_to_closest_target none ; set_db add_stripes_stop_at_last_wire_for_area true ; set_db add_stripes_partial_set_through_domain false ; set_db add_stripes_ignore_non_default_domains false ; set_db add_stripes_trim_antenna_back_to_shape block_ring ; set_db add_stripes_spacing_type edge_to_edge ; set_db add_stripes_spacing_from_block 0 ; set_db add_stripes_stripe_min_length stripe_width ; set_db add_stripes_stacked_via_top_layer AP ; set_db add_stripes_stacked_via_bottom_layer M1 ; set_db add_stripes_via_using_exact_crossover_size false ; set_db add_stripes_split_vias false ; set_db add_stripes_orthogonal_only true ; set_db add_stripes_allow_jog { padcore_ring  block_ring } ; set_db add_stripes_skip_via_on_pin {  standardcell } ; set_db add_stripes_skip_via_on_wire_shape {  noshape   }
+set x1 [expr {$prev_end}]
+set y1 [expr {$y_margin + $swb_router_height  + $resource_height * 0 + $y_length * 2}]
+set x2 [expr {$x1 + $distance_sram_macros}]
+set y2 [expr {$y1 + $resource_height * 4}]
+set area_stripe [list \
+    $x1 $y1 \
+    $x2 $y1 \
+    $x2 $y2 \
+    $x1 $y2]
+add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width 2.5 -spacing 1.8 -number_of_sets 1 -area $area_stripe -start_from left -start_offset [expr {$distance_sram_macros/2 - 3.4}] -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
+
+#vertical to macro num 2
+set_db add_stripes_ignore_block_check false ; set_db add_stripes_break_at {  block_ring  outside_ringmacro  } ; set_db add_stripes_route_over_rows_only false ; set_db add_stripes_rows_without_stripes_only false ; set_db add_stripes_extend_to_closest_target none ; set_db add_stripes_stop_at_last_wire_for_area true ; set_db add_stripes_partial_set_through_domain false ; set_db add_stripes_ignore_non_default_domains false ; set_db add_stripes_trim_antenna_back_to_shape block_ring ; set_db add_stripes_spacing_type edge_to_edge ; set_db add_stripes_spacing_from_block 0 ; set_db add_stripes_stripe_min_length stripe_width ; set_db add_stripes_stacked_via_top_layer AP ; set_db add_stripes_stacked_via_bottom_layer M1 ; set_db add_stripes_via_using_exact_crossover_size false ; set_db add_stripes_split_vias false ; set_db add_stripes_orthogonal_only true ; set_db add_stripes_allow_jog { padcore_ring  block_ring } ; set_db add_stripes_skip_via_on_pin {  standardcell } ; set_db add_stripes_skip_via_on_wire_shape {  noshape   }
+set macro_width [get_db inst:cell_0_2_inst/resource_1_inst/sram_inst/sram_256x64.sram_macro_2 .bbox.width]
+set x1 [expr {$prev_end + $distance_sram_macros + $macro_width/2}]
+set y1 [expr {$y_margin + $swb_router_height  + $resource_height * 0 + $y_length * 2}]
+set x2 [expr {$x1 + $x_offset*2}]
+set y2 [expr {$y1 + $resource_height * 4}]
+set prev_end [expr {$x1 + $macro_width/2}]
+set area_stripe [list \
+    $x1 $y1 \
+    $x2 $y1 \
+    $x2 $y2 \
+    $x1 $y2]
+add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width 2.5 -spacing 1.8 -number_of_sets 1 -area $area_stripe -start_from left -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
+
+#vertical stripe between macro 3 and 4
+set_db add_stripes_ignore_block_check false ; set_db add_stripes_break_at {  block_ring  outside_ringmacro  } ; set_db add_stripes_route_over_rows_only false ; set_db add_stripes_rows_without_stripes_only false ; set_db add_stripes_extend_to_closest_target none ; set_db add_stripes_stop_at_last_wire_for_area true ; set_db add_stripes_partial_set_through_domain false ; set_db add_stripes_ignore_non_default_domains false ; set_db add_stripes_trim_antenna_back_to_shape block_ring ; set_db add_stripes_spacing_type edge_to_edge ; set_db add_stripes_spacing_from_block 0 ; set_db add_stripes_stripe_min_length stripe_width ; set_db add_stripes_stacked_via_top_layer AP ; set_db add_stripes_stacked_via_bottom_layer M1 ; set_db add_stripes_via_using_exact_crossover_size false ; set_db add_stripes_split_vias false ; set_db add_stripes_orthogonal_only true ; set_db add_stripes_allow_jog { padcore_ring  block_ring } ; set_db add_stripes_skip_via_on_pin {  standardcell } ; set_db add_stripes_skip_via_on_wire_shape {  noshape   }
+set x1 [expr {$prev_end}]
+set y1 [expr {$y_margin + $swb_router_height  + $resource_height * 0 + $y_length * 2}]
+set x2 [expr {$x1 + $distance_sram_macros}]
+set y2 [expr {$y1 + $resource_height * 4}]
+set area_stripe [list \
+    $x1 $y1 \
+    $x2 $y1 \
+    $x2 $y2 \
+    $x1 $y2]
+add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width 2.5 -spacing 1.8 -number_of_sets 1 -area $area_stripe -start_from left -start_offset [expr {$distance_sram_macros/2 - 3.4}] -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
+
+#vertical to macro num 3
+set_db add_stripes_ignore_block_check false ; set_db add_stripes_break_at {  block_ring  outside_ringmacro  } ; set_db add_stripes_route_over_rows_only false ; set_db add_stripes_rows_without_stripes_only false ; set_db add_stripes_extend_to_closest_target none ; set_db add_stripes_stop_at_last_wire_for_area true ; set_db add_stripes_partial_set_through_domain false ; set_db add_stripes_ignore_non_default_domains false ; set_db add_stripes_trim_antenna_back_to_shape block_ring ; set_db add_stripes_spacing_type edge_to_edge ; set_db add_stripes_spacing_from_block 0 ; set_db add_stripes_stripe_min_length stripe_width ; set_db add_stripes_stacked_via_top_layer AP ; set_db add_stripes_stacked_via_bottom_layer M1 ; set_db add_stripes_via_using_exact_crossover_size false ; set_db add_stripes_split_vias false ; set_db add_stripes_orthogonal_only true ; set_db add_stripes_allow_jog { padcore_ring  block_ring } ; set_db add_stripes_skip_via_on_pin {  standardcell } ; set_db add_stripes_skip_via_on_wire_shape {  noshape   }
+set macro_width [get_db inst:cell_0_2_inst/resource_1_inst/sram_inst/sram_256x64.sram_macro_3 .bbox.width]
+set x1 [expr {$prev_end + $distance_sram_macros + $macro_width/2}]
+set y1 [expr {$y_margin + $swb_router_height  + $resource_height * 0 + $y_length * 2}]
+set x2 [expr {$x1 + $x_offset*2}]
+set y2 [expr {$y1 + $resource_height * 4}]
+set prev_end [expr {$x1 + $macro_width/2}]
+set area_stripe [list \
+    $x1 $y1 \
+    $x2 $y1 \
+    $x2 $y2 \
+    $x1 $y2]
+add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width 2.5 -spacing 1.8 -number_of_sets 1 -area $area_stripe -start_from left -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
 
 #stripes to macros in cell row 0, col 0, slot 1
 
 #vertical to macro num 0
 set_db add_stripes_ignore_block_check false ; set_db add_stripes_break_at {  block_ring  outside_ringmacro  } ; set_db add_stripes_route_over_rows_only false ; set_db add_stripes_rows_without_stripes_only false ; set_db add_stripes_extend_to_closest_target none ; set_db add_stripes_stop_at_last_wire_for_area true ; set_db add_stripes_partial_set_through_domain false ; set_db add_stripes_ignore_non_default_domains false ; set_db add_stripes_trim_antenna_back_to_shape block_ring ; set_db add_stripes_spacing_type edge_to_edge ; set_db add_stripes_spacing_from_block 0 ; set_db add_stripes_stripe_min_length stripe_width ; set_db add_stripes_stacked_via_top_layer AP ; set_db add_stripes_stacked_via_bottom_layer M1 ; set_db add_stripes_via_using_exact_crossover_size false ; set_db add_stripes_split_vias false ; set_db add_stripes_orthogonal_only true ; set_db add_stripes_allow_jog { padcore_ring  block_ring } ; set_db add_stripes_skip_via_on_pin {  standardcell } ; set_db add_stripes_skip_via_on_wire_shape {  noshape   }
-set x1 [expr {$x_margin + $seq_width + $x_sram_macro + $x_length * 0}]
-set y1 [expr {$y_margin + $swb_router_height  + $resource_height * 0 + $y_length * 0}]
 set macro_width [get_db inst:cell_2_0_inst/resource_1_inst/sram_inst/sram_256x64.sram_macro_0 .bbox.width]
-set x2 [expr {$x1 + $macro_width}]
-set y2 [expr {$y1 + $resource_height * 6}]
-set prev_end [expr {$x2}]
+set x1 [expr {$x_margin + $seq_width + $x_sram_macro + $macro_width/2 + $x_length * 0}]
+set y1 [expr {$y_margin + $swb_router_height  + $resource_height * 0 + $y_length * 0}]
+set x2 [expr {$x1 + $x_offset*2}]
+set y2 [expr {$y1 + $resource_height * 4}]
+set prev_end [expr {$x1 + $macro_width/2}]
 set area_stripe [list \
     $x1 $y1 \
     $x2 $y1 \
     $x2 $y2 \
     $x1 $y2]
-add_stripes -nets {VDD VSS} -layer M8 -direction vertical -width 1.8 -spacing 1.8 -number_of_sets 3 -area $area_stripe -start_from left -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
+add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width 2.5 -spacing 1.8 -number_of_sets 1 -area $area_stripe -start_from left -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
 
 #vertical stripe between macro 1 and 2
 set_db add_stripes_ignore_block_check false ; set_db add_stripes_break_at {  block_ring  outside_ringmacro  } ; set_db add_stripes_route_over_rows_only false ; set_db add_stripes_rows_without_stripes_only false ; set_db add_stripes_extend_to_closest_target none ; set_db add_stripes_stop_at_last_wire_for_area true ; set_db add_stripes_partial_set_through_domain false ; set_db add_stripes_ignore_non_default_domains false ; set_db add_stripes_trim_antenna_back_to_shape block_ring ; set_db add_stripes_spacing_type edge_to_edge ; set_db add_stripes_spacing_from_block 0 ; set_db add_stripes_stripe_min_length stripe_width ; set_db add_stripes_stacked_via_top_layer AP ; set_db add_stripes_stacked_via_bottom_layer M1 ; set_db add_stripes_via_using_exact_crossover_size false ; set_db add_stripes_split_vias false ; set_db add_stripes_orthogonal_only true ; set_db add_stripes_allow_jog { padcore_ring  block_ring } ; set_db add_stripes_skip_via_on_pin {  standardcell } ; set_db add_stripes_skip_via_on_wire_shape {  noshape   }
 set x1 [expr {$prev_end}]
 set y1 [expr {$y_margin + $swb_router_height  + $resource_height * 0 + $y_length * 0}]
 set x2 [expr {$x1 + $distance_sram_macros}]
-set y2 [expr {$y1 + $resource_height * 6}]
+set y2 [expr {$y1 + $resource_height * 4}]
 set area_stripe [list \
     $x1 $y1 \
     $x2 $y1 \
     $x2 $y2 \
     $x1 $y2]
-add_stripes -nets {VDD VSS} -layer M8 -direction vertical -width 1.8 -spacing 1.8 -number_of_sets 1 -area $area_stripe -start_from left -start_offset [expr {$distance_sram_macros/2}] -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
+add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width 2.5 -spacing 1.8 -number_of_sets 1 -area $area_stripe -start_from left -start_offset [expr {$distance_sram_macros/2 - 3.4}] -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
 
 #vertical to macro num 1
 set_db add_stripes_ignore_block_check false ; set_db add_stripes_break_at {  block_ring  outside_ringmacro  } ; set_db add_stripes_route_over_rows_only false ; set_db add_stripes_rows_without_stripes_only false ; set_db add_stripes_extend_to_closest_target none ; set_db add_stripes_stop_at_last_wire_for_area true ; set_db add_stripes_partial_set_through_domain false ; set_db add_stripes_ignore_non_default_domains false ; set_db add_stripes_trim_antenna_back_to_shape block_ring ; set_db add_stripes_spacing_type edge_to_edge ; set_db add_stripes_spacing_from_block 0 ; set_db add_stripes_stripe_min_length stripe_width ; set_db add_stripes_stacked_via_top_layer AP ; set_db add_stripes_stacked_via_bottom_layer M1 ; set_db add_stripes_via_using_exact_crossover_size false ; set_db add_stripes_split_vias false ; set_db add_stripes_orthogonal_only true ; set_db add_stripes_allow_jog { padcore_ring  block_ring } ; set_db add_stripes_skip_via_on_pin {  standardcell } ; set_db add_stripes_skip_via_on_wire_shape {  noshape   }
-set x1 [expr {$prev_end + $distance_sram_macros}]
-set y1 [expr {$y_margin + $swb_router_height  + $resource_height * 0 + $y_length * 0}]
 set macro_width [get_db inst:cell_2_0_inst/resource_1_inst/sram_inst/sram_256x64.sram_macro_1 .bbox.width]
-set x2 [expr {$x1 + $macro_width}]
-set y2 [expr {$y1 + $resource_height * 6}]
-set prev_end [expr {$x2}]
+set x1 [expr {$prev_end + $distance_sram_macros + $macro_width/2}]
+set y1 [expr {$y_margin + $swb_router_height  + $resource_height * 0 + $y_length * 0}]
+set x2 [expr {$x1 + $x_offset*2}]
+set y2 [expr {$y1 + $resource_height * 4}]
+set prev_end [expr {$x1 + $macro_width/2}]
 set area_stripe [list \
     $x1 $y1 \
     $x2 $y1 \
     $x2 $y2 \
     $x1 $y2]
-add_stripes -nets {VDD VSS} -layer M8 -direction vertical -width 1.8 -spacing 1.8 -number_of_sets 3 -area $area_stripe -start_from left -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
+add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width 2.5 -spacing 1.8 -number_of_sets 1 -area $area_stripe -start_from left -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
+
+#vertical stripe between macro 2 and 3
+set_db add_stripes_ignore_block_check false ; set_db add_stripes_break_at {  block_ring  outside_ringmacro  } ; set_db add_stripes_route_over_rows_only false ; set_db add_stripes_rows_without_stripes_only false ; set_db add_stripes_extend_to_closest_target none ; set_db add_stripes_stop_at_last_wire_for_area true ; set_db add_stripes_partial_set_through_domain false ; set_db add_stripes_ignore_non_default_domains false ; set_db add_stripes_trim_antenna_back_to_shape block_ring ; set_db add_stripes_spacing_type edge_to_edge ; set_db add_stripes_spacing_from_block 0 ; set_db add_stripes_stripe_min_length stripe_width ; set_db add_stripes_stacked_via_top_layer AP ; set_db add_stripes_stacked_via_bottom_layer M1 ; set_db add_stripes_via_using_exact_crossover_size false ; set_db add_stripes_split_vias false ; set_db add_stripes_orthogonal_only true ; set_db add_stripes_allow_jog { padcore_ring  block_ring } ; set_db add_stripes_skip_via_on_pin {  standardcell } ; set_db add_stripes_skip_via_on_wire_shape {  noshape   }
+set x1 [expr {$prev_end}]
+set y1 [expr {$y_margin + $swb_router_height  + $resource_height * 0 + $y_length * 0}]
+set x2 [expr {$x1 + $distance_sram_macros}]
+set y2 [expr {$y1 + $resource_height * 4}]
+set area_stripe [list \
+    $x1 $y1 \
+    $x2 $y1 \
+    $x2 $y2 \
+    $x1 $y2]
+add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width 2.5 -spacing 1.8 -number_of_sets 1 -area $area_stripe -start_from left -start_offset [expr {$distance_sram_macros/2 - 3.4}] -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
+
+#vertical to macro num 2
+set_db add_stripes_ignore_block_check false ; set_db add_stripes_break_at {  block_ring  outside_ringmacro  } ; set_db add_stripes_route_over_rows_only false ; set_db add_stripes_rows_without_stripes_only false ; set_db add_stripes_extend_to_closest_target none ; set_db add_stripes_stop_at_last_wire_for_area true ; set_db add_stripes_partial_set_through_domain false ; set_db add_stripes_ignore_non_default_domains false ; set_db add_stripes_trim_antenna_back_to_shape block_ring ; set_db add_stripes_spacing_type edge_to_edge ; set_db add_stripes_spacing_from_block 0 ; set_db add_stripes_stripe_min_length stripe_width ; set_db add_stripes_stacked_via_top_layer AP ; set_db add_stripes_stacked_via_bottom_layer M1 ; set_db add_stripes_via_using_exact_crossover_size false ; set_db add_stripes_split_vias false ; set_db add_stripes_orthogonal_only true ; set_db add_stripes_allow_jog { padcore_ring  block_ring } ; set_db add_stripes_skip_via_on_pin {  standardcell } ; set_db add_stripes_skip_via_on_wire_shape {  noshape   }
+set macro_width [get_db inst:cell_2_0_inst/resource_1_inst/sram_inst/sram_256x64.sram_macro_2 .bbox.width]
+set x1 [expr {$prev_end + $distance_sram_macros + $macro_width/2}]
+set y1 [expr {$y_margin + $swb_router_height  + $resource_height * 0 + $y_length * 0}]
+set x2 [expr {$x1 + $x_offset*2}]
+set y2 [expr {$y1 + $resource_height * 4}]
+set prev_end [expr {$x1 + $macro_width/2}]
+set area_stripe [list \
+    $x1 $y1 \
+    $x2 $y1 \
+    $x2 $y2 \
+    $x1 $y2]
+add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width 2.5 -spacing 1.8 -number_of_sets 1 -area $area_stripe -start_from left -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
+
+#vertical stripe between macro 3 and 4
+set_db add_stripes_ignore_block_check false ; set_db add_stripes_break_at {  block_ring  outside_ringmacro  } ; set_db add_stripes_route_over_rows_only false ; set_db add_stripes_rows_without_stripes_only false ; set_db add_stripes_extend_to_closest_target none ; set_db add_stripes_stop_at_last_wire_for_area true ; set_db add_stripes_partial_set_through_domain false ; set_db add_stripes_ignore_non_default_domains false ; set_db add_stripes_trim_antenna_back_to_shape block_ring ; set_db add_stripes_spacing_type edge_to_edge ; set_db add_stripes_spacing_from_block 0 ; set_db add_stripes_stripe_min_length stripe_width ; set_db add_stripes_stacked_via_top_layer AP ; set_db add_stripes_stacked_via_bottom_layer M1 ; set_db add_stripes_via_using_exact_crossover_size false ; set_db add_stripes_split_vias false ; set_db add_stripes_orthogonal_only true ; set_db add_stripes_allow_jog { padcore_ring  block_ring } ; set_db add_stripes_skip_via_on_pin {  standardcell } ; set_db add_stripes_skip_via_on_wire_shape {  noshape   }
+set x1 [expr {$prev_end}]
+set y1 [expr {$y_margin + $swb_router_height  + $resource_height * 0 + $y_length * 0}]
+set x2 [expr {$x1 + $distance_sram_macros}]
+set y2 [expr {$y1 + $resource_height * 4}]
+set area_stripe [list \
+    $x1 $y1 \
+    $x2 $y1 \
+    $x2 $y2 \
+    $x1 $y2]
+add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width 2.5 -spacing 1.8 -number_of_sets 1 -area $area_stripe -start_from left -start_offset [expr {$distance_sram_macros/2 - 3.4}] -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
+
+#vertical to macro num 3
+set_db add_stripes_ignore_block_check false ; set_db add_stripes_break_at {  block_ring  outside_ringmacro  } ; set_db add_stripes_route_over_rows_only false ; set_db add_stripes_rows_without_stripes_only false ; set_db add_stripes_extend_to_closest_target none ; set_db add_stripes_stop_at_last_wire_for_area true ; set_db add_stripes_partial_set_through_domain false ; set_db add_stripes_ignore_non_default_domains false ; set_db add_stripes_trim_antenna_back_to_shape block_ring ; set_db add_stripes_spacing_type edge_to_edge ; set_db add_stripes_spacing_from_block 0 ; set_db add_stripes_stripe_min_length stripe_width ; set_db add_stripes_stacked_via_top_layer AP ; set_db add_stripes_stacked_via_bottom_layer M1 ; set_db add_stripes_via_using_exact_crossover_size false ; set_db add_stripes_split_vias false ; set_db add_stripes_orthogonal_only true ; set_db add_stripes_allow_jog { padcore_ring  block_ring } ; set_db add_stripes_skip_via_on_pin {  standardcell } ; set_db add_stripes_skip_via_on_wire_shape {  noshape   }
+set macro_width [get_db inst:cell_2_0_inst/resource_1_inst/sram_inst/sram_256x64.sram_macro_3 .bbox.width]
+set x1 [expr {$prev_end + $distance_sram_macros + $macro_width/2}]
+set y1 [expr {$y_margin + $swb_router_height  + $resource_height * 0 + $y_length * 0}]
+set x2 [expr {$x1 + $x_offset*2}]
+set y2 [expr {$y1 + $resource_height * 4}]
+set prev_end [expr {$x1 + $macro_width/2}]
+set area_stripe [list \
+    $x1 $y1 \
+    $x2 $y1 \
+    $x2 $y2 \
+    $x1 $y2]
+add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width 2.5 -spacing 1.8 -number_of_sets 1 -area $area_stripe -start_from left -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
 
 #stripes to macros in cell row 0, col 1, slot 1
 
 #vertical to macro num 0
 set_db add_stripes_ignore_block_check false ; set_db add_stripes_break_at {  block_ring  outside_ringmacro  } ; set_db add_stripes_route_over_rows_only false ; set_db add_stripes_rows_without_stripes_only false ; set_db add_stripes_extend_to_closest_target none ; set_db add_stripes_stop_at_last_wire_for_area true ; set_db add_stripes_partial_set_through_domain false ; set_db add_stripes_ignore_non_default_domains false ; set_db add_stripes_trim_antenna_back_to_shape block_ring ; set_db add_stripes_spacing_type edge_to_edge ; set_db add_stripes_spacing_from_block 0 ; set_db add_stripes_stripe_min_length stripe_width ; set_db add_stripes_stacked_via_top_layer AP ; set_db add_stripes_stacked_via_bottom_layer M1 ; set_db add_stripes_via_using_exact_crossover_size false ; set_db add_stripes_split_vias false ; set_db add_stripes_orthogonal_only true ; set_db add_stripes_allow_jog { padcore_ring  block_ring } ; set_db add_stripes_skip_via_on_pin {  standardcell } ; set_db add_stripes_skip_via_on_wire_shape {  noshape   }
-set x1 [expr {$x_margin + $seq_width + $x_sram_macro + $x_length * 1}]
-set y1 [expr {$y_margin + $swb_router_height  + $resource_height * 0 + $y_length * 0}]
 set macro_width [get_db inst:cell_2_1_inst/resource_1_inst/sram_inst/sram_256x64.sram_macro_0 .bbox.width]
-set x2 [expr {$x1 + $macro_width}]
-set y2 [expr {$y1 + $resource_height * 6}]
-set prev_end [expr {$x2}]
+set x1 [expr {$x_margin + $seq_width + $x_sram_macro + $macro_width/2 + $x_length * 1}]
+set y1 [expr {$y_margin + $swb_router_height  + $resource_height * 0 + $y_length * 0}]
+set x2 [expr {$x1 + $x_offset*2}]
+set y2 [expr {$y1 + $resource_height * 4}]
+set prev_end [expr {$x1 + $macro_width/2}]
 set area_stripe [list \
     $x1 $y1 \
     $x2 $y1 \
     $x2 $y2 \
     $x1 $y2]
-add_stripes -nets {VDD VSS} -layer M8 -direction vertical -width 1.8 -spacing 1.8 -number_of_sets 3 -area $area_stripe -start_from left -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
+add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width 2.5 -spacing 1.8 -number_of_sets 1 -area $area_stripe -start_from left -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
 
 #vertical stripe between macro 1 and 2
 set_db add_stripes_ignore_block_check false ; set_db add_stripes_break_at {  block_ring  outside_ringmacro  } ; set_db add_stripes_route_over_rows_only false ; set_db add_stripes_rows_without_stripes_only false ; set_db add_stripes_extend_to_closest_target none ; set_db add_stripes_stop_at_last_wire_for_area true ; set_db add_stripes_partial_set_through_domain false ; set_db add_stripes_ignore_non_default_domains false ; set_db add_stripes_trim_antenna_back_to_shape block_ring ; set_db add_stripes_spacing_type edge_to_edge ; set_db add_stripes_spacing_from_block 0 ; set_db add_stripes_stripe_min_length stripe_width ; set_db add_stripes_stacked_via_top_layer AP ; set_db add_stripes_stacked_via_bottom_layer M1 ; set_db add_stripes_via_using_exact_crossover_size false ; set_db add_stripes_split_vias false ; set_db add_stripes_orthogonal_only true ; set_db add_stripes_allow_jog { padcore_ring  block_ring } ; set_db add_stripes_skip_via_on_pin {  standardcell } ; set_db add_stripes_skip_via_on_wire_shape {  noshape   }
 set x1 [expr {$prev_end}]
 set y1 [expr {$y_margin + $swb_router_height  + $resource_height * 0 + $y_length * 0}]
 set x2 [expr {$x1 + $distance_sram_macros}]
-set y2 [expr {$y1 + $resource_height * 6}]
+set y2 [expr {$y1 + $resource_height * 4}]
 set area_stripe [list \
     $x1 $y1 \
     $x2 $y1 \
     $x2 $y2 \
     $x1 $y2]
-add_stripes -nets {VDD VSS} -layer M8 -direction vertical -width 1.8 -spacing 1.8 -number_of_sets 1 -area $area_stripe -start_from left -start_offset [expr {$distance_sram_macros/2}] -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
+add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width 2.5 -spacing 1.8 -number_of_sets 1 -area $area_stripe -start_from left -start_offset [expr {$distance_sram_macros/2 - 3.4}] -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
 
 #vertical to macro num 1
 set_db add_stripes_ignore_block_check false ; set_db add_stripes_break_at {  block_ring  outside_ringmacro  } ; set_db add_stripes_route_over_rows_only false ; set_db add_stripes_rows_without_stripes_only false ; set_db add_stripes_extend_to_closest_target none ; set_db add_stripes_stop_at_last_wire_for_area true ; set_db add_stripes_partial_set_through_domain false ; set_db add_stripes_ignore_non_default_domains false ; set_db add_stripes_trim_antenna_back_to_shape block_ring ; set_db add_stripes_spacing_type edge_to_edge ; set_db add_stripes_spacing_from_block 0 ; set_db add_stripes_stripe_min_length stripe_width ; set_db add_stripes_stacked_via_top_layer AP ; set_db add_stripes_stacked_via_bottom_layer M1 ; set_db add_stripes_via_using_exact_crossover_size false ; set_db add_stripes_split_vias false ; set_db add_stripes_orthogonal_only true ; set_db add_stripes_allow_jog { padcore_ring  block_ring } ; set_db add_stripes_skip_via_on_pin {  standardcell } ; set_db add_stripes_skip_via_on_wire_shape {  noshape   }
-set x1 [expr {$prev_end + $distance_sram_macros}]
-set y1 [expr {$y_margin + $swb_router_height  + $resource_height * 0 + $y_length * 0}]
 set macro_width [get_db inst:cell_2_1_inst/resource_1_inst/sram_inst/sram_256x64.sram_macro_1 .bbox.width]
-set x2 [expr {$x1 + $macro_width}]
-set y2 [expr {$y1 + $resource_height * 6}]
-set prev_end [expr {$x2}]
+set x1 [expr {$prev_end + $distance_sram_macros + $macro_width/2}]
+set y1 [expr {$y_margin + $swb_router_height  + $resource_height * 0 + $y_length * 0}]
+set x2 [expr {$x1 + $x_offset*2}]
+set y2 [expr {$y1 + $resource_height * 4}]
+set prev_end [expr {$x1 + $macro_width/2}]
 set area_stripe [list \
     $x1 $y1 \
     $x2 $y1 \
     $x2 $y2 \
     $x1 $y2]
-add_stripes -nets {VDD VSS} -layer M8 -direction vertical -width 1.8 -spacing 1.8 -number_of_sets 3 -area $area_stripe -start_from left -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
+add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width 2.5 -spacing 1.8 -number_of_sets 1 -area $area_stripe -start_from left -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
+
+#vertical stripe between macro 2 and 3
+set_db add_stripes_ignore_block_check false ; set_db add_stripes_break_at {  block_ring  outside_ringmacro  } ; set_db add_stripes_route_over_rows_only false ; set_db add_stripes_rows_without_stripes_only false ; set_db add_stripes_extend_to_closest_target none ; set_db add_stripes_stop_at_last_wire_for_area true ; set_db add_stripes_partial_set_through_domain false ; set_db add_stripes_ignore_non_default_domains false ; set_db add_stripes_trim_antenna_back_to_shape block_ring ; set_db add_stripes_spacing_type edge_to_edge ; set_db add_stripes_spacing_from_block 0 ; set_db add_stripes_stripe_min_length stripe_width ; set_db add_stripes_stacked_via_top_layer AP ; set_db add_stripes_stacked_via_bottom_layer M1 ; set_db add_stripes_via_using_exact_crossover_size false ; set_db add_stripes_split_vias false ; set_db add_stripes_orthogonal_only true ; set_db add_stripes_allow_jog { padcore_ring  block_ring } ; set_db add_stripes_skip_via_on_pin {  standardcell } ; set_db add_stripes_skip_via_on_wire_shape {  noshape   }
+set x1 [expr {$prev_end}]
+set y1 [expr {$y_margin + $swb_router_height  + $resource_height * 0 + $y_length * 0}]
+set x2 [expr {$x1 + $distance_sram_macros}]
+set y2 [expr {$y1 + $resource_height * 4}]
+set area_stripe [list \
+    $x1 $y1 \
+    $x2 $y1 \
+    $x2 $y2 \
+    $x1 $y2]
+add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width 2.5 -spacing 1.8 -number_of_sets 1 -area $area_stripe -start_from left -start_offset [expr {$distance_sram_macros/2 - 3.4}] -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
+
+#vertical to macro num 2
+set_db add_stripes_ignore_block_check false ; set_db add_stripes_break_at {  block_ring  outside_ringmacro  } ; set_db add_stripes_route_over_rows_only false ; set_db add_stripes_rows_without_stripes_only false ; set_db add_stripes_extend_to_closest_target none ; set_db add_stripes_stop_at_last_wire_for_area true ; set_db add_stripes_partial_set_through_domain false ; set_db add_stripes_ignore_non_default_domains false ; set_db add_stripes_trim_antenna_back_to_shape block_ring ; set_db add_stripes_spacing_type edge_to_edge ; set_db add_stripes_spacing_from_block 0 ; set_db add_stripes_stripe_min_length stripe_width ; set_db add_stripes_stacked_via_top_layer AP ; set_db add_stripes_stacked_via_bottom_layer M1 ; set_db add_stripes_via_using_exact_crossover_size false ; set_db add_stripes_split_vias false ; set_db add_stripes_orthogonal_only true ; set_db add_stripes_allow_jog { padcore_ring  block_ring } ; set_db add_stripes_skip_via_on_pin {  standardcell } ; set_db add_stripes_skip_via_on_wire_shape {  noshape   }
+set macro_width [get_db inst:cell_2_1_inst/resource_1_inst/sram_inst/sram_256x64.sram_macro_2 .bbox.width]
+set x1 [expr {$prev_end + $distance_sram_macros + $macro_width/2}]
+set y1 [expr {$y_margin + $swb_router_height  + $resource_height * 0 + $y_length * 0}]
+set x2 [expr {$x1 + $x_offset*2}]
+set y2 [expr {$y1 + $resource_height * 4}]
+set prev_end [expr {$x1 + $macro_width/2}]
+set area_stripe [list \
+    $x1 $y1 \
+    $x2 $y1 \
+    $x2 $y2 \
+    $x1 $y2]
+add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width 2.5 -spacing 1.8 -number_of_sets 1 -area $area_stripe -start_from left -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
+
+#vertical stripe between macro 3 and 4
+set_db add_stripes_ignore_block_check false ; set_db add_stripes_break_at {  block_ring  outside_ringmacro  } ; set_db add_stripes_route_over_rows_only false ; set_db add_stripes_rows_without_stripes_only false ; set_db add_stripes_extend_to_closest_target none ; set_db add_stripes_stop_at_last_wire_for_area true ; set_db add_stripes_partial_set_through_domain false ; set_db add_stripes_ignore_non_default_domains false ; set_db add_stripes_trim_antenna_back_to_shape block_ring ; set_db add_stripes_spacing_type edge_to_edge ; set_db add_stripes_spacing_from_block 0 ; set_db add_stripes_stripe_min_length stripe_width ; set_db add_stripes_stacked_via_top_layer AP ; set_db add_stripes_stacked_via_bottom_layer M1 ; set_db add_stripes_via_using_exact_crossover_size false ; set_db add_stripes_split_vias false ; set_db add_stripes_orthogonal_only true ; set_db add_stripes_allow_jog { padcore_ring  block_ring } ; set_db add_stripes_skip_via_on_pin {  standardcell } ; set_db add_stripes_skip_via_on_wire_shape {  noshape   }
+set x1 [expr {$prev_end}]
+set y1 [expr {$y_margin + $swb_router_height  + $resource_height * 0 + $y_length * 0}]
+set x2 [expr {$x1 + $distance_sram_macros}]
+set y2 [expr {$y1 + $resource_height * 4}]
+set area_stripe [list \
+    $x1 $y1 \
+    $x2 $y1 \
+    $x2 $y2 \
+    $x1 $y2]
+add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width 2.5 -spacing 1.8 -number_of_sets 1 -area $area_stripe -start_from left -start_offset [expr {$distance_sram_macros/2 - 3.4}] -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
+
+#vertical to macro num 3
+set_db add_stripes_ignore_block_check false ; set_db add_stripes_break_at {  block_ring  outside_ringmacro  } ; set_db add_stripes_route_over_rows_only false ; set_db add_stripes_rows_without_stripes_only false ; set_db add_stripes_extend_to_closest_target none ; set_db add_stripes_stop_at_last_wire_for_area true ; set_db add_stripes_partial_set_through_domain false ; set_db add_stripes_ignore_non_default_domains false ; set_db add_stripes_trim_antenna_back_to_shape block_ring ; set_db add_stripes_spacing_type edge_to_edge ; set_db add_stripes_spacing_from_block 0 ; set_db add_stripes_stripe_min_length stripe_width ; set_db add_stripes_stacked_via_top_layer AP ; set_db add_stripes_stacked_via_bottom_layer M1 ; set_db add_stripes_via_using_exact_crossover_size false ; set_db add_stripes_split_vias false ; set_db add_stripes_orthogonal_only true ; set_db add_stripes_allow_jog { padcore_ring  block_ring } ; set_db add_stripes_skip_via_on_pin {  standardcell } ; set_db add_stripes_skip_via_on_wire_shape {  noshape   }
+set macro_width [get_db inst:cell_2_1_inst/resource_1_inst/sram_inst/sram_256x64.sram_macro_3 .bbox.width]
+set x1 [expr {$prev_end + $distance_sram_macros + $macro_width/2}]
+set y1 [expr {$y_margin + $swb_router_height  + $resource_height * 0 + $y_length * 0}]
+set x2 [expr {$x1 + $x_offset*2}]
+set y2 [expr {$y1 + $resource_height * 4}]
+set prev_end [expr {$x1 + $macro_width/2}]
+set area_stripe [list \
+    $x1 $y1 \
+    $x2 $y1 \
+    $x2 $y2 \
+    $x1 $y2]
+add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width 2.5 -spacing 1.8 -number_of_sets 1 -area $area_stripe -start_from left -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
 
 #stripes to macros in cell row 0, col 2, slot 1
 
 #vertical to macro num 0
 set_db add_stripes_ignore_block_check false ; set_db add_stripes_break_at {  block_ring  outside_ringmacro  } ; set_db add_stripes_route_over_rows_only false ; set_db add_stripes_rows_without_stripes_only false ; set_db add_stripes_extend_to_closest_target none ; set_db add_stripes_stop_at_last_wire_for_area true ; set_db add_stripes_partial_set_through_domain false ; set_db add_stripes_ignore_non_default_domains false ; set_db add_stripes_trim_antenna_back_to_shape block_ring ; set_db add_stripes_spacing_type edge_to_edge ; set_db add_stripes_spacing_from_block 0 ; set_db add_stripes_stripe_min_length stripe_width ; set_db add_stripes_stacked_via_top_layer AP ; set_db add_stripes_stacked_via_bottom_layer M1 ; set_db add_stripes_via_using_exact_crossover_size false ; set_db add_stripes_split_vias false ; set_db add_stripes_orthogonal_only true ; set_db add_stripes_allow_jog { padcore_ring  block_ring } ; set_db add_stripes_skip_via_on_pin {  standardcell } ; set_db add_stripes_skip_via_on_wire_shape {  noshape   }
-set x1 [expr {$x_margin + $seq_width + $x_sram_macro + $x_length * 2}]
-set y1 [expr {$y_margin + $swb_router_height  + $resource_height * 0 + $y_length * 0}]
 set macro_width [get_db inst:cell_2_2_inst/resource_1_inst/sram_inst/sram_256x64.sram_macro_0 .bbox.width]
-set x2 [expr {$x1 + $macro_width}]
-set y2 [expr {$y1 + $resource_height * 6}]
-set prev_end [expr {$x2}]
+set x1 [expr {$x_margin + $seq_width + $x_sram_macro + $macro_width/2 + $x_length * 2}]
+set y1 [expr {$y_margin + $swb_router_height  + $resource_height * 0 + $y_length * 0}]
+set x2 [expr {$x1 + $x_offset*2}]
+set y2 [expr {$y1 + $resource_height * 4}]
+set prev_end [expr {$x1 + $macro_width/2}]
 set area_stripe [list \
     $x1 $y1 \
     $x2 $y1 \
     $x2 $y2 \
     $x1 $y2]
-add_stripes -nets {VDD VSS} -layer M8 -direction vertical -width 1.8 -spacing 1.8 -number_of_sets 3 -area $area_stripe -start_from left -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
+add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width 2.5 -spacing 1.8 -number_of_sets 1 -area $area_stripe -start_from left -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
 
 #vertical stripe between macro 1 and 2
 set_db add_stripes_ignore_block_check false ; set_db add_stripes_break_at {  block_ring  outside_ringmacro  } ; set_db add_stripes_route_over_rows_only false ; set_db add_stripes_rows_without_stripes_only false ; set_db add_stripes_extend_to_closest_target none ; set_db add_stripes_stop_at_last_wire_for_area true ; set_db add_stripes_partial_set_through_domain false ; set_db add_stripes_ignore_non_default_domains false ; set_db add_stripes_trim_antenna_back_to_shape block_ring ; set_db add_stripes_spacing_type edge_to_edge ; set_db add_stripes_spacing_from_block 0 ; set_db add_stripes_stripe_min_length stripe_width ; set_db add_stripes_stacked_via_top_layer AP ; set_db add_stripes_stacked_via_bottom_layer M1 ; set_db add_stripes_via_using_exact_crossover_size false ; set_db add_stripes_split_vias false ; set_db add_stripes_orthogonal_only true ; set_db add_stripes_allow_jog { padcore_ring  block_ring } ; set_db add_stripes_skip_via_on_pin {  standardcell } ; set_db add_stripes_skip_via_on_wire_shape {  noshape   }
 set x1 [expr {$prev_end}]
 set y1 [expr {$y_margin + $swb_router_height  + $resource_height * 0 + $y_length * 0}]
 set x2 [expr {$x1 + $distance_sram_macros}]
-set y2 [expr {$y1 + $resource_height * 6}]
+set y2 [expr {$y1 + $resource_height * 4}]
 set area_stripe [list \
     $x1 $y1 \
     $x2 $y1 \
     $x2 $y2 \
     $x1 $y2]
-add_stripes -nets {VDD VSS} -layer M8 -direction vertical -width 1.8 -spacing 1.8 -number_of_sets 1 -area $area_stripe -start_from left -start_offset [expr {$distance_sram_macros/2}] -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
+add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width 2.5 -spacing 1.8 -number_of_sets 1 -area $area_stripe -start_from left -start_offset [expr {$distance_sram_macros/2 - 3.4}] -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
 
 #vertical to macro num 1
 set_db add_stripes_ignore_block_check false ; set_db add_stripes_break_at {  block_ring  outside_ringmacro  } ; set_db add_stripes_route_over_rows_only false ; set_db add_stripes_rows_without_stripes_only false ; set_db add_stripes_extend_to_closest_target none ; set_db add_stripes_stop_at_last_wire_for_area true ; set_db add_stripes_partial_set_through_domain false ; set_db add_stripes_ignore_non_default_domains false ; set_db add_stripes_trim_antenna_back_to_shape block_ring ; set_db add_stripes_spacing_type edge_to_edge ; set_db add_stripes_spacing_from_block 0 ; set_db add_stripes_stripe_min_length stripe_width ; set_db add_stripes_stacked_via_top_layer AP ; set_db add_stripes_stacked_via_bottom_layer M1 ; set_db add_stripes_via_using_exact_crossover_size false ; set_db add_stripes_split_vias false ; set_db add_stripes_orthogonal_only true ; set_db add_stripes_allow_jog { padcore_ring  block_ring } ; set_db add_stripes_skip_via_on_pin {  standardcell } ; set_db add_stripes_skip_via_on_wire_shape {  noshape   }
-set x1 [expr {$prev_end + $distance_sram_macros}]
-set y1 [expr {$y_margin + $swb_router_height  + $resource_height * 0 + $y_length * 0}]
 set macro_width [get_db inst:cell_2_2_inst/resource_1_inst/sram_inst/sram_256x64.sram_macro_1 .bbox.width]
-set x2 [expr {$x1 + $macro_width}]
-set y2 [expr {$y1 + $resource_height * 6}]
-set prev_end [expr {$x2}]
+set x1 [expr {$prev_end + $distance_sram_macros + $macro_width/2}]
+set y1 [expr {$y_margin + $swb_router_height  + $resource_height * 0 + $y_length * 0}]
+set x2 [expr {$x1 + $x_offset*2}]
+set y2 [expr {$y1 + $resource_height * 4}]
+set prev_end [expr {$x1 + $macro_width/2}]
 set area_stripe [list \
     $x1 $y1 \
     $x2 $y1 \
     $x2 $y2 \
     $x1 $y2]
-add_stripes -nets {VDD VSS} -layer M8 -direction vertical -width 1.8 -spacing 1.8 -number_of_sets 3 -area $area_stripe -start_from left -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
+add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width 2.5 -spacing 1.8 -number_of_sets 1 -area $area_stripe -start_from left -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
+
+#vertical stripe between macro 2 and 3
+set_db add_stripes_ignore_block_check false ; set_db add_stripes_break_at {  block_ring  outside_ringmacro  } ; set_db add_stripes_route_over_rows_only false ; set_db add_stripes_rows_without_stripes_only false ; set_db add_stripes_extend_to_closest_target none ; set_db add_stripes_stop_at_last_wire_for_area true ; set_db add_stripes_partial_set_through_domain false ; set_db add_stripes_ignore_non_default_domains false ; set_db add_stripes_trim_antenna_back_to_shape block_ring ; set_db add_stripes_spacing_type edge_to_edge ; set_db add_stripes_spacing_from_block 0 ; set_db add_stripes_stripe_min_length stripe_width ; set_db add_stripes_stacked_via_top_layer AP ; set_db add_stripes_stacked_via_bottom_layer M1 ; set_db add_stripes_via_using_exact_crossover_size false ; set_db add_stripes_split_vias false ; set_db add_stripes_orthogonal_only true ; set_db add_stripes_allow_jog { padcore_ring  block_ring } ; set_db add_stripes_skip_via_on_pin {  standardcell } ; set_db add_stripes_skip_via_on_wire_shape {  noshape   }
+set x1 [expr {$prev_end}]
+set y1 [expr {$y_margin + $swb_router_height  + $resource_height * 0 + $y_length * 0}]
+set x2 [expr {$x1 + $distance_sram_macros}]
+set y2 [expr {$y1 + $resource_height * 4}]
+set area_stripe [list \
+    $x1 $y1 \
+    $x2 $y1 \
+    $x2 $y2 \
+    $x1 $y2]
+add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width 2.5 -spacing 1.8 -number_of_sets 1 -area $area_stripe -start_from left -start_offset [expr {$distance_sram_macros/2 - 3.4}] -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
+
+#vertical to macro num 2
+set_db add_stripes_ignore_block_check false ; set_db add_stripes_break_at {  block_ring  outside_ringmacro  } ; set_db add_stripes_route_over_rows_only false ; set_db add_stripes_rows_without_stripes_only false ; set_db add_stripes_extend_to_closest_target none ; set_db add_stripes_stop_at_last_wire_for_area true ; set_db add_stripes_partial_set_through_domain false ; set_db add_stripes_ignore_non_default_domains false ; set_db add_stripes_trim_antenna_back_to_shape block_ring ; set_db add_stripes_spacing_type edge_to_edge ; set_db add_stripes_spacing_from_block 0 ; set_db add_stripes_stripe_min_length stripe_width ; set_db add_stripes_stacked_via_top_layer AP ; set_db add_stripes_stacked_via_bottom_layer M1 ; set_db add_stripes_via_using_exact_crossover_size false ; set_db add_stripes_split_vias false ; set_db add_stripes_orthogonal_only true ; set_db add_stripes_allow_jog { padcore_ring  block_ring } ; set_db add_stripes_skip_via_on_pin {  standardcell } ; set_db add_stripes_skip_via_on_wire_shape {  noshape   }
+set macro_width [get_db inst:cell_2_2_inst/resource_1_inst/sram_inst/sram_256x64.sram_macro_2 .bbox.width]
+set x1 [expr {$prev_end + $distance_sram_macros + $macro_width/2}]
+set y1 [expr {$y_margin + $swb_router_height  + $resource_height * 0 + $y_length * 0}]
+set x2 [expr {$x1 + $x_offset*2}]
+set y2 [expr {$y1 + $resource_height * 4}]
+set prev_end [expr {$x1 + $macro_width/2}]
+set area_stripe [list \
+    $x1 $y1 \
+    $x2 $y1 \
+    $x2 $y2 \
+    $x1 $y2]
+add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width 2.5 -spacing 1.8 -number_of_sets 1 -area $area_stripe -start_from left -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
+
+#vertical stripe between macro 3 and 4
+set_db add_stripes_ignore_block_check false ; set_db add_stripes_break_at {  block_ring  outside_ringmacro  } ; set_db add_stripes_route_over_rows_only false ; set_db add_stripes_rows_without_stripes_only false ; set_db add_stripes_extend_to_closest_target none ; set_db add_stripes_stop_at_last_wire_for_area true ; set_db add_stripes_partial_set_through_domain false ; set_db add_stripes_ignore_non_default_domains false ; set_db add_stripes_trim_antenna_back_to_shape block_ring ; set_db add_stripes_spacing_type edge_to_edge ; set_db add_stripes_spacing_from_block 0 ; set_db add_stripes_stripe_min_length stripe_width ; set_db add_stripes_stacked_via_top_layer AP ; set_db add_stripes_stacked_via_bottom_layer M1 ; set_db add_stripes_via_using_exact_crossover_size false ; set_db add_stripes_split_vias false ; set_db add_stripes_orthogonal_only true ; set_db add_stripes_allow_jog { padcore_ring  block_ring } ; set_db add_stripes_skip_via_on_pin {  standardcell } ; set_db add_stripes_skip_via_on_wire_shape {  noshape   }
+set x1 [expr {$prev_end}]
+set y1 [expr {$y_margin + $swb_router_height  + $resource_height * 0 + $y_length * 0}]
+set x2 [expr {$x1 + $distance_sram_macros}]
+set y2 [expr {$y1 + $resource_height * 4}]
+set area_stripe [list \
+    $x1 $y1 \
+    $x2 $y1 \
+    $x2 $y2 \
+    $x1 $y2]
+add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width 2.5 -spacing 1.8 -number_of_sets 1 -area $area_stripe -start_from left -start_offset [expr {$distance_sram_macros/2 - 3.4}] -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
+
+#vertical to macro num 3
+set_db add_stripes_ignore_block_check false ; set_db add_stripes_break_at {  block_ring  outside_ringmacro  } ; set_db add_stripes_route_over_rows_only false ; set_db add_stripes_rows_without_stripes_only false ; set_db add_stripes_extend_to_closest_target none ; set_db add_stripes_stop_at_last_wire_for_area true ; set_db add_stripes_partial_set_through_domain false ; set_db add_stripes_ignore_non_default_domains false ; set_db add_stripes_trim_antenna_back_to_shape block_ring ; set_db add_stripes_spacing_type edge_to_edge ; set_db add_stripes_spacing_from_block 0 ; set_db add_stripes_stripe_min_length stripe_width ; set_db add_stripes_stacked_via_top_layer AP ; set_db add_stripes_stacked_via_bottom_layer M1 ; set_db add_stripes_via_using_exact_crossover_size false ; set_db add_stripes_split_vias false ; set_db add_stripes_orthogonal_only true ; set_db add_stripes_allow_jog { padcore_ring  block_ring } ; set_db add_stripes_skip_via_on_pin {  standardcell } ; set_db add_stripes_skip_via_on_wire_shape {  noshape   }
+set macro_width [get_db inst:cell_2_2_inst/resource_1_inst/sram_inst/sram_256x64.sram_macro_3 .bbox.width]
+set x1 [expr {$prev_end + $distance_sram_macros + $macro_width/2}]
+set y1 [expr {$y_margin + $swb_router_height  + $resource_height * 0 + $y_length * 0}]
+set x2 [expr {$x1 + $x_offset*2}]
+set y2 [expr {$y1 + $resource_height * 4}]
+set prev_end [expr {$x1 + $macro_width/2}]
+set area_stripe [list \
+    $x1 $y1 \
+    $x2 $y1 \
+    $x2 $y2 \
+    $x1 $y2]
+add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width 2.5 -spacing 1.8 -number_of_sets 1 -area $area_stripe -start_from left -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
 
 
 
-#stripes for partitions with NO macros
+#stripes for slots with NO macros
 for {set i 0} {$i < $columns} {incr i} {
     for {set j 0} {$j < $rows} {incr j} {
         for {set k 0} {$k < 16} {incr k} {
             if { ($i == 0 && $j == 2) || ($i == 1 && $j == 2) || ($i == 2 && $j == 2) || ($i == 0 && $j == 0) || ($i == 1 && $j == 0) || ($i == 2 && $j == 0) } {
-                if { $i == 0 && $j == 2 && ($k+1) != 1 && ($k+1) != 2 && ($k+1) != 3 && ($k+1) != 4 && ($k+1) != 5 && ($k+1) != 6 } {
+                if { $i == 0 && $j == 2 && ($k+1) != 1 && ($k+1) != 2 && ($k+1) != 3 && ($k+1) != 4 } {
                     set_db add_stripes_ignore_block_check false ; set_db add_stripes_break_at none ; set_db add_stripes_route_over_rows_only false ; set_db add_stripes_rows_without_stripes_only false ; set_db add_stripes_extend_to_closest_target none ; set_db add_stripes_stop_at_last_wire_for_area true ; set_db add_stripes_partial_set_through_domain false ; set_db add_stripes_ignore_non_default_domains false ; set_db add_stripes_trim_antenna_back_to_shape block_ring ; set_db add_stripes_spacing_type edge_to_edge ; set_db add_stripes_spacing_from_block 0 ; set_db add_stripes_stripe_min_length stripe_width ; set_db add_stripes_stacked_via_top_layer AP ; set_db add_stripes_stacked_via_bottom_layer M1 ; set_db add_stripes_via_using_exact_crossover_size false ; set_db add_stripes_split_vias false ; set_db add_stripes_orthogonal_only true ; set_db add_stripes_allow_jog { padcore_ring  block_ring } ; set_db add_stripes_skip_via_on_pin {  standardcell } ; set_db add_stripes_skip_via_on_wire_shape {  noshape   }
-                    set x1 [expr {$x_length * $i + $x_margin + $seq_width + $resource_width/2}]
+                    set x1 [expr {$x_length * $i + $x_margin + $seq_width + $resource_width/($vertical_pairs_slot+1)}]
                     set y1 [expr {$y_length * $j + $y_margin + $swb_router_height + $resource_height * $k}]
-                    set x2 [expr {$x1 + ($resource_width/2)*1}]
+                    if {$vertical_pairs_slot == 1} {
+                        set x2 [expr {$x1 + ($resource_width/2)*1}]
+                    } else {
+                        set x2 [expr {$x1 + ($resource_width/($vertical_pairs_slot + 1))*($vertical_pairs_slot - 1)}]
+                    }
+                    
                     set y2 [expr {$y1 + $resource_height}]
                     set area_stripe [list \
                         $x1 $y1 \
                         $x2 $y1 \
                         $x2 $y2 \
                         $x1 $y2]
-                    add_stripes -nets {VDD VSS} -layer M8 -direction vertical -width 1.8 -spacing 1.8 -number_of_sets 1 -area $area_stripe -start_from left -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none            
+                    add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width $stripes_size -spacing 1.8 -number_of_sets $vertical_pairs_slot -area $area_stripe -start_from left -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none            
+
+                    #horizontal
+                    set x1 [expr {$x_length * $i + $x_margin + $seq_width}]
+                    set y1 [expr {$y_length * $j + $y_margin + $swb_router_height + $resource_height * $k + $resource_height/2 - 3.4}]
+                    set x2 [expr {$x1 + $resource_width}]                  
+                    set y2 [expr {$y1 + $y_offset*2}]
+                    set area_stripe [list \
+                        $x1 $y1 \
+                        $x2 $y1 \
+                        $x2 $y2 \
+                        $x1 $y2]
+                    add_stripes -nets {VDD VSS} -layer M7 -direction horizontal -width $stripes_size -spacing 1.8 -number_of_sets 1 -area $area_stripe -start_from left -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none            
+                
                 }
 
-                if { $i == 1 && $j == 2 && ($k+1) != 1 && ($k+1) != 2 && ($k+1) != 3 && ($k+1) != 4 && ($k+1) != 5 && ($k+1) != 6 } {
+                if { $i == 1 && $j == 2 && ($k+1) != 1 && ($k+1) != 2 && ($k+1) != 3 && ($k+1) != 4 } {
                     set_db add_stripes_ignore_block_check false ; set_db add_stripes_break_at none ; set_db add_stripes_route_over_rows_only false ; set_db add_stripes_rows_without_stripes_only false ; set_db add_stripes_extend_to_closest_target none ; set_db add_stripes_stop_at_last_wire_for_area true ; set_db add_stripes_partial_set_through_domain false ; set_db add_stripes_ignore_non_default_domains false ; set_db add_stripes_trim_antenna_back_to_shape block_ring ; set_db add_stripes_spacing_type edge_to_edge ; set_db add_stripes_spacing_from_block 0 ; set_db add_stripes_stripe_min_length stripe_width ; set_db add_stripes_stacked_via_top_layer AP ; set_db add_stripes_stacked_via_bottom_layer M1 ; set_db add_stripes_via_using_exact_crossover_size false ; set_db add_stripes_split_vias false ; set_db add_stripes_orthogonal_only true ; set_db add_stripes_allow_jog { padcore_ring  block_ring } ; set_db add_stripes_skip_via_on_pin {  standardcell } ; set_db add_stripes_skip_via_on_wire_shape {  noshape   }
-                    set x1 [expr {$x_length * $i + $x_margin + $seq_width + $resource_width/2}]
+                    set x1 [expr {$x_length * $i + $x_margin + $seq_width + $resource_width/($vertical_pairs_slot+1)}]
                     set y1 [expr {$y_length * $j + $y_margin + $swb_router_height + $resource_height * $k}]
-                    set x2 [expr {$x1 + ($resource_width/2)*1}]
+                    if {$vertical_pairs_slot == 1} {
+                        set x2 [expr {$x1 + ($resource_width/2)*1}]
+                    } else {
+                        set x2 [expr {$x1 + ($resource_width/($vertical_pairs_slot + 1))*($vertical_pairs_slot - 1)}]
+                    }
+                    
                     set y2 [expr {$y1 + $resource_height}]
                     set area_stripe [list \
                         $x1 $y1 \
                         $x2 $y1 \
                         $x2 $y2 \
                         $x1 $y2]
-                    add_stripes -nets {VDD VSS} -layer M8 -direction vertical -width 1.8 -spacing 1.8 -number_of_sets 1 -area $area_stripe -start_from left -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none            
+                    add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width $stripes_size -spacing 1.8 -number_of_sets $vertical_pairs_slot -area $area_stripe -start_from left -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none            
+
+                    #horizontal
+                    set x1 [expr {$x_length * $i + $x_margin + $seq_width}]
+                    set y1 [expr {$y_length * $j + $y_margin + $swb_router_height + $resource_height * $k + $resource_height/2 - 3.4}]
+                    set x2 [expr {$x1 + $resource_width}]                  
+                    set y2 [expr {$y1 + $y_offset*2}]
+                    set area_stripe [list \
+                        $x1 $y1 \
+                        $x2 $y1 \
+                        $x2 $y2 \
+                        $x1 $y2]
+                    add_stripes -nets {VDD VSS} -layer M7 -direction horizontal -width $stripes_size -spacing 1.8 -number_of_sets 1 -area $area_stripe -start_from left -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none            
+                
                 }
 
-                if { $i == 2 && $j == 2 && ($k+1) != 1 && ($k+1) != 2 && ($k+1) != 3 && ($k+1) != 4 && ($k+1) != 5 && ($k+1) != 6 } {
+                if { $i == 2 && $j == 2 && ($k+1) != 1 && ($k+1) != 2 && ($k+1) != 3 && ($k+1) != 4 } {
                     set_db add_stripes_ignore_block_check false ; set_db add_stripes_break_at none ; set_db add_stripes_route_over_rows_only false ; set_db add_stripes_rows_without_stripes_only false ; set_db add_stripes_extend_to_closest_target none ; set_db add_stripes_stop_at_last_wire_for_area true ; set_db add_stripes_partial_set_through_domain false ; set_db add_stripes_ignore_non_default_domains false ; set_db add_stripes_trim_antenna_back_to_shape block_ring ; set_db add_stripes_spacing_type edge_to_edge ; set_db add_stripes_spacing_from_block 0 ; set_db add_stripes_stripe_min_length stripe_width ; set_db add_stripes_stacked_via_top_layer AP ; set_db add_stripes_stacked_via_bottom_layer M1 ; set_db add_stripes_via_using_exact_crossover_size false ; set_db add_stripes_split_vias false ; set_db add_stripes_orthogonal_only true ; set_db add_stripes_allow_jog { padcore_ring  block_ring } ; set_db add_stripes_skip_via_on_pin {  standardcell } ; set_db add_stripes_skip_via_on_wire_shape {  noshape   }
-                    set x1 [expr {$x_length * $i + $x_margin + $seq_width + $resource_width/2}]
+                    set x1 [expr {$x_length * $i + $x_margin + $seq_width + $resource_width/($vertical_pairs_slot+1)}]
                     set y1 [expr {$y_length * $j + $y_margin + $swb_router_height + $resource_height * $k}]
-                    set x2 [expr {$x1 + ($resource_width/2)*1}]
+                    if {$vertical_pairs_slot == 1} {
+                        set x2 [expr {$x1 + ($resource_width/2)*1}]
+                    } else {
+                        set x2 [expr {$x1 + ($resource_width/($vertical_pairs_slot + 1))*($vertical_pairs_slot - 1)}]
+                    }
+                    
                     set y2 [expr {$y1 + $resource_height}]
                     set area_stripe [list \
                         $x1 $y1 \
                         $x2 $y1 \
                         $x2 $y2 \
                         $x1 $y2]
-                    add_stripes -nets {VDD VSS} -layer M8 -direction vertical -width 1.8 -spacing 1.8 -number_of_sets 1 -area $area_stripe -start_from left -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none            
+                    add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width $stripes_size -spacing 1.8 -number_of_sets $vertical_pairs_slot -area $area_stripe -start_from left -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none            
+
+                    #horizontal
+                    set x1 [expr {$x_length * $i + $x_margin + $seq_width}]
+                    set y1 [expr {$y_length * $j + $y_margin + $swb_router_height + $resource_height * $k + $resource_height/2 - 3.4}]
+                    set x2 [expr {$x1 + $resource_width}]                  
+                    set y2 [expr {$y1 + $y_offset*2}]
+                    set area_stripe [list \
+                        $x1 $y1 \
+                        $x2 $y1 \
+                        $x2 $y2 \
+                        $x1 $y2]
+                    add_stripes -nets {VDD VSS} -layer M7 -direction horizontal -width $stripes_size -spacing 1.8 -number_of_sets 1 -area $area_stripe -start_from left -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none            
+                
                 }
 
-                if { $i == 0 && $j == 0 && ($k+1) != 1 && ($k+1) != 2 && ($k+1) != 3 && ($k+1) != 4 && ($k+1) != 5 && ($k+1) != 6 } {
+                if { $i == 0 && $j == 0 && ($k+1) != 1 && ($k+1) != 2 && ($k+1) != 3 && ($k+1) != 4 } {
                     set_db add_stripes_ignore_block_check false ; set_db add_stripes_break_at none ; set_db add_stripes_route_over_rows_only false ; set_db add_stripes_rows_without_stripes_only false ; set_db add_stripes_extend_to_closest_target none ; set_db add_stripes_stop_at_last_wire_for_area true ; set_db add_stripes_partial_set_through_domain false ; set_db add_stripes_ignore_non_default_domains false ; set_db add_stripes_trim_antenna_back_to_shape block_ring ; set_db add_stripes_spacing_type edge_to_edge ; set_db add_stripes_spacing_from_block 0 ; set_db add_stripes_stripe_min_length stripe_width ; set_db add_stripes_stacked_via_top_layer AP ; set_db add_stripes_stacked_via_bottom_layer M1 ; set_db add_stripes_via_using_exact_crossover_size false ; set_db add_stripes_split_vias false ; set_db add_stripes_orthogonal_only true ; set_db add_stripes_allow_jog { padcore_ring  block_ring } ; set_db add_stripes_skip_via_on_pin {  standardcell } ; set_db add_stripes_skip_via_on_wire_shape {  noshape   }
-                    set x1 [expr {$x_length * $i + $x_margin + $seq_width + $resource_width/2}]
+                    set x1 [expr {$x_length * $i + $x_margin + $seq_width + $resource_width/($vertical_pairs_slot+1)}]
                     set y1 [expr {$y_length * $j + $y_margin + $swb_router_height + $resource_height * $k}]
-                    set x2 [expr {$x1 + ($resource_width/2)*1}]
+                    if {$vertical_pairs_slot == 1} {
+                        set x2 [expr {$x1 + ($resource_width/2)*1}]
+                    } else {
+                        set x2 [expr {$x1 + ($resource_width/($vertical_pairs_slot + 1))*($vertical_pairs_slot - 1)}]
+                    }
+                    
                     set y2 [expr {$y1 + $resource_height}]
                     set area_stripe [list \
                         $x1 $y1 \
                         $x2 $y1 \
                         $x2 $y2 \
                         $x1 $y2]
-                    add_stripes -nets {VDD VSS} -layer M8 -direction vertical -width 1.8 -spacing 1.8 -number_of_sets 1 -area $area_stripe -start_from left -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none            
+                    add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width $stripes_size -spacing 1.8 -number_of_sets $vertical_pairs_slot -area $area_stripe -start_from left -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none            
+
+                    #horizontal
+                    set x1 [expr {$x_length * $i + $x_margin + $seq_width}]
+                    set y1 [expr {$y_length * $j + $y_margin + $swb_router_height + $resource_height * $k + $resource_height/2 - 3.4}]
+                    set x2 [expr {$x1 + $resource_width}]                  
+                    set y2 [expr {$y1 + $y_offset*2}]
+                    set area_stripe [list \
+                        $x1 $y1 \
+                        $x2 $y1 \
+                        $x2 $y2 \
+                        $x1 $y2]
+                    add_stripes -nets {VDD VSS} -layer M7 -direction horizontal -width $stripes_size -spacing 1.8 -number_of_sets 1 -area $area_stripe -start_from left -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none            
+                
                 }
 
-                if { $i == 1 && $j == 0 && ($k+1) != 1 && ($k+1) != 2 && ($k+1) != 3 && ($k+1) != 4 && ($k+1) != 5 && ($k+1) != 6 } {
+                if { $i == 1 && $j == 0 && ($k+1) != 1 && ($k+1) != 2 && ($k+1) != 3 && ($k+1) != 4 } {
                     set_db add_stripes_ignore_block_check false ; set_db add_stripes_break_at none ; set_db add_stripes_route_over_rows_only false ; set_db add_stripes_rows_without_stripes_only false ; set_db add_stripes_extend_to_closest_target none ; set_db add_stripes_stop_at_last_wire_for_area true ; set_db add_stripes_partial_set_through_domain false ; set_db add_stripes_ignore_non_default_domains false ; set_db add_stripes_trim_antenna_back_to_shape block_ring ; set_db add_stripes_spacing_type edge_to_edge ; set_db add_stripes_spacing_from_block 0 ; set_db add_stripes_stripe_min_length stripe_width ; set_db add_stripes_stacked_via_top_layer AP ; set_db add_stripes_stacked_via_bottom_layer M1 ; set_db add_stripes_via_using_exact_crossover_size false ; set_db add_stripes_split_vias false ; set_db add_stripes_orthogonal_only true ; set_db add_stripes_allow_jog { padcore_ring  block_ring } ; set_db add_stripes_skip_via_on_pin {  standardcell } ; set_db add_stripes_skip_via_on_wire_shape {  noshape   }
-                    set x1 [expr {$x_length * $i + $x_margin + $seq_width + $resource_width/2}]
+                    set x1 [expr {$x_length * $i + $x_margin + $seq_width + $resource_width/($vertical_pairs_slot+1)}]
                     set y1 [expr {$y_length * $j + $y_margin + $swb_router_height + $resource_height * $k}]
-                    set x2 [expr {$x1 + ($resource_width/2)*1}]
+                    if {$vertical_pairs_slot == 1} {
+                        set x2 [expr {$x1 + ($resource_width/2)*1}]
+                    } else {
+                        set x2 [expr {$x1 + ($resource_width/($vertical_pairs_slot + 1))*($vertical_pairs_slot - 1)}]
+                    }
+                    
                     set y2 [expr {$y1 + $resource_height}]
                     set area_stripe [list \
                         $x1 $y1 \
                         $x2 $y1 \
                         $x2 $y2 \
                         $x1 $y2]
-                    add_stripes -nets {VDD VSS} -layer M8 -direction vertical -width 1.8 -spacing 1.8 -number_of_sets 1 -area $area_stripe -start_from left -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none            
+                    add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width $stripes_size -spacing 1.8 -number_of_sets $vertical_pairs_slot -area $area_stripe -start_from left -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none            
+
+                    #horizontal
+                    set x1 [expr {$x_length * $i + $x_margin + $seq_width}]
+                    set y1 [expr {$y_length * $j + $y_margin + $swb_router_height + $resource_height * $k + $resource_height/2 - 3.4}]
+                    set x2 [expr {$x1 + $resource_width}]                  
+                    set y2 [expr {$y1 + $y_offset*2}]
+                    set area_stripe [list \
+                        $x1 $y1 \
+                        $x2 $y1 \
+                        $x2 $y2 \
+                        $x1 $y2]
+                    add_stripes -nets {VDD VSS} -layer M7 -direction horizontal -width $stripes_size -spacing 1.8 -number_of_sets 1 -area $area_stripe -start_from left -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none            
+                
                 }
 
-                if { $i == 2 && $j == 0 && ($k+1) != 1 && ($k+1) != 2 && ($k+1) != 3 && ($k+1) != 4 && ($k+1) != 5 && ($k+1) != 6 } {
+                if { $i == 2 && $j == 0 && ($k+1) != 1 && ($k+1) != 2 && ($k+1) != 3 && ($k+1) != 4 } {
                     set_db add_stripes_ignore_block_check false ; set_db add_stripes_break_at none ; set_db add_stripes_route_over_rows_only false ; set_db add_stripes_rows_without_stripes_only false ; set_db add_stripes_extend_to_closest_target none ; set_db add_stripes_stop_at_last_wire_for_area true ; set_db add_stripes_partial_set_through_domain false ; set_db add_stripes_ignore_non_default_domains false ; set_db add_stripes_trim_antenna_back_to_shape block_ring ; set_db add_stripes_spacing_type edge_to_edge ; set_db add_stripes_spacing_from_block 0 ; set_db add_stripes_stripe_min_length stripe_width ; set_db add_stripes_stacked_via_top_layer AP ; set_db add_stripes_stacked_via_bottom_layer M1 ; set_db add_stripes_via_using_exact_crossover_size false ; set_db add_stripes_split_vias false ; set_db add_stripes_orthogonal_only true ; set_db add_stripes_allow_jog { padcore_ring  block_ring } ; set_db add_stripes_skip_via_on_pin {  standardcell } ; set_db add_stripes_skip_via_on_wire_shape {  noshape   }
-                    set x1 [expr {$x_length * $i + $x_margin + $seq_width + $resource_width/2}]
+                    set x1 [expr {$x_length * $i + $x_margin + $seq_width + $resource_width/($vertical_pairs_slot+1)}]
                     set y1 [expr {$y_length * $j + $y_margin + $swb_router_height + $resource_height * $k}]
-                    set x2 [expr {$x1 + ($resource_width/2)*1}]
+                    if {$vertical_pairs_slot == 1} {
+                        set x2 [expr {$x1 + ($resource_width/2)*1}]
+                    } else {
+                        set x2 [expr {$x1 + ($resource_width/($vertical_pairs_slot + 1))*($vertical_pairs_slot - 1)}]
+                    }
+                    
                     set y2 [expr {$y1 + $resource_height}]
                     set area_stripe [list \
                         $x1 $y1 \
                         $x2 $y1 \
                         $x2 $y2 \
                         $x1 $y2]
-                    add_stripes -nets {VDD VSS} -layer M8 -direction vertical -width 1.8 -spacing 1.8 -number_of_sets 1 -area $area_stripe -start_from left -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none            
+                    add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width $stripes_size -spacing 1.8 -number_of_sets $vertical_pairs_slot -area $area_stripe -start_from left -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none            
+
+                    #horizontal
+                    set x1 [expr {$x_length * $i + $x_margin + $seq_width}]
+                    set y1 [expr {$y_length * $j + $y_margin + $swb_router_height + $resource_height * $k + $resource_height/2 - 3.4}]
+                    set x2 [expr {$x1 + $resource_width}]                  
+                    set y2 [expr {$y1 + $y_offset*2}]
+                    set area_stripe [list \
+                        $x1 $y1 \
+                        $x2 $y1 \
+                        $x2 $y2 \
+                        $x1 $y2]
+                    add_stripes -nets {VDD VSS} -layer M7 -direction horizontal -width $stripes_size -spacing 1.8 -number_of_sets 1 -area $area_stripe -start_from left -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none            
+                
                 }
 
             } else {
                 set_db add_stripes_ignore_block_check false ; set_db add_stripes_break_at none ; set_db add_stripes_route_over_rows_only false ; set_db add_stripes_rows_without_stripes_only false ; set_db add_stripes_extend_to_closest_target none ; set_db add_stripes_stop_at_last_wire_for_area true ; set_db add_stripes_partial_set_through_domain false ; set_db add_stripes_ignore_non_default_domains false ; set_db add_stripes_trim_antenna_back_to_shape block_ring ; set_db add_stripes_spacing_type edge_to_edge ; set_db add_stripes_spacing_from_block 0 ; set_db add_stripes_stripe_min_length stripe_width ; set_db add_stripes_stacked_via_top_layer AP ; set_db add_stripes_stacked_via_bottom_layer M1 ; set_db add_stripes_via_using_exact_crossover_size false ; set_db add_stripes_split_vias false ; set_db add_stripes_orthogonal_only true ; set_db add_stripes_allow_jog { padcore_ring  block_ring } ; set_db add_stripes_skip_via_on_pin {  standardcell } ; set_db add_stripes_skip_via_on_wire_shape {  noshape   }
-                set x1 [expr {$x_length * $i + $x_margin + $seq_width + $resource_width/2}]
-                    set y1 [expr {$y_length * $j + $y_margin + $swb_router_height + $resource_height * $k}]
+                set x1 [expr {$x_length * $i + $x_margin + $seq_width + $resource_width/($vertical_pairs_slot+1)}]
+                set y1 [expr {$y_length * $j + $y_margin + $swb_router_height + $resource_height * $k}]
+                if {$vertical_pairs_slot == 1} {
                     set x2 [expr {$x1 + ($resource_width/2)*1}]
-                    set y2 [expr {$y1 + $resource_height}]
+                } else {
+                    set x2 [expr {$x1 + ($resource_width/($vertical_pairs_slot + 1))*($vertical_pairs_slot - 1)}]
+                }
+                set y2 [expr {$y1 + $resource_height}]
                 set area_stripe [list \
                     $x1 $y1 \
                     $x2 $y1 \
                     $x2 $y2 \
                     $x1 $y2]
-                add_stripes -nets {VDD VSS} -layer M8 -direction vertical -width 1.8 -spacing 1.8 -number_of_sets 1 -area $area_stripe -start_from left -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none                         
+                add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width $stripes_size -spacing 1.8 -number_of_sets $vertical_pairs_slot -area $area_stripe -start_from left -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none                         
+
+                #horizontal
+                set x1 [expr {$x_length * $i + $x_margin + $seq_width}]
+                set y1 [expr {$y_length * $j + $y_margin + $swb_router_height + $resource_height * $k + $resource_height/2 - 3.4}]
+                set x2 [expr {$x1 + $resource_width}]                  
+                set y2 [expr {$y1 + $y_offset*2}]
+                set area_stripe [list \
+                    $x1 $y1 \
+                    $x2 $y1 \
+                    $x2 $y2 \
+                    $x1 $y2]
+                add_stripes -nets {VDD VSS} -layer M7 -direction horizontal -width $stripes_size -spacing 1.8 -number_of_sets 1 -area $area_stripe -start_from left -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none                        
             }
         }
     }
@@ -904,7 +1377,31 @@ for {set i 0} {$i < $columns} {incr i} {
             $x2 $y1 \
             $x2 $y2 \
             $x1 $y2]
-        add_stripes -nets {VDD VSS} -layer M8 -direction vertical -width 1.8 -spacing 1.8 -number_of_sets 1 -area $area_stripe -start_from left -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none            
+        add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width $stripes_size -spacing 1.8 -number_of_sets 1 -area $area_stripe -start_from left -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none            
+    }
+}
+
+
+
+#vertical stripe in swb_router, bottom part
+set_db add_stripes_ignore_block_check false ; set_db add_stripes_break_at none ; set_db add_stripes_route_over_rows_only false ; set_db add_stripes_rows_without_stripes_only false ; set_db add_stripes_extend_to_closest_target none ; set_db add_stripes_stop_at_last_wire_for_area true ; set_db add_stripes_partial_set_through_domain false ; set_db add_stripes_ignore_non_default_domains false ; set_db add_stripes_trim_antenna_back_to_shape block_ring ; set_db add_stripes_spacing_type edge_to_edge ; set_db add_stripes_spacing_from_block 0 ; set_db add_stripes_stripe_min_length stripe_width ; set_db add_stripes_stacked_via_top_layer AP ; set_db add_stripes_stacked_via_bottom_layer M1 ; set_db add_stripes_via_using_exact_crossover_size false ; set_db add_stripes_split_vias false ; set_db add_stripes_orthogonal_only true ; set_db add_stripes_allow_jog { padcore_ring  block_ring } ; set_db add_stripes_skip_via_on_pin {  standardcell } ; set_db add_stripes_skip_via_on_wire_shape {  noshape   }
+
+for {set i 0} {$i < $columns} {incr i} {
+    for {set j 0} {$j < $rows} {incr j} {
+        set x1 [expr {$x_margin + $x_length * $i + ($seq_width + $resource_width)/($vertical_stripes_swb_router_bottom + 1)}]
+        set y1 [expr {$y_margin + $y_length * $j}]
+        if {$vertical_stripes_swb_router_bottom == 1} {
+            set x2 [expr {$x1 + ($seq_width + $resource_width)*1}]
+        } else {
+            set x2 [expr {$x1 + ($seq_width + $resource_width)/($vertical_stripes_swb_router_bottom + 1)*($vertical_stripes_swb_router_bottom - 1)}]
+        }
+        set y2 [expr {$y1 + $swb_router_height}]
+        set area_stripe [list \
+            $x1 $y1 \
+            $x2 $y1 \
+            $x2 $y2 \
+            $x1 $y2]
+        add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width $stripes_size -spacing 1.8 -number_of_sets $vertical_stripes_swb_router_bottom -area $area_stripe -start_from left -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none            
     }
 }
 
@@ -915,7 +1412,7 @@ set_db add_stripes_ignore_block_check false ; set_db add_stripes_break_at none ;
 
 for {set i 0} {$i < $columns} {incr i} {
     for {set j 0} {$j < $rows} {incr j} {
-        set x1 [expr {$x_margin + $x_length * $i + $seq_width/2}]
+        set x1 [expr {$x_margin + $x_length * $i + $seq_width/2 - 3.4}]
         set y1 [expr {$y_margin + $swb_router_height + $y_length * $j}]
         set x2 [expr {$x1 + $x_offset * 2}]
         set y2 [expr {$y1 + $seq_height}]
@@ -924,7 +1421,7 @@ for {set i 0} {$i < $columns} {incr i} {
             $x2 $y1 \
             $x2 $y2 \
             $x1 $y2]
-        add_stripes -nets {VDD VSS} -layer M8 -direction vertical -width 1.8 -spacing 1.8 -number_of_sets 1 -area $area_stripe -start_from left -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none            
+        add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width $stripes_size -spacing 1.8 -number_of_sets 1 -area $area_stripe -start_from left -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none            
     }
 }
 
@@ -938,39 +1435,39 @@ for {set i 0} {$i < $columns} {incr i} {
         for {set k 0} {$k < 16} {incr k} {
             #between sequencer and resources
             set x1 [expr {$x_margin + $x_length * $i + $seq_width - $x_offset}]
-            set y1 [expr {$y_margin + $y_length * $j + $swb_router_height + $y_offset + $k * $resource_height}]
+            set y1 [expr {$y_length * $j + $y_margin + $swb_router_height + $resource_height * $k + $resource_height/2 - 3.4}]
             set x2 [expr {$x1 + $x_offset * 2}]
-            set y2 [expr {$y1 - $y_offset * 2 + $resource_height}]
+            set y2 [expr {$y1 + $y_offset * 2}]
             set area_stripe [list \
                 $x1 $y1 \
                 $x2 $y1 \
                 $x2 $y2 \
                 $x1 $y2]
-            add_stripes -nets {VDD VSS} -layer M7 -direction horizontal -width 1.8 -spacing 1.8 -set_to_set_distance 10 -area $area_stripe -start_from bottom -switch_layer_over_obs false -merge_stripes_value 10 -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
+            add_stripes -nets {VDD VSS} -layer M7 -direction horizontal -width $stripes_size -spacing 1.8 -number_of_sets 1 -area $area_stripe -start_from bottom -switch_layer_over_obs false -merge_stripes_value 10 -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
             #between swb and resources
             set x1 [expr {$x_margin + $x_length * $i + $seq_width + $resource_width - $x_offset}]
-            set y1 [expr {$y_margin + $y_length * $j + $swb_router_height + $y_offset + $k * $resource_height}]
+            set y1 [expr {$y_length * $j + $y_margin + $swb_router_height + $resource_height * $k + $resource_height/2 - 3.4}]
             set x2 [expr {$x1 + $x_offset * 2}]
-            set y2 [expr {$y1 - $y_offset * 2 + $resource_height}]
+            set y2 [expr {$y1 + $y_offset * 2}]
             set area_stripe [list \
                 $x1 $y1 \
                 $x2 $y1 \
                 $x2 $y2 \
                 $x1 $y2]
-            add_stripes -nets {VDD VSS} -layer M7 -direction horizontal -width 1.8 -spacing 1.8 -set_to_set_distance 10 -area $area_stripe -start_from bottom -switch_layer_over_obs false -merge_stripes_value 10 -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
+            add_stripes -nets {VDD VSS} -layer M7 -direction horizontal -width $stripes_size -spacing 1.8 -number_of_sets 1 -area $area_stripe -start_from bottom -switch_layer_over_obs false -merge_stripes_value 10 -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
         }
 
         #vertical between seq and swb
-        set x1 [expr {$x_margin + $x_length * $i + $x_offset}]
+        set x1 [expr {$x_margin + $x_length * $i + $seq_width/2 - 3.4}]
         set y1 [expr {$y_margin + $y_length * $j + $swb_router_height - $y_offset}]
-        set x2 [expr {$x1 + $seq_width - $x_offset * 2}]
+       set x2 [expr {$x1 + $x_offset * 2}]
         set y2 [expr {$y1 + $y_offset * 2}]
         set area_stripe [list \
             $x1 $y1 \
             $x2 $y1 \
             $x2 $y2 \
             $x1 $y2]
-        add_stripes -nets {VDD VSS} -layer M8 -direction vertical -width 1.8 -spacing 1.8 -set_to_set_distance 10 -area $area_stripe -start_from left -switch_layer_over_obs false -merge_stripes_value 10 -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
+        add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width $stripes_size -spacing 1.8 -number_of_sets 1 -area $area_stripe -start_from left -switch_layer_over_obs false -merge_stripes_value 10 -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
     }
 }
 
@@ -979,7 +1476,7 @@ for {set i 0} {$i < $columns} {incr i} {
     for {set j 0} {$j < $rows} {incr j} {
         for {set k 0} {$k < 16} {incr k} {
             if { ($i == 0 && $j == 2) || ($i == 1 && $j == 2) || ($i == 2 && $j == 2) || ($i == 0 && $j == 0) || ($i == 1 && $j == 0) || ($i == 2 && $j == 0) } {
-                if { $i == 0 && $j == 2 && ($k+1) != 1 && ($k+1) != 2 && ($k+1) != 3 && ($k+1) != 4 && ($k+1) != 5 && ($k+1) != 6 } {
+                if { $i == 0 && $j == 2 && ($k+1) != 1 && ($k+1) != 2 && ($k+1) != 3 && ($k+1) != 4 } {
                     set_db add_stripes_ignore_block_check true ; set_db add_stripes_break_at none ; set_db add_stripes_route_over_rows_only false ; set_db add_stripes_rows_without_stripes_only false ; set_db add_stripes_extend_to_closest_target none ; set_db add_stripes_stop_at_last_wire_for_area true ; set_db add_stripes_partial_set_through_domain false ; set_db add_stripes_ignore_non_default_domains false ; set_db add_stripes_trim_antenna_back_to_shape block_ring ; set_db add_stripes_spacing_type edge_to_edge ; set_db add_stripes_spacing_from_block 0 ; set_db add_stripes_stripe_min_length stripe_width ; set_db add_stripes_stacked_via_top_layer AP ; set_db add_stripes_stacked_via_bottom_layer M1 ; set_db add_stripes_via_using_exact_crossover_size false ; set_db add_stripes_split_vias false ; set_db add_stripes_orthogonal_only true ; set_db add_stripes_allow_jog { padcore_ring  block_ring } ; set_db add_stripes_skip_via_on_pin {  standardcell } ; set_db add_stripes_skip_via_on_wire_shape {  noshape   }
 
                     set x1 [expr {$x_length * $i + $x_margin + $seq_width + $x_offset}]
@@ -991,10 +1488,10 @@ for {set i 0} {$i < $columns} {incr i} {
                         $x2 $y1 \
                         $x2 $y2 \
                         $x1 $y2]
-                    add_stripes -nets {VDD VSS} -layer M8 -direction vertical -width 1.8 -spacing 1.8 -set_to_set_distance 10 -area $area_stripe -start_from left -switch_layer_over_obs false -merge_stripes_value 10 -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
+                    add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width $stripes_size -spacing 1.8 -set_to_set_distance $distance_stripes_between_rings -area $area_stripe -start_from left -switch_layer_over_obs false -merge_stripes_value 10 -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
                 }
 
-                if { $i == 1 && $j == 2 && ($k+1) != 1 && ($k+1) != 2 && ($k+1) != 3 && ($k+1) != 4 && ($k+1) != 5 && ($k+1) != 6 } {
+                if { $i == 1 && $j == 2 && ($k+1) != 1 && ($k+1) != 2 && ($k+1) != 3 && ($k+1) != 4 } {
                     set_db add_stripes_ignore_block_check true ; set_db add_stripes_break_at none ; set_db add_stripes_route_over_rows_only false ; set_db add_stripes_rows_without_stripes_only false ; set_db add_stripes_extend_to_closest_target none ; set_db add_stripes_stop_at_last_wire_for_area true ; set_db add_stripes_partial_set_through_domain false ; set_db add_stripes_ignore_non_default_domains false ; set_db add_stripes_trim_antenna_back_to_shape block_ring ; set_db add_stripes_spacing_type edge_to_edge ; set_db add_stripes_spacing_from_block 0 ; set_db add_stripes_stripe_min_length stripe_width ; set_db add_stripes_stacked_via_top_layer AP ; set_db add_stripes_stacked_via_bottom_layer M1 ; set_db add_stripes_via_using_exact_crossover_size false ; set_db add_stripes_split_vias false ; set_db add_stripes_orthogonal_only true ; set_db add_stripes_allow_jog { padcore_ring  block_ring } ; set_db add_stripes_skip_via_on_pin {  standardcell } ; set_db add_stripes_skip_via_on_wire_shape {  noshape   }
 
                     set x1 [expr {$x_length * $i + $x_margin + $seq_width + $x_offset}]
@@ -1006,10 +1503,10 @@ for {set i 0} {$i < $columns} {incr i} {
                         $x2 $y1 \
                         $x2 $y2 \
                         $x1 $y2]
-                    add_stripes -nets {VDD VSS} -layer M8 -direction vertical -width 1.8 -spacing 1.8 -set_to_set_distance 10 -area $area_stripe -start_from left -switch_layer_over_obs false -merge_stripes_value 10 -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
+                    add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width $stripes_size -spacing 1.8 -set_to_set_distance $distance_stripes_between_rings -area $area_stripe -start_from left -switch_layer_over_obs false -merge_stripes_value 10 -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
                 }
 
-                if { $i == 2 && $j == 2 && ($k+1) != 1 && ($k+1) != 2 && ($k+1) != 3 && ($k+1) != 4 && ($k+1) != 5 && ($k+1) != 6 } {
+                if { $i == 2 && $j == 2 && ($k+1) != 1 && ($k+1) != 2 && ($k+1) != 3 && ($k+1) != 4 } {
                     set_db add_stripes_ignore_block_check true ; set_db add_stripes_break_at none ; set_db add_stripes_route_over_rows_only false ; set_db add_stripes_rows_without_stripes_only false ; set_db add_stripes_extend_to_closest_target none ; set_db add_stripes_stop_at_last_wire_for_area true ; set_db add_stripes_partial_set_through_domain false ; set_db add_stripes_ignore_non_default_domains false ; set_db add_stripes_trim_antenna_back_to_shape block_ring ; set_db add_stripes_spacing_type edge_to_edge ; set_db add_stripes_spacing_from_block 0 ; set_db add_stripes_stripe_min_length stripe_width ; set_db add_stripes_stacked_via_top_layer AP ; set_db add_stripes_stacked_via_bottom_layer M1 ; set_db add_stripes_via_using_exact_crossover_size false ; set_db add_stripes_split_vias false ; set_db add_stripes_orthogonal_only true ; set_db add_stripes_allow_jog { padcore_ring  block_ring } ; set_db add_stripes_skip_via_on_pin {  standardcell } ; set_db add_stripes_skip_via_on_wire_shape {  noshape   }
 
                     set x1 [expr {$x_length * $i + $x_margin + $seq_width + $x_offset}]
@@ -1021,10 +1518,10 @@ for {set i 0} {$i < $columns} {incr i} {
                         $x2 $y1 \
                         $x2 $y2 \
                         $x1 $y2]
-                    add_stripes -nets {VDD VSS} -layer M8 -direction vertical -width 1.8 -spacing 1.8 -set_to_set_distance 10 -area $area_stripe -start_from left -switch_layer_over_obs false -merge_stripes_value 10 -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
+                    add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width $stripes_size -spacing 1.8 -set_to_set_distance $distance_stripes_between_rings -area $area_stripe -start_from left -switch_layer_over_obs false -merge_stripes_value 10 -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
                 }
 
-                if { $i == 0 && $j == 0 && ($k+1) != 1 && ($k+1) != 2 && ($k+1) != 3 && ($k+1) != 4 && ($k+1) != 5 && ($k+1) != 6 } {
+                if { $i == 0 && $j == 0 && ($k+1) != 1 && ($k+1) != 2 && ($k+1) != 3 && ($k+1) != 4 } {
                     set_db add_stripes_ignore_block_check true ; set_db add_stripes_break_at none ; set_db add_stripes_route_over_rows_only false ; set_db add_stripes_rows_without_stripes_only false ; set_db add_stripes_extend_to_closest_target none ; set_db add_stripes_stop_at_last_wire_for_area true ; set_db add_stripes_partial_set_through_domain false ; set_db add_stripes_ignore_non_default_domains false ; set_db add_stripes_trim_antenna_back_to_shape block_ring ; set_db add_stripes_spacing_type edge_to_edge ; set_db add_stripes_spacing_from_block 0 ; set_db add_stripes_stripe_min_length stripe_width ; set_db add_stripes_stacked_via_top_layer AP ; set_db add_stripes_stacked_via_bottom_layer M1 ; set_db add_stripes_via_using_exact_crossover_size false ; set_db add_stripes_split_vias false ; set_db add_stripes_orthogonal_only true ; set_db add_stripes_allow_jog { padcore_ring  block_ring } ; set_db add_stripes_skip_via_on_pin {  standardcell } ; set_db add_stripes_skip_via_on_wire_shape {  noshape   }
 
                     set x1 [expr {$x_length * $i + $x_margin + $seq_width + $x_offset}]
@@ -1036,10 +1533,10 @@ for {set i 0} {$i < $columns} {incr i} {
                         $x2 $y1 \
                         $x2 $y2 \
                         $x1 $y2]
-                    add_stripes -nets {VDD VSS} -layer M8 -direction vertical -width 1.8 -spacing 1.8 -set_to_set_distance 10 -area $area_stripe -start_from left -switch_layer_over_obs false -merge_stripes_value 10 -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
+                    add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width $stripes_size -spacing 1.8 -set_to_set_distance $distance_stripes_between_rings -area $area_stripe -start_from left -switch_layer_over_obs false -merge_stripes_value 10 -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
                 }
 
-                if { $i == 1 && $j == 0 && ($k+1) != 1 && ($k+1) != 2 && ($k+1) != 3 && ($k+1) != 4 && ($k+1) != 5 && ($k+1) != 6 } {
+                if { $i == 1 && $j == 0 && ($k+1) != 1 && ($k+1) != 2 && ($k+1) != 3 && ($k+1) != 4 } {
                     set_db add_stripes_ignore_block_check true ; set_db add_stripes_break_at none ; set_db add_stripes_route_over_rows_only false ; set_db add_stripes_rows_without_stripes_only false ; set_db add_stripes_extend_to_closest_target none ; set_db add_stripes_stop_at_last_wire_for_area true ; set_db add_stripes_partial_set_through_domain false ; set_db add_stripes_ignore_non_default_domains false ; set_db add_stripes_trim_antenna_back_to_shape block_ring ; set_db add_stripes_spacing_type edge_to_edge ; set_db add_stripes_spacing_from_block 0 ; set_db add_stripes_stripe_min_length stripe_width ; set_db add_stripes_stacked_via_top_layer AP ; set_db add_stripes_stacked_via_bottom_layer M1 ; set_db add_stripes_via_using_exact_crossover_size false ; set_db add_stripes_split_vias false ; set_db add_stripes_orthogonal_only true ; set_db add_stripes_allow_jog { padcore_ring  block_ring } ; set_db add_stripes_skip_via_on_pin {  standardcell } ; set_db add_stripes_skip_via_on_wire_shape {  noshape   }
 
                     set x1 [expr {$x_length * $i + $x_margin + $seq_width + $x_offset}]
@@ -1051,10 +1548,10 @@ for {set i 0} {$i < $columns} {incr i} {
                         $x2 $y1 \
                         $x2 $y2 \
                         $x1 $y2]
-                    add_stripes -nets {VDD VSS} -layer M8 -direction vertical -width 1.8 -spacing 1.8 -set_to_set_distance 10 -area $area_stripe -start_from left -switch_layer_over_obs false -merge_stripes_value 10 -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
+                    add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width $stripes_size -spacing 1.8 -set_to_set_distance $distance_stripes_between_rings -area $area_stripe -start_from left -switch_layer_over_obs false -merge_stripes_value 10 -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
                 }
 
-                if { $i == 2 && $j == 0 && ($k+1) != 1 && ($k+1) != 2 && ($k+1) != 3 && ($k+1) != 4 && ($k+1) != 5 && ($k+1) != 6 } {
+                if { $i == 2 && $j == 0 && ($k+1) != 1 && ($k+1) != 2 && ($k+1) != 3 && ($k+1) != 4 } {
                     set_db add_stripes_ignore_block_check true ; set_db add_stripes_break_at none ; set_db add_stripes_route_over_rows_only false ; set_db add_stripes_rows_without_stripes_only false ; set_db add_stripes_extend_to_closest_target none ; set_db add_stripes_stop_at_last_wire_for_area true ; set_db add_stripes_partial_set_through_domain false ; set_db add_stripes_ignore_non_default_domains false ; set_db add_stripes_trim_antenna_back_to_shape block_ring ; set_db add_stripes_spacing_type edge_to_edge ; set_db add_stripes_spacing_from_block 0 ; set_db add_stripes_stripe_min_length stripe_width ; set_db add_stripes_stacked_via_top_layer AP ; set_db add_stripes_stacked_via_bottom_layer M1 ; set_db add_stripes_via_using_exact_crossover_size false ; set_db add_stripes_split_vias false ; set_db add_stripes_orthogonal_only true ; set_db add_stripes_allow_jog { padcore_ring  block_ring } ; set_db add_stripes_skip_via_on_pin {  standardcell } ; set_db add_stripes_skip_via_on_wire_shape {  noshape   }
 
                     set x1 [expr {$x_length * $i + $x_margin + $seq_width + $x_offset}]
@@ -1066,7 +1563,7 @@ for {set i 0} {$i < $columns} {incr i} {
                         $x2 $y1 \
                         $x2 $y2 \
                         $x1 $y2]
-                    add_stripes -nets {VDD VSS} -layer M8 -direction vertical -width 1.8 -spacing 1.8 -set_to_set_distance 10 -area $area_stripe -start_from left -switch_layer_over_obs false -merge_stripes_value 10 -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
+                    add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width $stripes_size -spacing 1.8 -set_to_set_distance $distance_stripes_between_rings -area $area_stripe -start_from left -switch_layer_over_obs false -merge_stripes_value 10 -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
                 }
 
             } else {
@@ -1081,7 +1578,7 @@ for {set i 0} {$i < $columns} {incr i} {
                     $x2 $y1 \
                     $x2 $y2 \
                     $x1 $y2]
-                add_stripes -nets {VDD VSS} -layer M8 -direction vertical -width 1.8 -spacing 1.8 -set_to_set_distance 10 -area $area_stripe -start_from left -switch_layer_over_obs false -merge_stripes_value 10 -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
+                add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width $stripes_size -spacing 1.8 -set_to_set_distance $distance_stripes_between_rings -area $area_stripe -start_from left -switch_layer_over_obs false -merge_stripes_value 10 -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
             }
         }
     }
@@ -1098,7 +1595,7 @@ $x1 $y1 \
 $x2 $y1 \
 $x2 $y2 \
 $x1 $y2]
-add_stripes -nets {VDD VSS} -layer M8 -direction vertical -width 1.8 -spacing 1.8 -set_to_set_distance 10 -area $area_stripe -start_from left -switch_layer_over_obs false -merge_stripes_value 10 -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none             
+add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width $stripes_size -spacing 1.8 -set_to_set_distance $distance_stripes_between_rings -area $area_stripe -start_from left -switch_layer_over_obs false -merge_stripes_value 10 -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none             
 
 set_db add_stripes_ignore_block_check true ; set_db add_stripes_break_at none ; set_db add_stripes_route_over_rows_only false ; set_db add_stripes_rows_without_stripes_only false ; set_db add_stripes_extend_to_closest_target none ; set_db add_stripes_stop_at_last_wire_for_area true ; set_db add_stripes_partial_set_through_domain false ; set_db add_stripes_ignore_non_default_domains false ; set_db add_stripes_trim_antenna_back_to_shape block_ring ; set_db add_stripes_spacing_type edge_to_edge ; set_db add_stripes_spacing_from_block 0 ; set_db add_stripes_stripe_min_length stripe_width ; set_db add_stripes_stacked_via_top_layer AP ; set_db add_stripes_stacked_via_bottom_layer M1 ; set_db add_stripes_via_using_exact_crossover_size false ; set_db add_stripes_split_vias false ; set_db add_stripes_orthogonal_only true ; set_db add_stripes_allow_jog { padcore_ring  block_ring } ; set_db add_stripes_skip_via_on_pin {  standardcell } ; set_db add_stripes_skip_via_on_wire_shape {  noshape   }
 set x1 [expr {$x_length * 1 + $x_margin + $seq_width + $x_offset}]
@@ -1110,7 +1607,7 @@ $x1 $y1 \
 $x2 $y1 \
 $x2 $y2 \
 $x1 $y2]
-add_stripes -nets {VDD VSS} -layer M8 -direction vertical -width 1.8 -spacing 1.8 -set_to_set_distance 10 -area $area_stripe -start_from left -switch_layer_over_obs false -merge_stripes_value 10 -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none             
+add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width $stripes_size -spacing 1.8 -set_to_set_distance $distance_stripes_between_rings -area $area_stripe -start_from left -switch_layer_over_obs false -merge_stripes_value 10 -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none             
 
 set_db add_stripes_ignore_block_check true ; set_db add_stripes_break_at none ; set_db add_stripes_route_over_rows_only false ; set_db add_stripes_rows_without_stripes_only false ; set_db add_stripes_extend_to_closest_target none ; set_db add_stripes_stop_at_last_wire_for_area true ; set_db add_stripes_partial_set_through_domain false ; set_db add_stripes_ignore_non_default_domains false ; set_db add_stripes_trim_antenna_back_to_shape block_ring ; set_db add_stripes_spacing_type edge_to_edge ; set_db add_stripes_spacing_from_block 0 ; set_db add_stripes_stripe_min_length stripe_width ; set_db add_stripes_stacked_via_top_layer AP ; set_db add_stripes_stacked_via_bottom_layer M1 ; set_db add_stripes_via_using_exact_crossover_size false ; set_db add_stripes_split_vias false ; set_db add_stripes_orthogonal_only true ; set_db add_stripes_allow_jog { padcore_ring  block_ring } ; set_db add_stripes_skip_via_on_pin {  standardcell } ; set_db add_stripes_skip_via_on_wire_shape {  noshape   }
 set x1 [expr {$x_length * 2 + $x_margin + $seq_width + $x_offset}]
@@ -1122,7 +1619,7 @@ $x1 $y1 \
 $x2 $y1 \
 $x2 $y2 \
 $x1 $y2]
-add_stripes -nets {VDD VSS} -layer M8 -direction vertical -width 1.8 -spacing 1.8 -set_to_set_distance 10 -area $area_stripe -start_from left -switch_layer_over_obs false -merge_stripes_value 10 -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none             
+add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width $stripes_size -spacing 1.8 -set_to_set_distance $distance_stripes_between_rings -area $area_stripe -start_from left -switch_layer_over_obs false -merge_stripes_value 10 -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none             
 
 set_db add_stripes_ignore_block_check true ; set_db add_stripes_break_at none ; set_db add_stripes_route_over_rows_only false ; set_db add_stripes_rows_without_stripes_only false ; set_db add_stripes_extend_to_closest_target none ; set_db add_stripes_stop_at_last_wire_for_area true ; set_db add_stripes_partial_set_through_domain false ; set_db add_stripes_ignore_non_default_domains false ; set_db add_stripes_trim_antenna_back_to_shape block_ring ; set_db add_stripes_spacing_type edge_to_edge ; set_db add_stripes_spacing_from_block 0 ; set_db add_stripes_stripe_min_length stripe_width ; set_db add_stripes_stacked_via_top_layer AP ; set_db add_stripes_stacked_via_bottom_layer M1 ; set_db add_stripes_via_using_exact_crossover_size false ; set_db add_stripes_split_vias false ; set_db add_stripes_orthogonal_only true ; set_db add_stripes_allow_jog { padcore_ring  block_ring } ; set_db add_stripes_skip_via_on_pin {  standardcell } ; set_db add_stripes_skip_via_on_wire_shape {  noshape   }
 set x1 [expr {$x_length * 0 + $x_margin + $seq_width + $x_offset}]
@@ -1134,7 +1631,7 @@ $x1 $y1 \
 $x2 $y1 \
 $x2 $y2 \
 $x1 $y2]
-add_stripes -nets {VDD VSS} -layer M8 -direction vertical -width 1.8 -spacing 1.8 -set_to_set_distance 10 -area $area_stripe -start_from left -switch_layer_over_obs false -merge_stripes_value 10 -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none             
+add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width $stripes_size -spacing 1.8 -set_to_set_distance $distance_stripes_between_rings -area $area_stripe -start_from left -switch_layer_over_obs false -merge_stripes_value 10 -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none             
 
 set_db add_stripes_ignore_block_check true ; set_db add_stripes_break_at none ; set_db add_stripes_route_over_rows_only false ; set_db add_stripes_rows_without_stripes_only false ; set_db add_stripes_extend_to_closest_target none ; set_db add_stripes_stop_at_last_wire_for_area true ; set_db add_stripes_partial_set_through_domain false ; set_db add_stripes_ignore_non_default_domains false ; set_db add_stripes_trim_antenna_back_to_shape block_ring ; set_db add_stripes_spacing_type edge_to_edge ; set_db add_stripes_spacing_from_block 0 ; set_db add_stripes_stripe_min_length stripe_width ; set_db add_stripes_stacked_via_top_layer AP ; set_db add_stripes_stacked_via_bottom_layer M1 ; set_db add_stripes_via_using_exact_crossover_size false ; set_db add_stripes_split_vias false ; set_db add_stripes_orthogonal_only true ; set_db add_stripes_allow_jog { padcore_ring  block_ring } ; set_db add_stripes_skip_via_on_pin {  standardcell } ; set_db add_stripes_skip_via_on_wire_shape {  noshape   }
 set x1 [expr {$x_length * 1 + $x_margin + $seq_width + $x_offset}]
@@ -1146,7 +1643,7 @@ $x1 $y1 \
 $x2 $y1 \
 $x2 $y2 \
 $x1 $y2]
-add_stripes -nets {VDD VSS} -layer M8 -direction vertical -width 1.8 -spacing 1.8 -set_to_set_distance 10 -area $area_stripe -start_from left -switch_layer_over_obs false -merge_stripes_value 10 -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none             
+add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width $stripes_size -spacing 1.8 -set_to_set_distance $distance_stripes_between_rings -area $area_stripe -start_from left -switch_layer_over_obs false -merge_stripes_value 10 -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none             
 
 set_db add_stripes_ignore_block_check true ; set_db add_stripes_break_at none ; set_db add_stripes_route_over_rows_only false ; set_db add_stripes_rows_without_stripes_only false ; set_db add_stripes_extend_to_closest_target none ; set_db add_stripes_stop_at_last_wire_for_area true ; set_db add_stripes_partial_set_through_domain false ; set_db add_stripes_ignore_non_default_domains false ; set_db add_stripes_trim_antenna_back_to_shape block_ring ; set_db add_stripes_spacing_type edge_to_edge ; set_db add_stripes_spacing_from_block 0 ; set_db add_stripes_stripe_min_length stripe_width ; set_db add_stripes_stacked_via_top_layer AP ; set_db add_stripes_stacked_via_bottom_layer M1 ; set_db add_stripes_via_using_exact_crossover_size false ; set_db add_stripes_split_vias false ; set_db add_stripes_orthogonal_only true ; set_db add_stripes_allow_jog { padcore_ring  block_ring } ; set_db add_stripes_skip_via_on_pin {  standardcell } ; set_db add_stripes_skip_via_on_wire_shape {  noshape   }
 set x1 [expr {$x_length * 2 + $x_margin + $seq_width + $x_offset}]
@@ -1158,7 +1655,7 @@ $x1 $y1 \
 $x2 $y1 \
 $x2 $y2 \
 $x1 $y2]
-add_stripes -nets {VDD VSS} -layer M8 -direction vertical -width 1.8 -spacing 1.8 -set_to_set_distance 10 -area $area_stripe -start_from left -switch_layer_over_obs false -merge_stripes_value 10 -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none             
+add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width $stripes_size -spacing 1.8 -set_to_set_distance $distance_stripes_between_rings -area $area_stripe -start_from left -switch_layer_over_obs false -merge_stripes_value 10 -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none             
 
 
 
@@ -1178,7 +1675,7 @@ for {set i 0} {$i < $columns} {incr i} {
             $x2 $y1 \
             $x2 $y2 \
             $x1 $y2]
-        add_stripes -nets {VDD VSS} -layer M8 -direction vertical -width 1.8 -spacing 1.8 -set_to_set_distance 20 -area $area_stripe -start_from left -switch_layer_over_obs false -merge_stripes_value 10 -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
+        add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width $stripes_size -spacing 1.8 -set_to_set_distance $distance_stripes_between_rings -area $area_stripe -start_from left -switch_layer_over_obs false -merge_stripes_value 10 -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
 
         #between lower resource and upper swb
         set x1 [expr {$x_margin + $x_length * $i + $seq_width + $x_offset}]
@@ -1190,7 +1687,7 @@ for {set i 0} {$i < $columns} {incr i} {
             $x2 $y1 \
             $x2 $y2 \
             $x1 $y2]
-        add_stripes -nets {VDD VSS} -layer M8 -direction vertical -width 1.8 -spacing 1.8 -set_to_set_distance 20 -area $area_stripe -start_from left -switch_layer_over_obs false -merge_stripes_value 10 -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
+        add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width $stripes_size -spacing 1.8 -set_to_set_distance $distance_stripes_between_rings -area $area_stripe -start_from left -switch_layer_over_obs false -merge_stripes_value 10 -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
 
         #between lower swb and upper swb
         set x1 [expr {$x_margin + $x_length * $i + $seq_width + $resource_width + $x_offset}]
@@ -1202,7 +1699,7 @@ for {set i 0} {$i < $columns} {incr i} {
             $x2 $y1 \
             $x2 $y2 \
             $x1 $y2]
-        add_stripes -nets {VDD VSS} -layer M8 -direction vertical -width 1.8 -spacing 1.8 -set_to_set_distance 20 -area $area_stripe -start_from left -switch_layer_over_obs false -merge_stripes_value 10 -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
+        add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width $stripes_size -spacing 1.8 -set_to_set_distance $distance_stripes_between_rings -area $area_stripe -start_from left -switch_layer_over_obs false -merge_stripes_value 10 -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
     }
 }   
 
@@ -1218,7 +1715,7 @@ for {set i 0} {$i < $rows} {incr i} {
             $x2 $y1 \
             $x2 $y2 \
             $x1 $y2]
-        add_stripes -nets {VDD VSS} -layer M7 -direction horizontal -width 1.8 -spacing 1.8 -set_to_set_distance 20 -area $area_stripe -start_from bottom -switch_layer_over_obs false -merge_stripes_value 10 -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
+        add_stripes -nets {VDD VSS} -layer M7 -direction horizontal -width $stripes_size -spacing 1.8 -set_to_set_distance $distance_stripes_between_rings -area $area_stripe -start_from bottom -switch_layer_over_obs false -merge_stripes_value 10 -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
 
         #between left swb and right seq
         set x1 [expr {$x_margin + $x_length * ($j+1) - $x_offset}]
@@ -1230,13 +1727,13 @@ for {set i 0} {$i < $rows} {incr i} {
             $x2 $y1 \
             $x2 $y2 \
             $x1 $y2]
-        add_stripes -nets {VDD VSS} -layer M7 -direction horizontal -width 1.8 -spacing 1.8 -set_to_set_distance 20 -area $area_stripe -start_from bottom -switch_layer_over_obs false -merge_stripes_value 10 -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
+        add_stripes -nets {VDD VSS} -layer M7 -direction horizontal -width $stripes_size -spacing 1.8 -set_to_set_distance $distance_stripes_between_rings -area $area_stripe -start_from bottom -switch_layer_over_obs false -merge_stripes_value 10 -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
     }
 }
 
 
 
-#stripes core ring to inner rings
+#stripes core rings to inner rings
 set_db add_stripes_ignore_block_check false ; set_db add_stripes_break_at {  block_ring  } ; set_db add_stripes_route_over_rows_only false ; set_db add_stripes_rows_without_stripes_only false ; set_db add_stripes_extend_to_closest_target ring ; set_db add_stripes_stop_at_last_wire_for_area true ; set_db add_stripes_partial_set_through_domain false ; set_db add_stripes_ignore_non_default_domains false ; set_db add_stripes_trim_antenna_back_to_shape block_ring ; set_db add_stripes_spacing_type edge_to_edge ; set_db add_stripes_spacing_from_block 0 ; set_db add_stripes_stripe_min_length stripe_width ; set_db add_stripes_stacked_via_top_layer AP ; set_db add_stripes_stacked_via_bottom_layer M1 ; set_db add_stripes_via_using_exact_crossover_size false ; set_db add_stripes_split_vias false ; set_db add_stripes_orthogonal_only true ; set_db add_stripes_allow_jog { padcore_ring  block_ring } ; set_db add_stripes_skip_via_on_pin {  standardcell } ; set_db add_stripes_skip_via_on_wire_shape {  noshape   }
 
 for {set j 0} {$j < $rows} {incr j} {
@@ -1250,7 +1747,7 @@ for {set j 0} {$j < $rows} {incr j} {
         $x2 $y1 \
         $x2 $y2 \
         $x1 $y2]
-    add_stripes -nets {VDD VSS} -layer M7 -direction horizontal -width 1.8 -spacing 1.8 -set_to_set_distance 20 -area $area_stripe -start_from bottom -switch_layer_over_obs false -merge_stripes_value 10 -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
+    add_stripes -nets {VDD VSS} -layer M7 -direction horizontal -width $stripes_size -spacing 1.8 -set_to_set_distance $distance_stripes_between_rings -area $area_stripe -start_from bottom -switch_layer_over_obs false -merge_stripes_value 10 -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
 
     set x1 0
     set y1 [expr {$y_margin + $y_offset + $y_length * $j + $swb_router_height}]
@@ -1261,7 +1758,7 @@ for {set j 0} {$j < $rows} {incr j} {
         $x2 $y1 \
         $x2 $y2 \
         $x1 $y2]
-    add_stripes -nets {VDD VSS} -layer M7 -direction horizontal -width 1.8 -spacing 1.8 -set_to_set_distance 20 -area $area_stripe -start_from bottom -switch_layer_over_obs false -merge_stripes_value 10 -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
+    add_stripes -nets {VDD VSS} -layer M7 -direction horizontal -width $stripes_size -spacing 1.8 -set_to_set_distance $distance_stripes_between_rings -area $area_stripe -start_from bottom -switch_layer_over_obs false -merge_stripes_value 10 -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
 
     #right side
     set x1 [expr {$x_margin + $x_length * $columns - $x_offset}]
@@ -1273,7 +1770,7 @@ for {set j 0} {$j < $rows} {incr j} {
         $x2 $y1 \
         $x2 $y2 \
         $x1 $y2]
-    add_stripes -nets {VDD VSS} -layer M7 -direction horizontal -width 1.8 -spacing 1.8 -set_to_set_distance 20 -area $area_stripe -start_from bottom -switch_layer_over_obs false -merge_stripes_value 10 -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
+    add_stripes -nets {VDD VSS} -layer M7 -direction horizontal -width $stripes_size -spacing 1.8 -set_to_set_distance $distance_stripes_between_rings -area $area_stripe -start_from bottom -switch_layer_over_obs false -merge_stripes_value 10 -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
 }
 
 for {set i 0} {$i < $columns} {incr i} {
@@ -1287,7 +1784,7 @@ for {set i 0} {$i < $columns} {incr i} {
         $x2 $y1 \
         $x2 $y2 \
         $x1 $y2]
-    add_stripes -nets {VDD VSS} -layer M8 -direction vertical -width 1.8 -spacing 1.8 -set_to_set_distance 20 -area $area_stripe -start_from left -switch_layer_over_obs false -merge_stripes_value 10 -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
+    add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width $stripes_size -spacing 1.8 -set_to_set_distance $distance_stripes_between_rings -area $area_stripe -start_from left -switch_layer_over_obs false -merge_stripes_value 10 -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
 
     #top side
     set x1 [expr {$x_margin + $x_offset + $x_length *$i}]
@@ -1299,7 +1796,7 @@ for {set i 0} {$i < $columns} {incr i} {
         $x2 $y1 \
         $x2 $y2 \
         $x1 $y2]
-    add_stripes -nets {VDD VSS} -layer M8 -direction vertical -width 1.8 -spacing 1.8 -set_to_set_distance 20 -area $area_stripe -start_from left -switch_layer_over_obs false -merge_stripes_value 10 -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
+    add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width $stripes_size -spacing 1.8 -set_to_set_distance $distance_stripes_between_rings -area $area_stripe -start_from left -switch_layer_over_obs false -merge_stripes_value 10 -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
 
     set x1 [expr {$x_margin + $seq_width + $x_offset + $x_length *$i}]
     set y1 [expr {$y_margin + $y_length * $rows - $y_offset}]
@@ -1310,7 +1807,7 @@ for {set i 0} {$i < $columns} {incr i} {
         $x2 $y1 \
         $x2 $y2 \
         $x1 $y2]
-    add_stripes -nets {VDD VSS} -layer M8 -direction vertical -width 1.8 -spacing 1.8 -set_to_set_distance 20 -area $area_stripe -start_from left -switch_layer_over_obs false -merge_stripes_value 10 -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
+    add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width $stripes_size -spacing 1.8 -set_to_set_distance $distance_stripes_between_rings -area $area_stripe -start_from left -switch_layer_over_obs false -merge_stripes_value 10 -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
 
     set x1 [expr {$x_margin + $seq_width + $resource_width + $x_offset + $x_length *$i}]
     set y1 [expr {$y_margin + $y_length * $rows - $y_offset}]
@@ -1321,7 +1818,7 @@ for {set i 0} {$i < $columns} {incr i} {
         $x2 $y1 \
         $x2 $y2 \
         $x1 $y2]
-    add_stripes -nets {VDD VSS} -layer M8 -direction vertical -width 1.8 -spacing 1.8 -set_to_set_distance 20 -area $area_stripe -start_from left -switch_layer_over_obs false -merge_stripes_value 10 -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
+    add_stripes -nets {VDD VSS} -layer M6 -direction vertical -width $stripes_size -spacing 1.8 -set_to_set_distance $distance_stripes_between_rings -area $area_stripe -start_from left -switch_layer_over_obs false -merge_stripes_value 10 -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit AP -pad_core_ring_bottom_layer_limit M1 -block_ring_top_layer_limit AP -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid none
 }
 
 
@@ -1343,4 +1840,3 @@ route_special \
 
 #to fix missing vias
 update_power_vias -skip_via_on_pin standardcell -bottom_layer M1 -nets {VDD VSS} -add_vias 1 -top_layer AP
-

@@ -1,4 +1,4 @@
-#partition instantiation names
+#partitions instantiation names
 set partition_hinst_list {
     cell_0_0_inst/controller_inst \
     cell_0_0_inst/resource_0_inst \
@@ -38,6 +38,7 @@ set partition_hinst_list {
     cell_2_2_inst/resource_1_inst \
 }
 
+#partitions module names
 set partition_module_list {
     _kmcyy4g8mbb \
     _fuznrwegsgm \
@@ -76,17 +77,4 @@ set partition_module_list {
     _auoccatktx4_2 \
    _bofiw7zs7vj_8 \
 }
-
-set cell_partition_module_list {
-    _wd4bmxzzxrs \
-    _wd4bmxzzxrs_1 \
-    _wd4bmxzzxrs_2 \
-    _jz3bdsce94z \
-    _jz3bdsce94z_1 \
-    _jz3bdsce94z_2 \
-    _utrqvpzgeyt \
-    _utrqvpzgeyt_1 \
-    _utrqvpzgeyt_2 \
-}
-
 

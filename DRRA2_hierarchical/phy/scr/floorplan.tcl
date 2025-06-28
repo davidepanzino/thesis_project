@@ -1,3 +1,4 @@
+# Define floorplanning variables
 # X should be multiple of 5.6
 # Y should be multiple of 9.0
 
@@ -5,9 +6,9 @@ set x_margin 28
 set y_margin 27
 set resource_width 347.2
 set resource_height 54
-set swb_router_width 106.4
-set swb_router_height 63
-set seq_width 67.2
+set swb_router_width 78.4
+set swb_router_height 54
+set seq_width 28
 set seq_height [expr {$resource_height * 16}]
 set x_sram_macro 30
 set y_sram_macro 23.395
@@ -21,15 +22,14 @@ set y_length [expr {$swb_router_height + $seq_height}]
 
 create_floorplan -core_margins_by io -site core -core_size [expr {$x_length * $columns + $x_margin*2}] [expr {$y_length * $rows + $y_margin*2}] 0 0 0 0
 
-# Cell cell_0_0_inst at (row: 2, col: 0)
 
+# Cell cell_0_0_inst at (row: 2, col: 0)
 # Controller
 set x1 [expr {$x_length * 0 + $x_margin}]
 set y1 [expr {$y_length * 2 + $y_margin + $swb_router_height}]
 set x2 [expr {$x1 + $seq_width}]
 set y2 [expr {$y1 + $seq_height}]
 create_boundary_constraint -type fence -hinst cell_0_0_inst/controller_inst -rects [list [list $x1 $y1 $x2 $y2]]
-
 
 # Switchbox & Router
 set x1 [expr {$x_length * 0 + $x_margin}]
@@ -42,7 +42,6 @@ set x4 $x2
 set y4 [expr {$y3 + $seq_height}]
 create_boundary_constraint -type fence -hinst cell_0_0_inst/resource_0_inst -rects [list [list $x1 $y1 $x2 $y2] [list $x3 $y3 $x4 $y4]]
 
-
 # Resources
 set resource_y_start [expr {$y_margin + $swb_router_height}]
 set x1 [expr {$x_length * 0 + $x_margin + $seq_width}]
@@ -50,7 +49,6 @@ set y1 [expr {$y_length * 2 + $resource_y_start}]
 set x2 [expr {$x1 + $resource_width}]
 set y2 [expr {$y1 + $resource_height * 4}]
 create_boundary_constraint -type fence -hinst cell_0_0_inst/resource_1_inst -rects [list [list $x1 $y1 $x2 $y2]]
-
 
 #Resource's Macros placement
 set x3 [expr {$x1 + $x_sram_macro}]
@@ -78,15 +76,14 @@ set bbox0 [get_db inst:cell_0_0_inst/resource_1_inst/sram_inst/sram_256x64.sram_
 lappend macro_coords_list [concat {*}$bbox0]
 
 
-# Cell cell_0_1_inst at (row: 2, col: 1)
 
+# Cell cell_0_1_inst at (row: 2, col: 1)
 # Controller
 set x1 [expr {$x_length * 1 + $x_margin}]
 set y1 [expr {$y_length * 2 + $y_margin + $swb_router_height}]
 set x2 [expr {$x1 + $seq_width}]
 set y2 [expr {$y1 + $seq_height}]
 create_boundary_constraint -type fence -hinst cell_0_1_inst/controller_inst -rects [list [list $x1 $y1 $x2 $y2]]
-
 
 # Switchbox & Router
 set x1 [expr {$x_length * 1 + $x_margin}]
@@ -99,7 +96,6 @@ set x4 $x2
 set y4 [expr {$y3 + $seq_height}]
 create_boundary_constraint -type fence -hinst cell_0_1_inst/resource_0_inst -rects [list [list $x1 $y1 $x2 $y2] [list $x3 $y3 $x4 $y4]]
 
-
 # Resources
 set resource_y_start [expr {$y_margin + $swb_router_height}]
 set x1 [expr {$x_length * 1 + $x_margin + $seq_width}]
@@ -107,7 +103,6 @@ set y1 [expr {$y_length * 2 + $resource_y_start}]
 set x2 [expr {$x1 + $resource_width}]
 set y2 [expr {$y1 + $resource_height * 4}]
 create_boundary_constraint -type fence -hinst cell_0_1_inst/resource_1_inst -rects [list [list $x1 $y1 $x2 $y2]]
-
 
 #Resource's Macros placement
 set x3 [expr {$x1 + $x_sram_macro}]
@@ -135,15 +130,14 @@ set bbox0 [get_db inst:cell_0_1_inst/resource_1_inst/sram_inst/sram_256x64.sram_
 lappend macro_coords_list [concat {*}$bbox0]
 
 
-# Cell cell_0_2_inst at (row: 2, col: 2)
 
+# Cell cell_0_2_inst at (row: 2, col: 2)
 # Controller
 set x1 [expr {$x_length * 2 + $x_margin}]
 set y1 [expr {$y_length * 2 + $y_margin + $swb_router_height}]
 set x2 [expr {$x1 + $seq_width}]
 set y2 [expr {$y1 + $seq_height}]
 create_boundary_constraint -type fence -hinst cell_0_2_inst/controller_inst -rects [list [list $x1 $y1 $x2 $y2]]
-
 
 # Switchbox & Router
 set x1 [expr {$x_length * 2 + $x_margin}]
@@ -156,7 +150,6 @@ set x4 $x2
 set y4 [expr {$y3 + $seq_height}]
 create_boundary_constraint -type fence -hinst cell_0_2_inst/resource_0_inst -rects [list [list $x1 $y1 $x2 $y2] [list $x3 $y3 $x4 $y4]]
 
-
 # Resources
 set resource_y_start [expr {$y_margin + $swb_router_height}]
 set x1 [expr {$x_length * 2 + $x_margin + $seq_width}]
@@ -164,7 +157,6 @@ set y1 [expr {$y_length * 2 + $resource_y_start}]
 set x2 [expr {$x1 + $resource_width}]
 set y2 [expr {$y1 + $resource_height * 4}]
 create_boundary_constraint -type fence -hinst cell_0_2_inst/resource_1_inst -rects [list [list $x1 $y1 $x2 $y2]]
-
 
 #Resource's Macros placement
 set x3 [expr {$x1 + $x_sram_macro}]
@@ -192,15 +184,14 @@ set bbox0 [get_db inst:cell_0_2_inst/resource_1_inst/sram_inst/sram_256x64.sram_
 lappend macro_coords_list [concat {*}$bbox0]
 
 
-# Cell cell_1_0_inst at (row: 1, col: 0)
 
+# Cell cell_1_0_inst at (row: 1, col: 0)
 # Controller
 set x1 [expr {$x_length * 0 + $x_margin}]
 set y1 [expr {$y_length * 1 + $y_margin + $swb_router_height}]
 set x2 [expr {$x1 + $seq_width}]
 set y2 [expr {$y1 + $seq_height}]
 create_boundary_constraint -type fence -hinst cell_1_0_inst/controller_inst -rects [list [list $x1 $y1 $x2 $y2]]
-
 
 # Switchbox & Router
 set x1 [expr {$x_length * 0 + $x_margin}]
@@ -212,7 +203,6 @@ set y3 $y2
 set x4 $x2
 set y4 [expr {$y3 + $seq_height}]
 create_boundary_constraint -type fence -hinst cell_1_0_inst/resource_0_inst -rects [list [list $x1 $y1 $x2 $y2] [list $x3 $y3 $x4 $y4]]
-
 
 # Resources
 set resource_y_start [expr {$y_margin + $swb_router_height}]
@@ -244,15 +234,14 @@ set y2 [expr {$y1 + $resource_height * 2}]
 create_boundary_constraint -type fence -hinst cell_1_0_inst/resource_4_inst -rects [list [list $x1 $y1 $x2 $y2]]
 
 
-# Cell cell_1_1_inst at (row: 1, col: 1)
 
+# Cell cell_1_1_inst at (row: 1, col: 1)
 # Controller
 set x1 [expr {$x_length * 1 + $x_margin}]
 set y1 [expr {$y_length * 1 + $y_margin + $swb_router_height}]
 set x2 [expr {$x1 + $seq_width}]
 set y2 [expr {$y1 + $seq_height}]
 create_boundary_constraint -type fence -hinst cell_1_1_inst/controller_inst -rects [list [list $x1 $y1 $x2 $y2]]
-
 
 # Switchbox & Router
 set x1 [expr {$x_length * 1 + $x_margin}]
@@ -264,7 +253,6 @@ set y3 $y2
 set x4 $x2
 set y4 [expr {$y3 + $seq_height}]
 create_boundary_constraint -type fence -hinst cell_1_1_inst/resource_0_inst -rects [list [list $x1 $y1 $x2 $y2] [list $x3 $y3 $x4 $y4]]
-
 
 # Resources
 set resource_y_start [expr {$y_margin + $swb_router_height}]
@@ -296,15 +284,14 @@ set y2 [expr {$y1 + $resource_height * 2}]
 create_boundary_constraint -type fence -hinst cell_1_1_inst/resource_4_inst -rects [list [list $x1 $y1 $x2 $y2]]
 
 
-# Cell cell_1_2_inst at (row: 1, col: 2)
 
+# Cell cell_1_2_inst at (row: 1, col: 2)
 # Controller
 set x1 [expr {$x_length * 2 + $x_margin}]
 set y1 [expr {$y_length * 1 + $y_margin + $swb_router_height}]
 set x2 [expr {$x1 + $seq_width}]
 set y2 [expr {$y1 + $seq_height}]
 create_boundary_constraint -type fence -hinst cell_1_2_inst/controller_inst -rects [list [list $x1 $y1 $x2 $y2]]
-
 
 # Switchbox & Router
 set x1 [expr {$x_length * 2 + $x_margin}]
@@ -316,7 +303,6 @@ set y3 $y2
 set x4 $x2
 set y4 [expr {$y3 + $seq_height}]
 create_boundary_constraint -type fence -hinst cell_1_2_inst/resource_0_inst -rects [list [list $x1 $y1 $x2 $y2] [list $x3 $y3 $x4 $y4]]
-
 
 # Resources
 set resource_y_start [expr {$y_margin + $swb_router_height}]
@@ -348,15 +334,14 @@ set y2 [expr {$y1 + $resource_height * 2}]
 create_boundary_constraint -type fence -hinst cell_1_2_inst/resource_4_inst -rects [list [list $x1 $y1 $x2 $y2]]
 
 
-# Cell cell_2_0_inst at (row: 0, col: 0)
 
+# Cell cell_2_0_inst at (row: 0, col: 0)
 # Controller
 set x1 [expr {$x_length * 0 + $x_margin}]
 set y1 [expr {$y_length * 0 + $y_margin + $swb_router_height}]
 set x2 [expr {$x1 + $seq_width}]
 set y2 [expr {$y1 + $seq_height}]
 create_boundary_constraint -type fence -hinst cell_2_0_inst/controller_inst -rects [list [list $x1 $y1 $x2 $y2]]
-
 
 # Switchbox & Router
 set x1 [expr {$x_length * 0 + $x_margin}]
@@ -369,7 +354,6 @@ set x4 $x2
 set y4 [expr {$y3 + $seq_height}]
 create_boundary_constraint -type fence -hinst cell_2_0_inst/resource_0_inst -rects [list [list $x1 $y1 $x2 $y2] [list $x3 $y3 $x4 $y4]]
 
-
 # Resources
 set resource_y_start [expr {$y_margin + $swb_router_height}]
 set x1 [expr {$x_length * 0 + $x_margin + $seq_width}]
@@ -377,7 +361,6 @@ set y1 [expr {$y_length * 0 + $resource_y_start}]
 set x2 [expr {$x1 + $resource_width}]
 set y2 [expr {$y1 + $resource_height * 4}]
 create_boundary_constraint -type fence -hinst cell_2_0_inst/resource_1_inst -rects [list [list $x1 $y1 $x2 $y2]]
-
 
 #Resource's Macros placement
 set x3 [expr {$x1 + $x_sram_macro}]
@@ -405,15 +388,14 @@ set bbox0 [get_db inst:cell_2_0_inst/resource_1_inst/sram_inst/sram_256x64.sram_
 lappend macro_coords_list [concat {*}$bbox0]
 
 
-# Cell cell_2_1_inst at (row: 0, col: 1)
 
+# Cell cell_2_1_inst at (row: 0, col: 1)
 # Controller
 set x1 [expr {$x_length * 1 + $x_margin}]
 set y1 [expr {$y_length * 0 + $y_margin + $swb_router_height}]
 set x2 [expr {$x1 + $seq_width}]
 set y2 [expr {$y1 + $seq_height}]
 create_boundary_constraint -type fence -hinst cell_2_1_inst/controller_inst -rects [list [list $x1 $y1 $x2 $y2]]
-
 
 # Switchbox & Router
 set x1 [expr {$x_length * 1 + $x_margin}]
@@ -426,7 +408,6 @@ set x4 $x2
 set y4 [expr {$y3 + $seq_height}]
 create_boundary_constraint -type fence -hinst cell_2_1_inst/resource_0_inst -rects [list [list $x1 $y1 $x2 $y2] [list $x3 $y3 $x4 $y4]]
 
-
 # Resources
 set resource_y_start [expr {$y_margin + $swb_router_height}]
 set x1 [expr {$x_length * 1 + $x_margin + $seq_width}]
@@ -434,7 +415,6 @@ set y1 [expr {$y_length * 0 + $resource_y_start}]
 set x2 [expr {$x1 + $resource_width}]
 set y2 [expr {$y1 + $resource_height * 4}]
 create_boundary_constraint -type fence -hinst cell_2_1_inst/resource_1_inst -rects [list [list $x1 $y1 $x2 $y2]]
-
 
 #Resource's Macros placement
 set x3 [expr {$x1 + $x_sram_macro}]
@@ -462,15 +442,14 @@ set bbox0 [get_db inst:cell_2_1_inst/resource_1_inst/sram_inst/sram_256x64.sram_
 lappend macro_coords_list [concat {*}$bbox0]
 
 
-# Cell cell_2_2_inst at (row: 0, col: 2)
 
+# Cell cell_2_2_inst at (row: 0, col: 2)
 # Controller
 set x1 [expr {$x_length * 2 + $x_margin}]
 set y1 [expr {$y_length * 0 + $y_margin + $swb_router_height}]
 set x2 [expr {$x1 + $seq_width}]
 set y2 [expr {$y1 + $seq_height}]
 create_boundary_constraint -type fence -hinst cell_2_2_inst/controller_inst -rects [list [list $x1 $y1 $x2 $y2]]
-
 
 # Switchbox & Router
 set x1 [expr {$x_length * 2 + $x_margin}]
@@ -483,7 +462,6 @@ set x4 $x2
 set y4 [expr {$y3 + $seq_height}]
 create_boundary_constraint -type fence -hinst cell_2_2_inst/resource_0_inst -rects [list [list $x1 $y1 $x2 $y2] [list $x3 $y3 $x4 $y4]]
 
-
 # Resources
 set resource_y_start [expr {$y_margin + $swb_router_height}]
 set x1 [expr {$x_length * 2 + $x_margin + $seq_width}]
@@ -491,7 +469,6 @@ set y1 [expr {$y_length * 0 + $resource_y_start}]
 set x2 [expr {$x1 + $resource_width}]
 set y2 [expr {$y1 + $resource_height * 4}]
 create_boundary_constraint -type fence -hinst cell_2_2_inst/resource_1_inst -rects [list [list $x1 $y1 $x2 $y2]]
-
 
 #Resource's Macros placement
 set x3 [expr {$x1 + $x_sram_macro}]
@@ -526,7 +503,7 @@ set updated_macro_coords_list {}
 foreach bbox $macro_coords_list {
     lassign $bbox x_min y_min x_max y_max
 
-    # Modify y_min/y_max (option 1: shift)
+    # The blockage consists of 2 std cell rows
     set y_min [expr {$y_min - 1.8}]
     set y_max [expr {$y_max + 1.8}]
 
@@ -543,7 +520,4 @@ add_endcaps
 
 # add well taps
 add_well_taps -checker_board -cell_interval 30 -cell TAPCELLBWP30P140
-
-
-# Floorplan generation complete
 
