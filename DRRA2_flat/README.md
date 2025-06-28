@@ -10,9 +10,11 @@ This repository contains the full design environment and scripts for flat floorp
 - `syn/` – Synthesis scripts and constraints (e.g., Genus)
 - `phy/`
   - `scr/` – Floorplanning, power planning, P&R TCL scripts (Innovus)
-  - `db/` – Design databases (left empty)
+  - `db/` – Design databases
   - `rpt/` – Reports and metrics (left empty)
-- `dummy/` – Folder from which to run Cadence Innovus
+- `dummy/` – Folder from which to run Cadence Innovus. Now also includes:
+  - `CORE_PG_25C_avg_1/` – Rail analysis results (core VDD/VSS)
+  - `power/` – Power analysis database and reports
 - `exe/` – Folder from which to run Genus for synthesizing the RTL
 - `SCRIPTS/` – Python and TCL automation tools
 
@@ -28,28 +30,52 @@ This repository contains the full design environment and scripts for flat floorp
 
 ---
 
-## ⚙️ Full Design Flow
+## ⚙️ Quick Start Options
 
-### 1. Synthesize the Design (Optional)
+### 🚀 Option 1: Load Pre-Generated Database and Results (Recommended)
 
-Move into the synthesis folder and run the synthesis script:
+If you just want to **view the design** or **analyze power and rail metrics**:
+
+1. Open Innovus from the `dummy` folder:
+
+   ```bash
+   cd dummy
+   innovus -stylus
+   ```
+
+2. Load the saved database:
+
+   ```tcl
+   read_db ../phy/db/fabric.dat
+   ```
+
+3. You can now:
+   - Inspect layout, placement, and routing
+   - Check timing:
+     ```tcl
+     report_timing
+     ```
+   - Load power reports from the `power/` folder
+   - View IR drop from `CORE_PG_25C_avg_1/`
+   - To view IR drop, run:
+     ```tcl
+     read_power_rail_results -power_db ./power/power.db -rail_directory CORE_PG_25C_avg_1/
+     ```
+
+---
+
+### 🛠️ Option 2: Run Full Design Flow from Scratch
+
+#### 1. Synthesize the Design (Optional)
 
 ```bash
 cd exe
 ./genus_topdown.sh
 ```
 
-**Note**: This step can be skipped if you use the pre-generated `fabric.v` netlist and `constraints.sdc` file already present in the repository. Only run this if you're working with a modified design and need to re-synthesize it. 
+> Skip this step if using the pre-generated `fabric.v` netlist and `constraints.sdc`.
 
----
-
-### 2. Generate Floorplanning Script
-
-Before running the automation:
-- Ensure your synthesized netlist is named `fabric.v`(if not, rename it)
-- Ensure your constraint file is named `constraints.sdc`(if not, rename it)
-
-Then, from the `SCRIPTS` folder:
+#### 2. Generate Floorplanning Script
 
 ```bash
 cd ../SCRIPTS
@@ -57,20 +83,14 @@ python3 flat.py
 python3 pads_script_flat.py  # Optional, for power rail analysis
 ```
 
-These scripts will automatically generate the TCL files used for floorplanning. The power planning script is fixed for this particular design.
-
----
-
-### 3. Launch Innovus and Prepare Floorplan
-
-Start Innovus from the `dummy` folder:
+#### 3. Launch Innovus and Prepare Floorplan
 
 ```bash
 cd ../dummy
 innovus -stylus
 ```
 
-Inside Innovus, source the following scripts in order:
+Inside Innovus, run:
 
 ```tcl
 source ../phy/scr/read_design.tcl
@@ -79,41 +99,30 @@ source ../phy/scr/power_planning.tcl
 source ../phy/scr/general_flow.tcl
 ```
 
-### 4. Power Rail Analysis
-
-Run:
+#### 4. Power Rail Analysis
 
 ```tcl
 source ../SCRIPTS/power_rail_analysis.tcl
 ```
 
-This performs the early rail analysis using probe data and pad locations.
-
----
-
-### 5. Area Parametric Extraction
-
-From the same Innovus session, run:
+#### 5. Area Parametric Extraction
 
 ```tcl
 source ../SCRIPTS/normal_wires_data.tcl
 source ../SCRIPTS/pg_wires_data.tcl
 ```
 
-The extracted values can then be post-processed using the Python script:
-
 ```bash
 cd ../SCRIPTS
 python3 grid_area.py
 ```
 
-This provides routing area statistics for normal and power wires.
-
 ---
 
 ## 📝 Notes
 
-- Folders `dummy/`, `phy/db/` and `phy/rpt/` are empty by default and will be populated during execution.
+- You can skip all backend steps by restoring `db/fabric.dat`.
+- Power and rail analysis data is located in the `dummy/` subfolders.
 - `.keep` files are included in empty folders so they appear in Git.
 
 ---
@@ -121,6 +130,5 @@ This provides routing area statistics for normal and power wires.
 ## 📩 Contact
 
 **Davide Finazzi**  
-📧 finazzi.davide01@outlook.it 
+📧 finazzi.davide01@outlook.it  
 🔗 https://github.com/davidepanzino
-
